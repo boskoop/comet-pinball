@@ -1,0 +1,41 @@
+% Packages Template
+% =================
+% 
+% Contains packages used for project documentation
+% 
+% @author burgc5
+% 
+% To use this simply enter: \input{./packages.tex}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Set font to latin modern
+\usepackage{lmodern}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+
+% Create links in pdf documents
+\usepackage[colorlinks,pdfpagelabels,pdfstartview=FitH,bookmarksopen=true,bookmarksnumbered=true,linkcolor=black,plainpages=false,hypertexnames=false,citecolor=black] {hyperref}
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+\urlstyle{same}
+
+% Use \enquote{} to create quotation marks
+\usepackage{csquotes}
+
+% Create professional tables with booktabs
+% @see http://en.wikibooks.org/wiki/LaTeX/Tables#Professional_tables
+\usepackage{booktabs}
+
+% Customizable enumerates/itemizes
+\usepackage{enumitem}
+
+% SVN meta information
+\usepackage{svn}

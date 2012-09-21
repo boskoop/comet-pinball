@@ -1,0 +1,53 @@
+\documentclass[fontsize=12pt,
+               paper=a4,
+               twoside=false,
+               parskip=half,
+               ]{scrartcl}
+
+% Load the packages
+\input{./packages.tex}
+
+% SVN Meta
+\SVN $Date: 2012-05-13 23:59:53 +0200 (So, 13 Mai 2012) $
+\SVN $Revision: 123 $
+\SVN $HeadURL: https://svn.bfh.ch/repos/projects/patmon1/trunk/doc/src/design_model.tex $
+
+
+\begin{document}
+
+% Document title for title.tex
+\newcommand{\doctitle}{Design Model}
+\input{./title.tex}
+
+\tableofcontents
+
+
+% ====
+% SSDs
+% ====
+
+%\section{Doctor login}
+
+%\subsection{System sequence diagram}
+
+% Diagram generated with astah
+%\includegraphics[width=10cm]{./img/system-sequence-diagrams/doctor-login.png}
+
+%This diagram describes the communication between the client and the server during a login of a doctor. The client sends a login message containing the login information of the doctor. The server confirms and then the client follows protocol checking if the account doctor is activated and proceeds with activating the doctor.
+
+%\subsection{Sequence diagram}
+
+% Diagram generated with astah
+%\includegraphics[width=15cm]{./img/sequence-diagrams/doctor-login.png}
+
+%There is a login controller for all doctor login messages. It looks up the doctor using the entity manager and lets the doctor (if found) check the credentials. If this succeeds, a session controller is created, which is responsible for the current session of the client. For security reasons, there is also a proxy for the controller which is sent to the client instead of the controller itself. The client then checks activation and activates the login via the session controller.
+
+%\subsection{Design class diagram}
+
+% Diagram generated with astah
+%\includegraphics[width=15cm]{./img/design-class-diagrams/doctor-login.png}
+
+%Thesession controller gets access to the doctor using the entity manager. After creating the session controller, the doctor is referenced by the session controller.
+
+
+\end{document}

@@ -1,0 +1,57 @@
+\documentclass[fontsize=12pt,
+               paper=a4,
+               twoside=false,
+               parskip=half,
+               ]{scrartcl}
+
+% Load the packages
+\input{./packages.tex}
+
+% SVN Meta
+\SVN $Date: 2012-05-04 16:15:57 +0200 (Fr, 04 Mai 2012) $
+\SVN $Revision: 98 $
+\SVN $HeadURL: https://svn.bfh.ch/repos/projects/patmon1/trunk/doc/src/vision.tex $
+% ersetzen mit : http://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/ ???
+
+
+
+\begin{document}
+
+% Document title for title.tex
+\newcommand{\doctitle}{Vision}
+\input{./title.tex}
+
+\tableofcontents
+
+\section{Introduction}
+
+We envision a simulation of a pinball machine running on a computer. The simulation includes visual and acoustical effects.
+
+\subsection{Problem Statement}
+
+The arcade game Pinball is played on a machine called Pinball Machine, which consists of a glass-covered play field with multiple obstacle and at least one steel ball which is manipulated by the player to score as many points as possible. Points are earned by hitting the objects on the play field and the game is over when all available balls have left the play field by the drain situated at the bottom of the play field. The player is trying to prevent the balls from leaving the play field by using plastic bats, called flippers. Most pinball machines make it possible to earn an extra ball or free games.
+
+The client noted that he is especially interested in a good visual representation as well as visual and acoustical effects.
+
+The game should run on Unix/GNU-Linux as well as on Microsoft Windows and should be implemented in one of the following programming languages: C, C++,C\# or Java.
+
+
+\section{Stakeholder Descriptions}
+
+\subsection{Player}
+
+Players use the simulation to pass their leisure time. So they want to be well entertained. They are interested in good performance, high complexity of the play field and good graphics.
+
+\subsection{Operator}
+
+The operator is using the Pinball Simulator in a gambling environment. He is interested in low maintainance time and he wants that players pass a lot of time playing the game.
+
+\subsection{Client}
+
+The client is the \emph{Bern University of Applied Sciences} and is represented by Jean-Pierre Caillot as the single point of contact to the project team.
+
+\subsection{Project team}
+
+The project team (aka. Comet Engineering) consists of Patrick Haring and Christian Bürgi.
+
+\end{document}

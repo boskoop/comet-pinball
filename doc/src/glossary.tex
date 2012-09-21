@@ -1,0 +1,35 @@
+\documentclass[fontsize=12pt,
+               paper=a4,
+               twoside=false,
+               parskip=half,
+               ]{scrartcl}
+
+% Load the packages
+\input{./packages.tex}
+
+% SVN Meta
+\SVN $Date: 2012-05-13 23:09:35 +0200 (So, 13 Mai 2012) $
+\SVN $Revision: 112 $
+\SVN $HeadURL: https://svn.bfh.ch/repos/projects/patmon1/trunk/doc/src/glossary.tex $
+
+
+\begin{document}
+
+% Document title for title.tex
+\newcommand{\doctitle}{Glossary}
+\input{./title.tex}
+
+\section*{Glossary}
+
+% LaTeX does not support sorting of descriptions. Make sure to insert glossary
+% items at the correct position (alphabethically sorted).
+\begin{description}
+
+
+% example entry
+\item[Pinball Machine] \hfill \\
+A machine which allows to play Pinball.
+
+\end{description}
+
+\end{document}

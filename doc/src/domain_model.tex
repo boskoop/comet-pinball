@@ -1,0 +1,46 @@
+\documentclass[fontsize=12pt,
+               paper=a4,
+               twoside=false,
+               parskip=half,
+               ]{scrartcl}
+
+% Load the packages
+\input{./packages.tex}
+
+% SVN Meta
+\SVN $Date: 2012-05-04 16:15:57 +0200 (Fr, 04 Mai 2012) $
+\SVN $Revision: 98 $
+\SVN $HeadURL: https://svn.bfh.ch/repos/projects/patmon1/trunk/doc/src/domain_model.tex $
+
+
+\begin{document}
+
+% Document title for title.tex
+\newcommand{\doctitle}{Domain Model}
+\newcommand{\docrevision}{68}
+\input{./title.tex}
+
+\tableofcontents
+
+\section{Domain Model}
+
+% Diagram generated with astah
+%\includegraphics[width=14cm]{./domain-model.png}
+
+%\section{Description}
+
+%\subsection{Classes}
+
+%\subsubsection{Administrator} 
+
+5The \texttt{Administrator} has the attributes \texttt{mailAddress} and \texttt{password} which are used as credentials to authenticate against the system. 
+
+%\subsection{Relationships}
+
+
+%\subsubsection{Administrator administrates Doctor}
+
+%The \texttt{Administrator} can have zero to n \texttt{Doctor}s he administrates in the system. In the initial state of the system, there is no \texttt{Doctor}. As the system should be able to handle a big amount of \texttt{Doctor}s, they are all related to the \texttt{Administrator} they were created by.
+
+
+\end{document}

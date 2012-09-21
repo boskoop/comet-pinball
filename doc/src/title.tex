@@ -1,0 +1,65 @@
+% Titlepage Template
+% ==================
+% 
+% @author burgc5
+% 
+% To use this simply enter: \input{./title.tex}
+% 
+% You have to define the commands '\doctitle' and '\docrevision' to give the 
+% document a title and a revision on its titlepage.
+% Do this with the following command:
+% \newcommand{\doctitle}{Document title goes here}
+%
+% SVN:
+% ----
+% You also have to define the variables:
+% \SVN $Date$
+% \SVN $Revision$
+%
+% As executing the following command on the file:
+% > svn propset svn:keywords "Date Revision" filename.tex
+% 
+% This titlepage needs:
+% \usepackage[pdftex]{graphicx}
+% \usepackage{svn}
+%
+
+\begin{titlepage}
+
+\begin{center}
+
+% Team-logo
+\includegraphics[width=0.35\textwidth]{./comet-logo.eps}\\[2.5cm]    
+
+% Project title
+\textsc{\Large Pinball Simulator}\\[2cm]
+
+% Document title
+{ \huge \bfseries \doctitle{}}\\[3cm]
+
+% Members/Client
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\emph{Team Members:}\\
+Patrick \textsc{Haring}\\
+Christian \textsc{Bürgi}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{flushright} \large
+\emph{Client:} \\
+Jean-Pierre \textsc{Caillot}\\
+~
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+{\large 
+Revision: \SVNRevision \\[0.2cm]
+\SVNDate \\[0.2cm]
+{\footnotesize \itshape \url{\SVNHeadURL?p=\SVNRevision}}}
+
+\end{center}
+
+\end{titlepage}
