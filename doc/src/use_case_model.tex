@@ -33,7 +33,7 @@
 \toprule
 \textbf{Actor} & \textbf{Type} & \textbf{Description} \\ 
 \midrule
-\emph{Player} & primary & \emph{Player}s run the Pinball Simulator on their computer.\\
+\emph{Player} & primary & \emph{Player}s run the Comet Pinball on their computer.\\
 %\emph{Administrator} & primary & The \emph{administrator} is an employee of the hospital as
 %well. He is responsible for the hospital's IT systems to work. He configures
 %the system for the \emph{doctor}s to work with. He is not a \emph{doctor}. \\ 
@@ -52,7 +52,7 @@
 \begin{description}
 
 \item[Player:] \hfill \\
-A \emph{Player} uses the Pinball Simulator to pass his leisure time and enjoy himself. He is interested in a well designed play field with nice visual and acoustical effects.
+A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himself. He is interested in a well designed play field with nice visual and acoustical effects.
 
 %\item[Administrator:] \hfill \\
 %The \emph{administrator} wants to create and delete accounts for the \emph{doctor}s.
@@ -70,31 +70,31 @@ A \emph{Player} uses the Pinball Simulator to pass his leisure time and enjoy hi
 
 \begin{description}
 
-\item[Start game:]  The application has to be running on a players computer. The player wants to start a game so he enters the main screen of the application and 
+\item[Start simulation:]   The player wants to start a game so he enters the main screen of the application and selects the option for starting a new game. The simulator loads the play field, resets the score counter and sets the right amount of available balls for this game and loads one ball in the plunger.
 
+\item[Start game:] The plunger has to be operated to forward the ball onto the play field. 
 
-\item[Ball leaves via drain]
+\item[Move flippers:] The player can move the flippers to prevent the ball from leaving the play field. If the ball is hit by the flippers he follows approximately the movements of a collision.
 
-\item[Extra ball:]
+\item[Ball leaves via drain:] The ball is passing the flippers and leaves the play field via the drain. The simulator loads a new ball in the plunger and decreases the counter of available balls by one.
 
+\item[Extra ball:] 
 
 \item[Extra game:]
 
-\item[Gameover:]
+\item[Gameover:] All balls have left the play field so the game is over. The score is presented to the user and the user has to start a new game to play further.
 
-\item[Ball is stuck:]
+\item[Obstacle on the play field is hit:] The application actualizes the score If a scoring obstacle  was hit. The ball is following the movement of a collision.
 
-\item[Obstacle on the play field is hit:]
+\item[Stuck ball:] The ball is stuck somewhere on the play field, so the user has the possibility to tilt the table.
 
-\item[Tilt:]
+\item[Tilt:] If the play field was tilted too often or too hard, the game will stop and display the user the message "Tilt".
 
-\item[:]
+\item[New Highscore:] If a game is over and the score has exceeded the highscore, the application will produce visual and acoustic effects. The score will be set as new highscore and the new highscore sheet is presented to the player.
+
+\item[Watch Highscores:] 
 
 \end{description}
-
-
-
-
 
 
 
@@ -202,6 +202,6 @@ A \emph{Player} uses the Pinball Simulator to pass his leisure time and enjoy hi
 
 
 % Diagram generated with astah
-%\includegraphics[width=15cm]{./use-case-diagram.png}
+\includegraphics[width=15cm]{./img/usecase-model.png}
 
 \end{document}
