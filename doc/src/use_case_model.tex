@@ -33,9 +33,7 @@
 \toprule
 \textbf{Actor} & \textbf{Type} & \textbf{Description} \\ 
 \midrule
-\emph{Doctor} & primary & \emph{Doctor}s are employees of the hospital. They are specialists
-in their domain but not as computer users. \emph{Doctor}s use the system as a tool
-in daily work for monitoring \emph{patient}s. \\ 
+\emph{Player} & primary & \emph{Player}s run the Pinball Simulator on their computer.\\
 %\emph{Administrator} & primary & The \emph{administrator} is an employee of the hospital as
 %well. He is responsible for the hospital's IT systems to work. He configures
 %the system for the \emph{doctor}s to work with. He is not a \emph{doctor}. \\ 
@@ -53,8 +51,8 @@ in daily work for monitoring \emph{patient}s. \\
 
 \begin{description}
 
-\item[Doctor:] \hfill \\
-A \emph{doctor} uses the system to assign a device to a \emph{patient} for an observation period. During the period and after it has ended, he consults the system to inspect the recorded data. After the observation period has completed he wants to reset the devices and prepare them thereby for reuse.
+\item[Player:] \hfill \\
+A \emph{Player} uses the Pinball Simulator to pass his leisure time and enjoy himself. He is interested in a well designed play field with nice visual and acoustical effects.
 
 %\item[Administrator:] \hfill \\
 %The \emph{administrator} wants to create and delete accounts for the \emph{doctor}s.
@@ -68,26 +66,41 @@ A \emph{doctor} uses the system to assign a device to a \emph{patient} for an ob
 
 \section{Use cases (brief)}
 
-\subsection{Doctor}
+\subsection{Player}
 
 \begin{description}
 
-\item[Assign device:] In order to start a monitoring period, the \emph{doctor} has to assign a monitoring device to the \emph{patient} in the system. The \emph{doctor} looks up the \emph{patient}'s profile. He chooses the option to assign a device to this \emph{patient}. He enters the device's data. The system checks, if the device is ready for assignment (i.e. that it is not assigned yet). Then he enters the monitoring period's parameters. The system configures the device and saves the configuration internally.
+\item[Start game:]  The application has to be running on a players computer. The player wants to start a game so he enters the main screen of the application and 
 
-%\item[Consult monitoring data:] As soon as the monitoring device reports data to the system, the \emph{doctor} is able to see a report of the data, which has been recorded so far. After the monitoring period has ended, he can consult a detailed report of the period.
 
-%\item[Reset device:] When a \emph{patient} returns his monitoring device, the \emph{doctor} has to reset the device. He enters the device's number and chooses it to be reset. This procedure is even possible if the monitoring period has not ended yet.
+\item[Ball leaves via drain]
 
-%\item[Register patient:] For registering a \emph{patient} in the system the \emph{doctor} enters the \emph{patient}'s social security number. The system checks, if the \emph{patient} is already registered. If the \emph{patient} is not already in the system, the \emph{doctor} enters all the necessary data about the \emph{patient} and the system stores it internally.
+\item[Extra ball:]
 
-%\item[Authenticate against system:] The \emph{doctor} authenticates against the system by entering his email address and password. If his account is decativated, he has to enter the activation code he received by email. This procedure is necessary to verify the \emph{doctor}'s email address.
+
+\item[Extra game:]
+
+\item[Gameover:]
+
+\item[Ball is stuck:]
+
+\item[Obstacle on the play field is hit:]
+
+\item[Tilt:]
+
+\item[:]
 
 \end{description}
 
+
+
+
+
+
+
 \subsection{Administrator}
 
-\begin{description}
-
+\begin{description}	
 \item[Create account:] A new \emph{doctor} has to be registered in the system. The \emph{administrator} enters the \emph{doctor}'s name and mail address. The system presents the entered information. The \emph{administrator} verifies it and confirms that to the system. The system creates an account with a random initial password and presents after successful creation the full account data to the \emph{administrator}. He records the initial password which he has to give to the \emph{doctor} in person. There is also an email sent to the entered account email by using the \emph{email-server}. It contains an activation code, which is used by the \emph{doctor} for his first login.
 
 %\item[Delete account:] A \emph{doctor} has to be deleted from the system. The account can only be deleted if it was disabled (and not enabled again) for a given period. The \emph{administrator} archives the data of the \emph{patient}s, which are referenced to this account and deletes the \emph{doctor}'s account. By deleting a \emph{doctor}'s account the system also deletes all corresponding \emph{patient} data (in the system).
