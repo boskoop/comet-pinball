@@ -73,8 +73,10 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 \item[Ball leaves via drain:] The ball is passing the flippers and leaves the play field via the drain. The simulator loads a new ball in the plunger and decreases the counter of available balls by one.
 
 \item[Extra ball:] 
+to do
 
 \item[Extra game:]
+to do
 
 \item[Gameover:] All balls have left the play field so the game is over. The score is presented to the user and the user has to start a new game to play further.
 
@@ -87,15 +89,11 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 \item[New Highscore:] If a game is over and the score has exceeded the highscore, the application will produce visual and acoustic effects. The score will be set as new highscore and the new highscore sheet is presented to the player.
 
 \item[Watch Highscores:] 
+to do
 
 \end{description}
 
 
-
-\subsection{Administrator}
-
-\begin{description}	
-\item[Create account:] A new \emph{doctor} has to be registered in the system. The \emph{administrator} enters the \emph{doctor}'s name and mail address. The system presents the entered information. The \emph{administrator} verifies it and confirms that to the system. The system creates an account with a random initial password and presents after successful creation the full account data to the \emph{administrator}. He records the initial password which he has to give to the \emph{doctor} in person. There is also an email sent to the entered account email by using the \emph{email-server}. It contains an activation code, which is used by the \emph{doctor} for his first login.
 
 %\item[Delete account:] A \emph{doctor} has to be deleted from the system. The account can only be deleted if it was disabled (and not enabled again) for a given period. The \emph{administrator} archives the data of the \emph{patient}s, which are referenced to this account and deletes the \emph{doctor}'s account. By deleting a \emph{doctor}'s account the system also deletes all corresponding \emph{patient} data (in the system).
 
@@ -107,7 +105,6 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 %\item[Authenticate against System:] The \emph{administrator} authenticates against the system by entering his email address and password.
 
-\end{description}
 
 %==========================
 % Use cases (fully-dressed)
@@ -118,9 +115,9 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 % UC1
 %----
 
-\subsection{Use Case UC1: Assign device}
+%\subsection{Use Case UC1: Assign device}
 
-\textbf{\textsf{Scope:}} Comet Patient Monitor
+%\textbf{\textsf{Scope:}} Comet Patient Monitor
 
 %\textbf{\textsf{Level:}} user goal
 
@@ -148,49 +145,50 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 %\textbf{\textsf{Extensions:}}
 
-\begin{itemize}[leftmargin=3em]
-	\item[*a.] At any time, \emph{doctor} cancels assignment operation.
-	\begin{enumerate}
-		\item System discards all entered data.
-	\end{enumerate}
-	\item[2a.] No profile is found.
-	\begin{enumerate}
-		\item System signals error and reverts to step 1 in main scenario.
-	\end{enumerate}
-	\item[2b.] Correct \emph{patient} profile is not found.
-	\begin{enumerate}
-		\item \emph{Doctor} verifies entered data.
-		\begin{itemize}
-			\item[1a.] \emph{Patient} is not registered (violation of precondition!):
-			\begin{enumerate}[label=\arabic*.]
-				\item \emph{Doctor} cancels assignment operation and proceeds with UC4.
-			\end{enumerate}
-		\end{itemize}
-		\item \emph{Doctor} proceeds with step 1 in main scenario.
-	\end{enumerate}
-	\item[4a.] \emph{Doctor} selected wrong \emph{patient} profile.
-	\begin{enumerate}
-		\item \emph{Doctor} cancels assignment to selected profile.
-		\item System reverts to step 2 in main scenario.
-	\end{enumerate}
-	\item[6a.] Device is already assigned.
-	\begin{enumerate}
-		\item System signals error.
-		\item \emph{Doctor} gets a different device.
-		\item System reverts to step 5 in main scenario.
-	\end{enumerate}
-	\item[8a.] Invalid observation period.
-	\begin{enumerate}
-		\item System signals error and reverts to step 7 in main scenario.
-	\end{enumerate}
-	\item[10a.] Error while configuring the device.
-	\begin{enumerate}
-		\item System signals error.
-		\item \emph{Doctor} marks device as faulty and sends it to reparation.
-		\item \emph{Doctor} gets a different device.
-		\item System reverts to step 5 in main scenario.
-	\end{enumerate}
-\end{itemize}
+%
+%\begin{itemize}[leftmargin=3em]
+%	\item[*a.] At any time, \emph{doctor} cancels assignment operation.
+%	\begin{enumerate}
+%		\item System discards all entered data.
+%	\end{enumerate}
+%	\item[2a.] No profile is found.
+%	\begin{enumerate}
+%		\item System signals error and reverts to step 1 in main scenario.
+%	\end{enumerate}
+%	\item[2b.] Correct \emph{patient} profile is not found.
+%	\begin{enumerate}
+%		\item \emph{Doctor} verifies entered data.
+%		\begin{itemize}
+%			\item[1a.] \emph{Patient} is not registered (violation of precondition!):
+%			\begin{enumerate}[label=\arabic*.]
+%				\item \emph{Doctor} cancels assignment operation and proceeds with UC4.
+%			\end{enumerate}
+%		\end{itemize}
+%		\item \emph{Doctor} proceeds with step 1 in main scenario.
+%	\end{enumerate}
+%	\item[4a.] \emph{Doctor} selected wrong \emph{patient} profile.
+%	\begin{enumerate}
+%		\item \emph{Doctor} cancels assignment to selected profile.
+%		\item System reverts to step 2 in main scenario.
+%	\end{enumerate}
+%	\item[6a.] Device is already assigned.
+%	\begin{enumerate}
+%		\item System signals error.
+%		\item \emph{Doctor} gets a different device.
+%		\item System reverts to step 5 in main scenario.
+%	\end{enumerate}
+%	\item[8a.] Invalid observation period.
+%	\begin{enumerate}
+%		\item System signals error and reverts to step 7 in main scenario.
+%	\end{enumerate}
+%	\item[10a.] Error while configuring the device.
+%	\begin{enumerate}
+%		\item System signals error.
+%		\item \emph{Doctor} marks device as faulty and sends it to reparation.
+%		\item \emph{Doctor} gets a different device.
+%		\item System reverts to step 5 in main scenario.
+%	\end{enumerate}
+%\end{itemize}
 
 \section{Use case diagram}
 
