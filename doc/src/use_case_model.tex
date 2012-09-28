@@ -96,101 +96,81 @@ to do
 \end{description}
 
 
-
-%\item[Delete account:] A \emph{doctor} has to be deleted from the system. The account can only be deleted if it was disabled (and not enabled again) for a given period. The \emph{administrator} archives the data of the \emph{patient}s, which are referenced to this account and deletes the \emph{doctor}'s account. By deleting a \emph{doctor}'s account the system also deletes all corresponding \emph{patient} data (in the system).
-
-%\item[Disable account:] An account of a \emph{doctor} has to be disabled. The \emph{administrator} disables the login of the \emph{doctor}. Thereby the account is also deactivated (when enabled again, the \emph{doctor} needs to reactivate the account). The system notifies the \emph{doctor} by means of an email via the \emph{email-server}. 
-
-%\item[Enable account:] A disabled account of a \emph{doctor} has to be enabled again. The System generates a new activation code and sends it via the \emph{email-server} to the \emph{doctor}. If necessary, he also resets the \emph{doctor}'s password.
-
-%\item[Reset password:] A \emph{doctor}'s password has to be changed. The \emph{administrator} generates a new password and gives it to the \emph{doctor} in person.
-
-%\item[Authenticate against System:] The \emph{administrator} authenticates against the system by entering his email address and password.
-
-
 %==========================
 % Use cases (fully-dressed)
 %==========================
 
+
+%==========================
+% UC1
+%==========================
+
 \section{Use cases (fully-dressed)}
 
-% UC1
-%----
+\subsection{Use Case UC1: Start simulation}
 
-%\subsection{Use Case UC1: Assign device}
+\textbf{\textsf{Scope:}} Comet Pinball
 
-%\textbf{\textsf{Scope:}} Comet Patient Monitor
+\textbf{\textsf{Level:}} user goal
 
-%\textbf{\textsf{Level:}} user goal
+\textbf{\textsf{Primary actor:}} \emph{Player}
 
-%\textbf{\textsf{Primary actor:}} \emph{Doctor}
+\textbf{\textsf{Preconditions:}} \emph{Player} has started the application on his Computer and has arrived on the main screen.
 
-%\textbf{\textsf{Preconditions:}} \emph{Doctor} is authenticated against the system. \emph{Patient} is registered in the System.
+\textbf{\textsf{Postconditions:}} The name of the \emph{Player} has been entered, the plunger is filled with a ball and all counters are reset.
 
-%\textbf{\textsf{Postconditions:}} The monitoring device is assigned to the \emph{patient}. The device will monitor the temperature during a given period.
+\textbf{\textsf{Main success scenario:}}
 
-%\textbf{\textsf{Main success scenario:}}
+\begin{enumerate}[leftmargin=3em]
+	\item \emph{Player} is starting the simulation.
+	\item Application prompts for the \emph{Player}'s nickname.
+	\item \emph{Player} enters his nickname.
+	\item Application sets the counter of the available balls to default value
+	\item Application sets the score to 0
+	\item Application activates the plunger and puts one ball in it.
+\end{enumerate}
 
-%\begin{enumerate}[leftmargin=3em]
-%	\item \emph{Doctor} enters the \emph{patient}'s name and/or social security number into system.
-%	\item System looks up matching \emph{patient} profiles and displays them to the \emph{doctor}.
-%	\item \emph{Doctor} selects the appropriate \emph{patient} profile.
-%	\item System displays detailed version of the selected profile.
-%	\item \emph{Doctor} enters the device identification number into the system.
-%	\item System checks if the device is already assigned to a \emph{patient}.
-%	\item \emph{Doctor} enters the beginning and the end of the observation period into the system.
-%	\item System verifies that the entered data is a valid observation period.
-%	\item \emph{Doctor} enters the frequency by which the measures have to be performed.
-%	\item System configures the device.
-%	\item System saves assignment of the device to the \emph{patient}.
-%\end{enumerate}
 
-%\textbf{\textsf{Extensions:}}
+\begin{itemize}[leftmargin=3em]
+	\item[*a.] example
+	\begin{enumerate}
+		\item example
+	\end{enumerate}
+\end{itemize}
 
-%
-%\begin{itemize}[leftmargin=3em]
-%	\item[*a.] At any time, \emph{doctor} cancels assignment operation.
-%	\begin{enumerate}
-%		\item System discards all entered data.
-%	\end{enumerate}
-%	\item[2a.] No profile is found.
-%	\begin{enumerate}
-%		\item System signals error and reverts to step 1 in main scenario.
-%	\end{enumerate}
-%	\item[2b.] Correct \emph{patient} profile is not found.
-%	\begin{enumerate}
-%		\item \emph{Doctor} verifies entered data.
-%		\begin{itemize}
-%			\item[1a.] \emph{Patient} is not registered (violation of precondition!):
-%			\begin{enumerate}[label=\arabic*.]
-%				\item \emph{Doctor} cancels assignment operation and proceeds with UC4.
-%			\end{enumerate}
-%		\end{itemize}
-%		\item \emph{Doctor} proceeds with step 1 in main scenario.
-%	\end{enumerate}
-%	\item[4a.] \emph{Doctor} selected wrong \emph{patient} profile.
-%	\begin{enumerate}
-%		\item \emph{Doctor} cancels assignment to selected profile.
-%		\item System reverts to step 2 in main scenario.
-%	\end{enumerate}
-%	\item[6a.] Device is already assigned.
-%	\begin{enumerate}
-%		\item System signals error.
-%		\item \emph{Doctor} gets a different device.
-%		\item System reverts to step 5 in main scenario.
-%	\end{enumerate}
-%	\item[8a.] Invalid observation period.
-%	\begin{enumerate}
-%		\item System signals error and reverts to step 7 in main scenario.
-%	\end{enumerate}
-%	\item[10a.] Error while configuring the device.
-%	\begin{enumerate}
-%		\item System signals error.
-%		\item \emph{Doctor} marks device as faulty and sends it to reparation.
-%		\item \emph{Doctor} gets a different device.
-%		\item System reverts to step 5 in main scenario.
-%	\end{enumerate}
-%\end{itemize}
+
+%==========================
+% UC2
+%==========================
+
+\section{Use cases (fully-dressed)}
+
+\subsection{Use Case UC2: Start Game}
+
+\textbf{\textsf{Scope:}} Comet Pinball
+
+\textbf{\textsf{Level:}} user goal
+
+\textbf{\textsf{Primary actor:}} \emph{Player}
+
+\textbf{\textsf{Preconditions:}} \emph{Player} has started a simulation.
+
+\textbf{\textsf{Postconditions:}} The ball has entered the play field and the game has started.
+
+\textbf{\textsf{Main success scenario:}}
+
+\begin{enumerate}[leftmargin=3em]
+	\item \emph{Player} example
+\end{enumerate}
+
+
+\begin{itemize}[leftmargin=3em]
+	\item[*a.] example
+	\begin{enumerate}
+		\item example
+	\end{enumerate}
+\end{itemize}
+
 
 \section{Use case diagram}
 
