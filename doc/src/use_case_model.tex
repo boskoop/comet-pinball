@@ -212,6 +212,41 @@ to do
 	\end{enumerate}
 \end{itemize}
 
+%==========================
+% UC4
+%==========================
+
+\section{Use cases (fully-dressed)}
+
+\subsection{Use Case UC4: Ball leaves play field}
+
+\textbf{\textsf{Scope:}} Comet Pinball
+
+\textbf{\textsf{Level:}} user goal
+
+\textbf{\textsf{Primary actor:}} \emph{Player}
+
+\textbf{\textsf{Preconditions:}} A game is simulated
+
+\textbf{\textsf{Postconditions:}} Either the game is over or a new game is prepared.
+
+\textbf{\textsf{Main success scenario:}}
+
+\begin{enumerate}[leftmargin=3em]
+	\item Counter for available balls is decreased by one.
+	\item Application puts a new ball in the plunger.
+	\item The application is ready to start a new game.
+\end{enumerate}
+
+
+\begin{itemize}[leftmargin=3em]
+	\item[1a.] Counter for available is zero.
+	\begin{enumerate}
+		\item Continue with use case "Game over"
+	\end{enumerate}
+\end{itemize}
+
+
 
 
 \section{Use case diagram}
