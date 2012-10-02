@@ -11,6 +11,7 @@
 %   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 %   See the License for the specific language governing permissions and
 %   limitations under the License.
+
 \documentclass[fontsize=12pt,
                paper=a4,
                twoside=false,
@@ -240,7 +241,7 @@ to do
 
 
 \begin{itemize}[leftmargin=3em]
-	\item[1a.] Counter for available is zero.
+	\item[1a.] Counter for available balls is zero.
 	\begin{enumerate}
 		\item Continue with use case "UC:7 Gameover"
 	\end{enumerate}
@@ -342,6 +343,35 @@ to do
 		\item Continue with step 2.
 	\end{enumerate}
 \end{itemize}
+
+
+%==========================
+% UC8
+%==========================
+
+
+\subsection{Use Case UC8: Hit obstacle}
+
+\textbf{\textsf{Scope:}} Comet Pinball
+
+\textbf{\textsf{Level:}} user goal
+
+\textbf{\textsf{Primary actor:}} \emph{Player}
+
+\textbf{\textsf{Preconditions:}} A game is simulated, ball has been brought into play
+
+\textbf{\textsf{Postconditions:}} Score is updated, ball has new movement parameters set
+
+\textbf{\textsf{Main success scenario:}}
+
+\begin{enumerate}[leftmargin=3em]
+	\item Ball moves across the play field and hits an obstacle
+	\item System determines scoring value of the hit
+	\item System updates score
+	\item System calculates physical impact on ball
+	\item System sets resulting parameters on ball movement
+	\item Ball continues to move across the play field with new parameters
+\end{enumerate}
 
 
 
