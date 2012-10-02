@@ -339,7 +339,7 @@ to do
 \begin{itemize}[leftmargin=3em]
 	\item[1a.]  The score of the current game was higher than the highscore
 	\begin{enumerate}
-		\item Continue with "UC??: Highscore"
+		\item Continue with "UC??: New highscore"
 		\item Continue with step 2.
 	\end{enumerate}
 \end{itemize}
@@ -387,6 +387,42 @@ to do
 
 \textbf{\textsf{Primary actor:}} \emph{Player}
 
+\textbf{\textsf{Preconditions:}} A game is simulated and the ball gets stuck on an obstacle.
+
+\textbf{\textsf{Postconditions:}} The ball is free to move.
+
+\textbf{\textsf{Main success scenario:}}
+
+\begin{enumerate}[leftmargin=3em]
+	\item \emph{Player} is using the controls to move the play field.
+	\item System is simulation the movement of the play field
+	\item Ball gets free
+	\item System moves the new direction of the ball
+\end{enumerate}
+
+\begin{itemize}[leftmargin=3em]
+	\item[3a.]  The play field was moved to hard.
+	\begin{enumerate}
+		\item Continue with "UC10: Tilt"
+	\end{enumerate}
+\end{itemize}
+
+
+
+
+%==========================
+% UC10
+%==========================
+
+
+\subsection{Use Case UC10: Tilt}
+
+\textbf{\textsf{Scope:}} Comet Pinball
+
+\textbf{\textsf{Level:}} user goal
+
+\textbf{\textsf{Primary actor:}} \emph{Player}
+
 \textbf{\textsf{Preconditions:}} A game is simulated, ball has been brought into play
 
 \textbf{\textsf{Postconditions:}} Score is updated, ball has new movement parameters set
@@ -399,11 +435,35 @@ to do
 
 
 %==========================
-% UC10
+% UC11
 %==========================
 
 
-\subsection{Use Case UC10: Tilt}
+\subsection{Use Case UC11: New highscore}
+
+\textbf{\textsf{Scope:}} Comet Pinball
+
+\textbf{\textsf{Level:}} user goal
+
+\textbf{\textsf{Primary actor:}} \emph{Player}
+
+\textbf{\textsf{Preconditions:}} A game is simulated, ball has been brought into play
+
+\textbf{\textsf{Postconditions:}} Score is updated, ball has new movement parameters set
+
+\textbf{\textsf{Main success scenario:}}
+
+\begin{enumerate}[leftmargin=3em]
+	\item 
+\end{enumerate}
+
+
+%==========================
+% UC12
+%==========================
+
+
+\subsection{Use Case UC12: Watch highscores }
 
 \textbf{\textsf{Scope:}} Comet Pinball
 
@@ -425,6 +485,28 @@ to do
 \end{enumerate}
 
 
+%==========================
+% UC13
+%==========================
+
+
+\subsection{Use Case UC13: Configure game properties }
+
+\textbf{\textsf{Scope:}} Comet Pinball
+
+\textbf{\textsf{Level:}} user goal
+
+\textbf{\textsf{Primary actor:}} \emph{Player}
+
+\textbf{\textsf{Preconditions:}} A game is simulated, ball has been brought into play
+
+\textbf{\textsf{Postconditions:}} Score is updated, ball has new movement parameters set
+
+\textbf{\textsf{Main success scenario:}}
+
+\begin{enumerate}[leftmargin=3em]
+	\item 
+\end{enumerate}
 
 
 \section{Use case diagram}
