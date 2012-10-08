@@ -31,7 +31,6 @@
 			<id>comet-artifactory</id>
 			<name>Comet Artifactory</name>
 			<url>http://ci.m02.ch/artifactory/libs-snapshot-local</url>
-			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
 
