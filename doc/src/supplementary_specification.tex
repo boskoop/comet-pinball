@@ -29,38 +29,39 @@
 
 \tableofcontents
 
+\section{Introduction}
+In Unified Process methodology, the document \emph{Supplementary Specification} contains all the non-functional requirements. (The functional requirements are specified with \emph{Use Cases}.)
+
+Some additional non-functional requirements are currently covered in the Vision Document.
+
 \section{Non-functional requirements}
 
-%The non-functional requirements are categorized according to the FURPS+ model, where the functional requirements are left out (see use-case model).
-
 \subsection{Usability}
-
-
-
-%None so far.
+\begin{itemize}
+	\item[U1] Avoid colors associated with common forms of color blindness.
+	\item[U2] The interface should be as intuitive as possible.
+	\item[U3] The key mapping should be customizable.
+\end{itemize}
 
 \subsection{Reliability}
-
-%\begin{itemize}
-%	\item[R1] The system is able to recover from monitoring device errors.
-%\end{itemize}
+\begin{itemize}
+	\item[R1] When the application is closed unexpectedly the data integrity should not be harmed.
+\end{itemize}
 
 \subsection{Performance}
-
-The application should 
-
-
-
-%\begin{itemize}
-%	\item[P1] The system has to handle a large number of patients. It should support at least 10'000 monitored patients a year.
-%	\item[P2] Many doctors should be able to work simultaneously on the system. At least 100 registered doctors should be supported.
-%	\item[P3] Search queries (i.e. look up patient's profile) should perform within the following specification: 90\% of all queries must be responded in under one second.
-%\end{itemize}
+\begin{itemize}
+	\item[P1] The application should run on entry-level computer with over 30 frames per second.
+\end{itemize}
 
 \subsection{Supportability}
+\begin{itemize}
+	\item[S1] The system has to run on Unix/GNU-Linux as well as on Microsoft Windows and Mac OS X.	
+\end{itemize}
 
-%\begin{itemize}
-%	\item[S1] The system has to run on Unix/GNU-Linux as well as on Microsoft Windows.
-%\end{itemize}
+\section{Technical specifications}
+\begin{itemize}
+	\item[T1] Java 6 is used.
+	\item[T2] The cross-platform game development library libgdx (http://code.google.com/p/libgdx/) is used. 
+\end{itemize}
 
 \end{document}

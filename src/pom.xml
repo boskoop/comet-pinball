@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ch.m02.comet</groupId>
+	<artifactId>pinball</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>comet - pinball</name>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>prototype</module>
+	</modules>
+	
+	<organization>
+		<name>Comet Engineering</name>
+	</organization>
+	<scm>
+		<url>https://github.com/boskoop/comet-pinball</url>
+	</scm>
+	<issueManagement>
+		<system>Redmine</system>
+		<url>http://redmine.m02.ch/projects/pinball</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://ci.m02.ch/jenkins/</url>
+	</ciManagement>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>comet-artifactory</id>
+			<name>Comet Artifactory</name>
+			<url>http://ci.m02.ch/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>4.10</junit.version>
+		<project.version>1.0.0-SNAPSHOT</project.version>
+		<gdx.version>0.9.6</gdx.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>
