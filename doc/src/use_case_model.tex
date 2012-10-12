@@ -70,13 +70,13 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \begin{description}
 
-\item[Start simulation:]   The player wants to start a game so he enters the main screen of the application and selects the option for starting a new game. The simulator loads the play field, resets the score counter and sets the right amount of available balls for this game and loads one ball in the plunger.
+\item[Start simulation:]   The player wants to start a game so he enters the main screen of the system and selects the option for starting a new game. The system loads the play field, resets the score counter and sets the right amount of available balls for this game and loads one ball in the plunger.
 
 \item[Start game:] The plunger has to be operated to forward the ball onto the play field.  The force can be controlled by some matter.
 
 \item[Move flippers:] The player can move the flippers to prevent the ball from leaving the play field. If the ball is hit by the flippers he follows approximately the movements of a collision.
 
-\item[Ball leaves play field:] The ball is passing the flippers and leaves the play field via the drain. The application loads a new ball in the plunger and decreases the counter of available balls by one.
+\item[Ball leaves play field:] The ball is passing the flippers and leaves the play field via the drain. The system loads a new ball in the plunger and decreases the counter of available balls by one.
 
 \item[Extra ball:] This use case will be declared in the elaboration phase of the project. See the notes section.
 
@@ -84,13 +84,13 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \item[Gameover:] All balls have left the play field so the game is over. The score is presented to the user and the user has to start a new simulation to play further.
 
-\item[Hit obstacle:] The application actualizes the score if a scoring obstacle  was hit. The ball is following the movement of a collision.
+\item[Hit obstacle:] The system actualizes the score if a scoring obstacle  was hit. The ball is following the movement of a collision.
 
 \item[Stuck ball:] The ball is stuck somewhere on the play field, so the user has the possibility to tilt the table.
 
 \item[Tilt:] If the play field was tilted too often or too hard, the game will stop and display the user the message "Tilt".
 
-\item[New Highscore:] If a game is over and the score has exceeded the highscore, the application will produce visual and acoustic effects. The score will be set as new highscore and the new highscore sheet is presented to the player.
+\item[New Highscore:] If a game is over and the score has exceeded the highscore, the system will produce visual and acoustic effects. The score will be set as new highscore and the new highscore sheet is presented to the player.
 
 \item[Watch Highscores:] The player can watch the highscores. 
 
@@ -118,7 +118,7 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \textbf{\textsf{Primary actor:}} \emph{Player}
 
-\textbf{\textsf{Preconditions:}} \emph{Player} has started the application on his computer and has arrived on the main screen.
+\textbf{\textsf{Preconditions:}} \emph{Player} has started the system on his computer and has arrived on the main screen.
 
 \textbf{\textsf{Postconditions:}} The name of the \emph{Player} has been entered, the plunger is filled with a ball and all counters are reset.
 
@@ -126,20 +126,20 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \begin{enumerate}[leftmargin=3em]
 	\item \emph{Player} initiates the start of the simulation.
-	\item Application is starting the simulation with the \emph{Player}'s nickname.
-	\item Application sets the counter of the available balls to default value.
-	\item Application sets the score to zero.
-	\item Application activates the plunger and puts one ball in it. 
-	\item Application activates the flippers.
+	\item System is starting the simulation with the \emph{Player}'s nickname.
+	\item System sets the counter of the available balls to default value.
+	\item System sets the score to zero.
+	\item System activates the plunger and puts one ball in it. 
+	\item System activates the flippers.
 \end{enumerate}
 
 
 \begin{itemize}[leftmargin=3em]
 	\item[2a.] 	\emph{Player} has not yet entered his nickname.
 	\begin{enumerate}
-		\item Application prompts for the \emph{Player}'s nickname.
+		\item System prompts for the \emph{Player}'s nickname.
 		\item \emph{Player} enters his nickname.
-		\item Application stores the nickname.
+		\item System stores the nickname.
 	\end{enumerate}
 \end{itemize}
 
@@ -164,7 +164,7 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \begin{enumerate}[leftmargin=3em]
 	\item \emph{Player} is applying the plunger and adds some force to the ball.
-	\item Application simulates the ball's movement.
+	\item System simulates the ball's movement.
 	\item The ball enters play field.
 \end{enumerate}
 
@@ -199,16 +199,16 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \begin{enumerate}[leftmargin=3em]
 	\item \emph{Player} initiates the movement of at least one flipper.
-	\item Application simulates the upward movement of the flipper.
+	\item System simulates the upward movement of the flipper.
 	\item Player initiates the backward movement of the flippers.
-	\item Application simulates the backward movement of the flipper.
+	\item System simulates the backward movement of the flipper.
 \end{enumerate}
 
 
 \begin{itemize}[leftmargin=3em]
 	\item[2a.] Ball hits the flipper during the upward movement
 	\begin{enumerate}
-		\item Application simulates the redirection of the ball.
+		\item System simulates the redirection of the ball.
 	\end{enumerate}
 \end{itemize}
 
@@ -232,8 +232,8 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \begin{enumerate}[leftmargin=3em]
 	\item Counter for available balls is decreased by one.
-	\item Application puts a new ball in the plunger.
-	\item The application is ready to start a new game.
+	\item System puts a new ball in the plunger.
+	\item The system is ready to start a new game.
 	\item Continue with "UC2: Start game"
 \end{enumerate}
 
@@ -277,14 +277,14 @@ This use case will be declared in the elaboration phase of the project. See the 
 
 \textbf{\textsf{Preconditions:}} UC4 has happened
 
-\textbf{\textsf{Postconditions:}} The score was calculated and the application has stopped the simulation
+\textbf{\textsf{Postconditions:}} The score was calculated and the system has stopped the simulation
 
 \textbf{\textsf{Main success scenario:}}
 
 \begin{enumerate}[leftmargin=3em]
-	\item Application calculates the final score and shows it to the user
-	\item Application deactivates the flippers and the plunger
-	\item Application is ready to start a new simulation.
+	\item System calculates the final score and shows it to the user
+	\item System deactivates the flippers and the plunger
+	\item System is ready to start a new simulation.
 \end{enumerate}
 
 
@@ -349,7 +349,7 @@ This use case will be declared in the elaboration phase of the project. See the 
 	\item \emph{Player} is using the controls to move the play field.
 	\item System is simulating the movement of the play field
 	\item Ball is freed
-	\item System moves the new direction of the ball
+	\item System simulates the new direction of the ball
 \end{enumerate}
 
 \begin{itemize}[leftmargin=3em]
@@ -410,9 +410,9 @@ This use case will be declared in the elaboration phase of the project. See the 
 
 \begin{enumerate}[leftmargin=3em]
 	\item New highscore is saved.
-	\item Application shows the user that he has set a new highscore.
+	\item System shows the user that he has set a new highscore.
 	\item \emph{Player} acknowledges the highscore.
-	\item Application continues with step 2 of UC7: Gameover
+	\item System continues with step 2 of UC7: Gameover
 \end{enumerate}
 
 
@@ -429,16 +429,18 @@ This use case will be declared in the elaboration phase of the project. See the 
 
 \textbf{\textsf{Primary actor:}} \emph{Player}
 
-\textbf{\textsf{Preconditions:}} No game is running. The \emph{Player} is at the main screen of the application.
+\textbf{\textsf{Preconditions:}} No game is running. The \emph{Player} is at the main screen of the system.
 
-\textbf{\textsf{Postconditions:}} The application displayed the highscores to the \emph{Player}.
+\textbf{\textsf{Postconditions:}} The system displayed the highscores to the \emph{Player}.
 
 \textbf{\textsf{Main success scenario:}}
 
 \begin{enumerate}[leftmargin=3em]
 	\item \emph{Player} enters the highscores view.
-	\item Application loads the highscores and the names of the \emph{Player}'s
-	\item Application displays the highscores to the \emph{Player}
+	\item System loads the highscores and the names of the \emph{Player}'s
+	\item System displays the highscores to the \emph{Player}
+	\item \emph{Player} quits the highscores view
+	\item System returns to main screen	
 \end{enumerate}
 
 
@@ -468,10 +470,8 @@ This use case will be declared in the elaboration phase of the project. See the 
 	\item The system applies the changed parameters
 \end{enumerate}
 
-
 \section{Use case diagram}
-
-
+			
 % Diagram generated with astah
 \includegraphics[width=15cm]{./img/usecase-model.png}
 
