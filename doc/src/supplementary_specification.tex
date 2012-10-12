@@ -30,7 +30,7 @@
 \tableofcontents
 
 \section{Introduction}
-In Unified Process methodology, the document \emph{Supplementary Specification} contains all the non-functional requirements. (The functional requirements are specified with \emph{Use C	ases}.)
+In Unified Process methodology, the document \emph{Supplementary Specification} contains all the non-functional requirements. (The functional requirements are specified with \emph{Use Cases}.)
 
 Some additional non-functional requirements are currently covered in the Vision Document.
 
@@ -38,26 +38,30 @@ Some additional non-functional requirements are currently covered in the Vision 
 
 \subsection{Usability}
 \begin{itemize}
-\item[U1] Avoid colors associated with common forms of color blindness.
-\item[U2] The interface should be as intuitive as possible.
-\item[U3] The key mapping should be customizable.
+	\item[U1] Avoid colors associated with common forms of color blindness.
+	\item[U2] The interface should be as intuitive as possible.
+	\item[U3] The key mapping should be customizable.
 \end{itemize}
 
-
-\subsection{Reliability}	
+\subsection{Reliability}
+\begin{itemize}
+	\item[R1] When the application is closed unexpectedly the data integrity should not be harmed.
+\end{itemize}
 
 \subsection{Performance}
-
 \begin{itemize}
-\item[P1] The application should run on entry-level computer with over 30 frames per second.
+	\item[P1] The application should run on entry-level computer with over 30 frames per second.
 \end{itemize}
 
 \subsection{Supportability}
-
 \begin{itemize}
 	\item[S1] The system has to run on Unix/GNU-Linux as well as on Microsoft Windows and Mac OS X.	
-	\item[S2] The system will be implemented in Java 5.
-	\item[S3] The system will be implemented using the cross-platform game development library libgdx http://code.google.com/p/libgdx/. With this library a port for Android or HTML5 would be possible.
+\end{itemize}
+
+\section{Technical specifications}
+\begin{itemize}
+	\item[T1] Java 6 is used.
+	\item[T2] The cross-platform game development library libgdx (http://code.google.com/p/libgdx/) is used. 
 \end{itemize}
 
 \end{document}
