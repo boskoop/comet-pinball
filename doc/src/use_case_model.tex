@@ -76,15 +76,15 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \item[Move flippers:] The player can move the flippers to prevent the ball from leaving the play field. If the ball is hit by the flippers he follows approximately the movements of a collision.
 
-\item[Ball leaves via drain:] The ball is passing the flippers and leaves the play field via the drain. The simulator loads a new ball in the plunger and decreases the counter of available balls by one.
+\item[Ball leaves play field:] The ball is passing the flippers and leaves the play field via the drain. The application loads a new ball in the plunger and decreases the counter of available balls by one.
 
 \item[Extra ball:] This use case will be declared in the elaboration phase of the project. See the notes section.
 
 \item[Extra game:] This use case will be declared in the elaboration phase of the project. See the notes section.
 
-\item[Gameover:] All balls have left the play field so the game is over. The score is presented to the user and the user has to start a new game to play further.
+\item[Gameover:] All balls have left the play field so the game is over. The score is presented to the user and the user has to start a new simulation to play further.
 
-\item[Hit obstacle:] The application actualizes the score If a scoring obstacle  was hit. The ball is following the movement of a collision.
+\item[Hit obstacle:] The application actualizes the score if a scoring obstacle  was hit. The ball is following the movement of a collision.
 
 \item[Stuck ball:] The ball is stuck somewhere on the play field, so the user has the possibility to tilt the table.
 
@@ -92,10 +92,9 @@ A \emph{Player} uses the Comet Pinball to pass his leisure time and enjoy himsel
 
 \item[New Highscore:] If a game is over and the score has exceeded the highscore, the application will produce visual and acoustic effects. The score will be set as new highscore and the new highscore sheet is presented to the player.
 
-\item[Watch Highscores:] 
-to do
+\item[Watch Highscores:] The player can watch the highscores. 
 
-\item[Configure game properties:] The properties of the game like size of the bumpers, amount of available balls and other settings can be configured in a properties file.
+\item[Configure game properties:] The properties of the game like the size of the bumpers, amount of available balls and other settings can be configured in a properties file.
 
 \end{description}
 
@@ -119,7 +118,7 @@ to do
 
 \textbf{\textsf{Primary actor:}} \emph{Player}
 
-\textbf{\textsf{Preconditions:}} \emph{Player} has started the application on his Computer and has arrived on the main screen.
+\textbf{\textsf{Preconditions:}} \emph{Player} has started the application on his computer and has arrived on the main screen.
 
 \textbf{\textsf{Postconditions:}} The name of the \emph{Player} has been entered, the plunger is filled with a ball and all counters are reset.
 
@@ -128,7 +127,7 @@ to do
 \begin{enumerate}[leftmargin=3em]
 	\item \emph{Player} initiates the start of the simulation.
 	\item Application is starting the simulation with the \emph{Player}'s nickname.
-	\item Application sets the counter of the available balls to default value
+	\item Application sets the counter of the available balls to default value.
 	\item Application sets the score to zero.
 	\item Application activates the plunger and puts one ball in it. 
 	\item Application activates the flippers.
@@ -235,13 +234,14 @@ to do
 	\item Counter for available balls is decreased by one.
 	\item Application puts a new ball in the plunger.
 	\item The application is ready to start a new game.
+	\item Continue with "UC2: Start game"
 \end{enumerate}
 
 
 \begin{itemize}[leftmargin=3em]
 	\item[1a.] Counter for available balls is zero.
 	\begin{enumerate}
-		\item Continue with use case "UC:7 Gameover"
+		\item Continue with use case "UC7: Gameover"
 	\end{enumerate}
 \end{itemize}
 
