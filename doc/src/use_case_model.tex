@@ -474,17 +474,16 @@ to do
 
 \textbf{\textsf{Primary actor:}} \emph{Player}
 
-\textbf{\textsf{Preconditions:}} A game is simulated, ball has been brought into play
+\textbf{\textsf{Preconditions:}} No game is running. The \emph{Player} is at the main screen of the application.
 
-\textbf{\textsf{Postconditions:}} Game has ended
+\textbf{\textsf{Postconditions:}} The application displayed the highscores to the \emph{Player}.
 
 \textbf{\textsf{Main success scenario:}}
 
 \begin{enumerate}[leftmargin=3em]
-	\item \emph{Player} tries to manipulate the game by using \enquote{raw force}
-	\item System detects manipulation
-	\item System enters tilt state by deactivating all controls and displaying it to the \emph{Player}
-	\item System ends simulation
+	\item \emph{Player} enters the highscores view.
+	\item Application loads the highscores and the names of the \emph{Player}'s
+	\item Application displays the highscores to the \emph{Player}
 \end{enumerate}
 
 
@@ -503,7 +502,7 @@ to do
 
 \textbf{\textsf{Preconditions:}} No game is started
 
-\textbf{\textsf{Postconditions:}} 
+\textbf{\textsf{Postconditions:}} The game properties are configured
 
 \textbf{\textsf{Main success scenario:}}
 
@@ -511,6 +510,7 @@ to do
 	\item The \emph{Player} initiates configuring the game properties
 	\item The system displays a set of parameters, which the user is able to change
 	\item The \emph{Player} changes the parameters
+	\item The system applies the changed parameters
 \end{enumerate}
 
 
