@@ -291,7 +291,7 @@ This use case will be declared in the elaboration phase of the project. See the 
 \begin{itemize}[leftmargin=3em]
 	\item[1a.]  The score of the current game was higher than the highscore
 	\begin{enumerate}
-		\item Continue with "UC??: New highscore"
+		\item Continue with "UC11: New highscore"
 		\item Continue with step 2.
 	\end{enumerate}
 \end{itemize}
@@ -347,8 +347,8 @@ This use case will be declared in the elaboration phase of the project. See the 
 
 \begin{enumerate}[leftmargin=3em]
 	\item \emph{Player} is using the controls to move the play field.
-	\item System is simulation the movement of the play field
-	\item Ball gets free
+	\item System is simulating the movement of the play field
+	\item Ball is freed
 	\item System moves the new direction of the ball
 \end{enumerate}
 
@@ -402,14 +402,17 @@ This use case will be declared in the elaboration phase of the project. See the 
 
 \textbf{\textsf{Primary actor:}} \emph{Player}
 
-\textbf{\textsf{Preconditions:}} A game is simulated, ball has been brought into play
+\textbf{\textsf{Preconditions:}} UC4:Ball leaves play field, the score of this game is higher than the current highscore	
 
-\textbf{\textsf{Postconditions:}} Score is updated, ball has new movement parameters set
+\textbf{\textsf{Postconditions:}} The player is informed that he has set a new highscore and the new highscore is saved.
 
 \textbf{\textsf{Main success scenario:}}
 
 \begin{enumerate}[leftmargin=3em]
-	\item 
+	\item New highscore is saved.
+	\item Application shows the user that he has set a new highscore.
+	\item \emph{Player} acknowledges the highscore.
+	\item Application continues with step 2 of UC7: Gameover
 \end{enumerate}
 
 
