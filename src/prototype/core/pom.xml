@@ -17,6 +17,11 @@
 			<artifactId>gdx</artifactId>
 			<version>${gdx.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>aurelienribon</groupId>
+			<artifactId>tweenengine</artifactId>
+			<version>${tweenengine.version}</version>
+		</dependency>
 		
 		<!-- Test -->
 		<dependency>

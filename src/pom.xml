@@ -39,6 +39,7 @@
 		<junit.version>4.10</junit.version>
 		<project.version>1.0.0-SNAPSHOT</project.version>
 		<gdx.version>0.9.6</gdx.version>
+		<tweenengine.version>6.3.3</tweenengine.version>
 	</properties>
 
 	<build>

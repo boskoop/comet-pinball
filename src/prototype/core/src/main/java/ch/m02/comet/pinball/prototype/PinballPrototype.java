@@ -1,212 +1,41 @@
 package ch.m02.comet.pinball.prototype;
 
-import java.awt.Rectangle;
+import ch.m02.comet.pinball.prototype.screens.SplashScreen;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.Game;
 
-public class PinballPrototype implements ApplicationListener {
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
-	private Texture texture;
-	//private Sprite sprite;
+
+public class PinballPrototype extends Game {
 	
-	private Rectangle bucket;
-	
-	private static final int WINDOW_WIDTH= 480,WINDOW_HEIGHT = 800;;
-	private World world;
-	
-	private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
-	private Box2DDebugRenderer debugRender;
-	
+	public static final String LOG = "comet-pinball-prototype";
 	
 	@Override
 	public void create() {		
-		
-		/*
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		
-		camera = new OrthographicCamera(1, h/w);
-		batch = new SpriteBatch();
-		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-		
-		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
-		
-		
-		*/
-		
-		// Setting up a new world for simulating the play field
-		// Vector2 param1 = Gravity in x plane (-10 is a downwards force like in real life)
-		// Vector2 param2 = Gravity in y plane (-10 is a downwards force like in real life)
-		world = new World(new Vector2(0,-10),true);
-		
-		
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false,WINDOW_WIDTH,WINDOW_HEIGHT);
-		
-		batch = new SpriteBatch();
-		
-		texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
-		//texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		bucket = new Rectangle();
-		bucket.x = WINDOW_WIDTH /2;
-		bucket.y = 48;
-		bucket.width = 48;
-		bucket.height = 48;
-		
-		
-		// Physics definition
-		BodyDef bodyDef =  new BodyDef();
-		bodyDef.type =  BodyType.DynamicBody;
-		// starting point
-		bodyDef.position.set(WINDOW_WIDTH/2,0);
-		
-		Body body = world.createBody(bodyDef);
-		
-		// Create a shape
-		CircleShape circle = new CircleShape();
-		circle.setRadius(6f);
-		
-		// Create a fixture definition
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = circle;
-		fixtureDef.density = 0.5f;
-		fixtureDef.friction = 0.4f;
-		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-		
-		Fixture fixture = body.createFixture(fixtureDef);
-		
-		
-		// Static Bodies
-		
-		BodyDef groundBodyDef = new BodyDef();
-		groundBodyDef.position.set(new Vector2(0,10));
-		
-		// Create body of ground
-		
-		Body groundBody = world.createBody(groundBodyDef);
-		
-		PolygonShape groundBox = new PolygonShape();
-		groundBox.setAsBox(camera.viewportWidth * 2, 10f);
-		
-		groundBody.createFixture(groundBox,0.0f);
-		debugRender = new Box2DDebugRenderer();
-		
-		
-		
-		
-		
+		setScreen(new SplashScreen());
 	}
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		texture.dispose();
+		super.dispose();
 	}
 
 	@Override
 	public void render() {		
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		camera.update();
-		
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		batch.draw(texture, bucket.x, bucket.y);	
-		batch.end();
-		/*
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		sprite.draw(batch);
-		batch.end();
-		*/
-		
-		if(Gdx.input.isTouched()){
-			Vector3 touchPos = new Vector3();
-			touchPos.set(Gdx.input.getX(),Gdx.input.getY(),0);
-			camera.unproject(touchPos);
-			bucket.x = (int) touchPos.x - 48 / 2;
-		}
-		
-		if(Gdx.input.isKeyPressed(Keys.LEFT))
-			bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-		
-		if(Gdx.input.isKeyPressed(Keys.RIGHT))
-			bucket.x += 200 * Gdx.graphics.getDeltaTime();
-		
-		if(bucket.x < 0)
-			bucket.x = 0;
-		if(bucket.x > WINDOW_WIDTH - bucket.width)
-			bucket.x = WINDOW_WIDTH - bucket.width;
-		
-		bucket.y -= 200 * Gdx.graphics.getDeltaTime();
-		
-		if(bucket.y <= 0)
-			bucket.y = WINDOW_HEIGHT-48;
-		
-		
-		
-		// update actors and sprites
-		/*
-		Iterator<Body> bodies = world.getBodies();
-		
-		while(bodies.hasNext()){
-			Body b = bodies.next();
-			Entity e = b.getUserData();
-			
-			e.setPosition(b.getPosition().x,b.getPosition().y);
-			
-			e.setRotation(MathUtils.radiansToDegrees*b.getAngle());
-		}
-		
-		*/
-		
-		
-		// Render physics
-		debugRender.render(world, camera.combined);
-		
-		// step/update the world
-		// param1 = timestep 1/60 of a second...
-		// param2 = velocityIterations
-		// param2 = positionIterations
-		world.step(1/60f,6,2);
+		super.render();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		super.resize(width, height);
 	}
 
 	@Override
 	public void pause() {
+		super.pause();
 	}
 
 	@Override
 	public void resume() {
+		super.resume();
 	}
 }
