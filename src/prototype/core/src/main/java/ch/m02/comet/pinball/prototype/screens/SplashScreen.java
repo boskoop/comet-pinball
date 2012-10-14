@@ -1,10 +1,13 @@
 package ch.m02.comet.pinball.prototype.screens;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 import ch.m02.comet.pinball.prototype.tween.SpriteTween;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -19,6 +22,11 @@ public class SplashScreen implements Screen {
 	Sprite splashSprite;
 	SpriteBatch batch;
 	TweenManager tweenManager;
+	Game game;
+
+	public SplashScreen(Game game) {
+		this.game = game;
+	}
 
 	@Override
 	public void render(float delta) {
@@ -48,8 +56,22 @@ public class SplashScreen implements Screen {
 		Tween.registerAccessor(Sprite.class, new SpriteTween());
 		tweenManager = new TweenManager();
 
+		TweenCallback cb = new TweenCallback() {
+
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				tweenCompleted();
+			}
+		};
+
 		Tween.to(splashSprite, SpriteTween.ALPHA, 2f).target(1)
-				.ease(TweenEquations.easeInQuad).start(tweenManager);
+				.ease(TweenEquations.easeInQuad).repeatYoyo(1, 1.5f)
+				.setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE)
+				.start(tweenManager);
+	}
+
+	private void tweenCompleted() {
+		game.setScreen(new MainMenu(game));
 	}
 
 	@Override
