@@ -38,7 +38,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.10</junit.version>
 		<project.version>1.0.0-SNAPSHOT</project.version>
-		<gdx.version>0.9.6</gdx.version>
+		<gdx.version>0.9.7-SNAPSHOT</gdx.version>
 		<tweenengine.version>6.3.3</tweenengine.version>
 	</properties>
 
