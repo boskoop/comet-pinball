@@ -1,9 +1,5 @@
 package ch.m02.comet.pinball.prototype;
 
-import java.awt.Rectangle;
-
-import javax.swing.text.Position;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -12,13 +8,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -29,9 +23,7 @@ public class PinballPrototype implements ApplicationListener {
 	private Texture texture;
 	//private Sprite sprite;
 	
-	private Rectangle bucket;
 	private CircleShape circle;
-	private Fixture circleFixture;
 	private Body circleBody;
 	
 	private static final int WINDOW_WIDTH= 480,WINDOW_HEIGHT = 800;;
@@ -56,13 +48,7 @@ public class PinballPrototype implements ApplicationListener {
 		
 		texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
 		//texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		/*
-		bucket = new Rectangle();
-		bucket.x = WINDOW_WIDTH /2;
-		bucket.y = 48;
-		bucket.width = 48;
-		bucket.height = 48;
-		*/
+		
 		
 		/* 
 		 * Physics definition
@@ -81,11 +67,12 @@ public class PinballPrototype implements ApplicationListener {
 		// Create a fixture definition
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
-		fixtureDef.density = 0.3f; // 0.5f
+		fixtureDef.density = 0.5f; // 0.5f
 		fixtureDef.friction = 0.4f;
 		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
 		
-		circleFixture = circleBody.createFixture(fixtureDef);
+		/*Fixture circleFixture = */
+		circleBody.createFixture(fixtureDef);
 		
 		
 		/*
@@ -117,9 +104,6 @@ public class PinballPrototype implements ApplicationListener {
 		ceilingBody.createFixture(ceilingBox,0.0f);
 		
 		
-		
-		
-		
 		// This debugger is useful for testing purposes
 		debugRender = new Box2DDebugRenderer();
 		
@@ -139,15 +123,6 @@ public class PinballPrototype implements ApplicationListener {
 		camera.update();
 		
 		batch.setProjectionMatrix(camera.combined);
-		//batch.begin();
-		//batch.draw(texture, bucket.x, bucket.y);	
-		//batch.end();
-		/*
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		sprite.draw(batch);
-		batch.end();
-		*/
 		
 		if(Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.UP)){
 			/*
@@ -167,25 +142,6 @@ public class PinballPrototype implements ApplicationListener {
 		if(Gdx.input.isKeyPressed(Keys.RIGHT))
 			circleBody.applyForceToCenter(2000, 0);
 		
-		
-		/*
-		if(Gdx.input.isKeyPressed(Keys.LEFT))
-			bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-		
-		if(Gdx.input.isKeyPressed(Keys.RIGHT))
-			bucket.x += 200 * Gdx.graphics.getDeltaTime();
-		
-		if(bucket.x < 0)
-			bucket.x = 0;
-		if(bucket.x > WINDOW_WIDTH - bucket.width)
-			bucket.x = WINDOW_WIDTH - bucket.width;
-		
-		//bucket.y -= 200 * Gdx.graphics.getDeltaTime();
-		
-		if(bucket.y <= 0)
-			bucket.y = WINDOW_HEIGHT-48;
-		
-		*/
 		
 		// update actors and sprites
 		/*
