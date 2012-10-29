@@ -38,27 +38,6 @@ public class PinballPrototype implements ApplicationListener {
 	
 	@Override
 	public void create() {		
-		
-		/*
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		
-		camera = new OrthographicCamera(1, h/w);
-		batch = new SpriteBatch();
-		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-		
-		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
-		
-		
-		*/
-		
 		// Setting up a new world for simulating the play field
 		// Vector2 param1 = Gravity in x plane (-10 is a downwards force like in real life)
 		// Vector2 param2 = Gravity in y plane (-10 is a downwards force like in real life)
@@ -80,17 +59,20 @@ public class PinballPrototype implements ApplicationListener {
 		bucket.height = 48;
 		
 		
-		// Physics definition
+		/* 
+		 * Physics definition
+		 */
 		BodyDef bodyDef =  new BodyDef();
+		// This thing should move so we set it dynamic. A floor is a static body
 		bodyDef.type =  BodyType.DynamicBody;
 		// starting point
-		bodyDef.position.set(WINDOW_WIDTH/2,0);
+		bodyDef.position.set(WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
 		
 		Body body = world.createBody(bodyDef);
 		
 		// Create a shape
 		CircleShape circle = new CircleShape();
-		circle.setRadius(6f);
+		circle.setRadius(10f);
 		
 		// Create a fixture definition
 		FixtureDef fixtureDef = new FixtureDef();
@@ -102,7 +84,9 @@ public class PinballPrototype implements ApplicationListener {
 		Fixture fixture = body.createFixture(fixtureDef);
 		
 		
-		// Static Bodies
+		/*
+		 *  Static Bodies
+		 */
 		
 		BodyDef groundBodyDef = new BodyDef();
 		groundBodyDef.position.set(new Vector2(0,10));
@@ -115,6 +99,8 @@ public class PinballPrototype implements ApplicationListener {
 		groundBox.setAsBox(camera.viewportWidth * 2, 10f);
 		
 		groundBody.createFixture(groundBox,0.0f);
+		
+		// This debugger is useful for testing purposes
 		debugRender = new Box2DDebugRenderer();
 		
 		
@@ -137,9 +123,9 @@ public class PinballPrototype implements ApplicationListener {
 		camera.update();
 		
 		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		batch.draw(texture, bucket.x, bucket.y);	
-		batch.end();
+		//batch.begin();
+		//batch.draw(texture, bucket.x, bucket.y);	
+		//batch.end();
 		/*
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
@@ -165,7 +151,7 @@ public class PinballPrototype implements ApplicationListener {
 		if(bucket.x > WINDOW_WIDTH - bucket.width)
 			bucket.x = WINDOW_WIDTH - bucket.width;
 		
-		bucket.y -= 200 * Gdx.graphics.getDeltaTime();
+		//bucket.y -= 200 * Gdx.graphics.getDeltaTime();
 		
 		if(bucket.y <= 0)
 			bucket.y = WINDOW_HEIGHT-48;
@@ -188,7 +174,7 @@ public class PinballPrototype implements ApplicationListener {
 		*/
 		
 		
-		// Render physics
+		// Render physics should be called before physical rendering
 		debugRender.render(world, camera.combined);
 		
 		// step/update the world
