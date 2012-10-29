@@ -37,7 +37,7 @@ public class PinballPrototype implements ApplicationListener {
 	private static final int WINDOW_WIDTH= 480,WINDOW_HEIGHT = 800;;
 	private World world;
 	
-	private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
+	//private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
 	private Box2DDebugRenderer debugRender;
 	
 	
@@ -72,7 +72,6 @@ public class PinballPrototype implements ApplicationListener {
 		bodyDef.type =  BodyType.DynamicBody;
 		// starting point
 		bodyDef.position.set(WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
-		
 		circleBody = world.createBody(bodyDef);
 		
 		// Create a shape
@@ -82,7 +81,7 @@ public class PinballPrototype implements ApplicationListener {
 		// Create a fixture definition
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
-		fixtureDef.density = 1f;
+		fixtureDef.density = 0.3f; // 0.5f
 		fixtureDef.friction = 0.4f;
 		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
 		
@@ -93,24 +92,36 @@ public class PinballPrototype implements ApplicationListener {
 		 *  Static Bodies
 		 */
 		
+		float borderThickness = 3;
+		
 		BodyDef groundBodyDef = new BodyDef();
-		groundBodyDef.position.set(new Vector2(0,10));
+		groundBodyDef.position.set(new Vector2(0,borderThickness));
 		
 		// Create body of ground
 		
 		Body groundBody = world.createBody(groundBodyDef);
 		
 		PolygonShape groundBox = new PolygonShape();
-		groundBox.setAsBox(camera.viewportWidth * 2, 10f);
+		groundBox.setAsBox(camera.viewportWidth * 2, borderThickness);
 		
 		groundBody.createFixture(groundBox,0.0f);
 		
+		// Create body of ceiling
+		BodyDef ceilingBodyDef = new BodyDef();
+		ceilingBodyDef.position.set(new Vector2(0,camera.viewportHeight-borderThickness));
+		Body ceilingBody = world.createBody(ceilingBodyDef);
+		
+		PolygonShape ceilingBox = new PolygonShape();
+		ceilingBox.setAsBox(camera.viewportWidth * 2, borderThickness);
+		
+		ceilingBody.createFixture(ceilingBox,0.0f);
+		
+		
+		
+		
+		
 		// This debugger is useful for testing purposes
 		debugRender = new Box2DDebugRenderer();
-		
-		
-		
-		
 		
 	}
 
@@ -138,15 +149,23 @@ public class PinballPrototype implements ApplicationListener {
 		batch.end();
 		*/
 		
-		if(Gdx.input.isTouched()){
+		if(Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.UP)){
 			/*
+			// Get touched position
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(),Gdx.input.getY(),0);
 			camera.unproject(touchPos);
 			*/
 			
-			circleBody.applyForceToCenter(0, 10000);
+			circleBody.applyForceToCenter(0, 5000);
 		}
+		
+		
+		if(Gdx.input.isKeyPressed(Keys.LEFT))
+			circleBody.applyForceToCenter(-2000, 0);
+		
+		if(Gdx.input.isKeyPressed(Keys.RIGHT))
+			circleBody.applyForceToCenter(2000, 0);
 		
 		
 		/*
