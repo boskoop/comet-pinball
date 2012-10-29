@@ -2,6 +2,8 @@ package ch.m02.comet.pinball.prototype;
 
 import java.awt.Rectangle;
 
+import javax.swing.text.Position;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -28,6 +30,9 @@ public class PinballPrototype implements ApplicationListener {
 	//private Sprite sprite;
 	
 	private Rectangle bucket;
+	private CircleShape circle;
+	private Fixture circleFixture;
+	private Body circleBody;
 	
 	private static final int WINDOW_WIDTH= 480,WINDOW_HEIGHT = 800;;
 	private World world;
@@ -51,13 +56,13 @@ public class PinballPrototype implements ApplicationListener {
 		
 		texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
 		//texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
+		/*
 		bucket = new Rectangle();
 		bucket.x = WINDOW_WIDTH /2;
 		bucket.y = 48;
 		bucket.width = 48;
 		bucket.height = 48;
-		
+		*/
 		
 		/* 
 		 * Physics definition
@@ -68,20 +73,20 @@ public class PinballPrototype implements ApplicationListener {
 		// starting point
 		bodyDef.position.set(WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
 		
-		Body body = world.createBody(bodyDef);
+		circleBody = world.createBody(bodyDef);
 		
 		// Create a shape
-		CircleShape circle = new CircleShape();
+		circle = new CircleShape();
 		circle.setRadius(10f);
 		
 		// Create a fixture definition
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
-		fixtureDef.density = 0.5f;
+		fixtureDef.density = 1f;
 		fixtureDef.friction = 0.4f;
 		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
 		
-		Fixture fixture = body.createFixture(fixtureDef);
+		circleFixture = circleBody.createFixture(fixtureDef);
 		
 		
 		/*
@@ -134,12 +139,17 @@ public class PinballPrototype implements ApplicationListener {
 		*/
 		
 		if(Gdx.input.isTouched()){
+			/*
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(),Gdx.input.getY(),0);
 			camera.unproject(touchPos);
-			bucket.x = (int) touchPos.x - 48 / 2;
+			*/
+			
+			circleBody.applyForceToCenter(0, 10000);
 		}
 		
+		
+		/*
 		if(Gdx.input.isKeyPressed(Keys.LEFT))
 			bucket.x -= 200 * Gdx.graphics.getDeltaTime();
 		
@@ -156,7 +166,7 @@ public class PinballPrototype implements ApplicationListener {
 		if(bucket.y <= 0)
 			bucket.y = WINDOW_HEIGHT-48;
 		
-		
+		*/
 		
 		// update actors and sprites
 		/*
