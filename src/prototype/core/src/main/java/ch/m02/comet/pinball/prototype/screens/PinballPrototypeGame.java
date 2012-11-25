@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class PinballPrototypeGame implements Screen {
@@ -31,7 +32,7 @@ public class PinballPrototypeGame implements Screen {
 	// private Sprite sprite;
 
 	private CircleShape circle;
-	private Body circleBody;
+	private Body circleBody,leftFlipperBody;
 
 	private static final int WINDOW_WIDTH = 512, WINDOW_HEIGHT = 1024;
 	private World world;
@@ -41,7 +42,7 @@ public class PinballPrototypeGame implements Screen {
 	// private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
 	private Box2DDebugRenderer debugRender;
 	
-	private Fixture groundFixture, ceilingFixture, ballFixture;
+	private Fixture groundFixture, ceilingFixture, ballFixture, leftFlipper;
 	
 	
 
@@ -87,10 +88,29 @@ public class PinballPrototypeGame implements Screen {
 		fixtureDef.shape = circle;
 		fixtureDef.density = 0.5f; // 0.5f
 		fixtureDef.friction = 0.4f;
-		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
+		fixtureDef.restitution = 0.1f; // Make it bounce a little bit
 
 		/* Fixture circleFixture = */
 		ballFixture = circleBody.createFixture(fixtureDef);
+		
+		/*
+		 * Left Flipper
+		 */
+		
+		BodyDef leftFlipperBodyDef = new BodyDef();
+		leftFlipperBodyDef.type = BodyType.DynamicBody;
+		leftFlipperBodyDef.position.set(WINDOW_WIDTH / 4, WINDOW_HEIGHT /4);
+		leftFlipperBody = world.createBody(leftFlipperBodyDef);
+		Shape leftFlipper = new CircleShape();
+		leftFlipper.setRadius(20f);
+		
+		FixtureDef leftFlipperFixtureDef = new FixtureDef();
+		leftFlipperFixtureDef.shape = leftFlipper;
+		leftFlipperFixtureDef.density = 0.2f;
+		leftFlipperFixtureDef.friction = 0.8f;
+		leftFlipperFixtureDef.restitution = 0.1f;
+		Fixture leftFlipperFixture = leftFlipperBody.createFixture(leftFlipperFixtureDef);
+		
 
 		/*
 		 * Static Bodies
@@ -212,10 +232,14 @@ public class PinballPrototypeGame implements Screen {
 		if (Gdx.input.isKeyPressed(Keys.RIGHT))
 			circleBody.applyForceToCenter(2000, 0);
 
+		
 		if (Gdx.input.isKeyPressed(Keys.Q)){
-			pinballMachineSound.play();
+			leftFlipperBody.applyTorque(500000f);
 		}
 		
+		if (Gdx.input.isKeyPressed(Keys.W)){
+			leftFlipperBody.applyTorque(-500000f);
+		}
 		
 		// update actors and sprites
 		/*
@@ -236,7 +260,7 @@ public class PinballPrototypeGame implements Screen {
 		// param1 = timestep 1/60 of a second...
 		// param2 = velocityIterations
 		// param2 = positionIterations
-		world.step(1 / 60f, 6, 2);
+		world.step(1 / 30f, 6, 2);
 	}
 
 	@Override
