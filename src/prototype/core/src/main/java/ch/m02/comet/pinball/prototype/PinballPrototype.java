@@ -1,5 +1,6 @@
 package ch.m02.comet.pinball.prototype;
 
+import ch.m02.comet.pinball.prototype.screens.PinballPrototypeGame;
 import ch.m02.comet.pinball.prototype.screens.SplashScreen;
 
 import com.badlogic.gdx.Game;
@@ -11,7 +12,10 @@ public class PinballPrototype extends Game {
 	
 	@Override
 	public void create() {		
-		setScreen(new SplashScreen(this));
+		if(Configuration.SKIP_SPLASHSCREEN)
+			setScreen(new PinballPrototypeGame(this));
+		else
+			setScreen(new SplashScreen(this));
 	}
 
 	@Override

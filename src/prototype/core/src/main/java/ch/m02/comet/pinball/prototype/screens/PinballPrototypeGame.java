@@ -117,6 +117,8 @@ public class PinballPrototypeGame implements Screen {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		world.dispose();
+		debugRender.dispose();
 //		texture.dispose();
 	}
 
