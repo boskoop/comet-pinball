@@ -12,7 +12,7 @@ public class PinballPrototype extends Game {
 	
 	@Override
 	public void create() {		
-		if(Configuration.SKIP_SPLASHSCREEN)
+		if(Configuration.INSTANCE.isDebugEnabled())
 			setScreen(new PinballPrototypeGame(this));
 		else
 			setScreen(new SplashScreen(this));
