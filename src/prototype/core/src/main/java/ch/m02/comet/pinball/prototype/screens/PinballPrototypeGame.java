@@ -19,37 +19,38 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.JointDef.JointType;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 public class PinballPrototypeGame implements Screen {
 
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-//	private Texture texture;
+	// private Texture texture;
 	// private Sprite sprite;
 
 	private CircleShape circle;
-	private Body circleBody,leftFlipperBody;
+	private Body circleBody, leftFlipperBody;
 
 	private static final int WINDOW_WIDTH = 512, WINDOW_HEIGHT = 1024;
 	private World world;
-	
-	private Sound pinballMachineSound,hornSound;
+
+	private Sound pinballMachineSound, hornSound;
 
 	// private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
 	private Box2DDebugRenderer debugRender;
-	
-	private Fixture groundFixture, ceilingFixture, ballFixture, leftFlipper;
-	
-	
 
-//	private Game game;
+	private Fixture groundFixture, ceilingFixture, ballFixture, leftFlipper;
+
+	// private Game game;
 
 	public PinballPrototypeGame(Game game) {
-//		this.game = game;
+		// this.game = game;
 		create();
 	}
 
@@ -66,7 +67,7 @@ public class PinballPrototypeGame implements Screen {
 
 		batch = new SpriteBatch();
 
-//		texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
+		// texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
 		// texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		/*
@@ -92,25 +93,36 @@ public class PinballPrototypeGame implements Screen {
 
 		/* Fixture circleFixture = */
 		ballFixture = circleBody.createFixture(fixtureDef);
-		
+
 		/*
 		 * Left Flipper
 		 */
-		
+
 		BodyDef leftFlipperBodyDef = new BodyDef();
 		leftFlipperBodyDef.type = BodyType.DynamicBody;
-		leftFlipperBodyDef.position.set(WINDOW_WIDTH / 4, WINDOW_HEIGHT /4);
+		leftFlipperBodyDef.position.set(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4);
 		leftFlipperBody = world.createBody(leftFlipperBodyDef);
 		Shape leftFlipper = new CircleShape();
 		leftFlipper.setRadius(20f);
-		
+
 		FixtureDef leftFlipperFixtureDef = new FixtureDef();
 		leftFlipperFixtureDef.shape = leftFlipper;
-		leftFlipperFixtureDef.density = 0.2f;
-		leftFlipperFixtureDef.friction = 0.8f;
-		leftFlipperFixtureDef.restitution = 0.1f;
-		Fixture leftFlipperFixture = leftFlipperBody.createFixture(leftFlipperFixtureDef);
+		leftFlipperFixtureDef.density = 2f;
+		leftFlipperFixtureDef.friction = 2f;
+		leftFlipperFixtureDef.restitution = 0.2f;
+		Fixture leftFlipperFixture = leftFlipperBody
+				.createFixture(leftFlipperFixtureDef);
+
+		BodyDef leftFlipperFixPointBodyDef = new BodyDef();
+		leftFlipperFixPointBodyDef.type = BodyType.StaticBody;
+		leftFlipperBodyDef.position.set(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		Body leftFlipperFixPoint = world.createBody(leftFlipperFixPointBodyDef);
 		
+		
+		RevoluteJointDef leftFlipperJointDef = new RevoluteJointDef();
+		leftFlipperJointDef.bodyB = leftFlipperFixPoint;
+		leftFlipperJointDef.bodyA = leftFlipperBody;
+		world.createJoint(leftFlipperJointDef);
 
 		/*
 		 * Static Bodies
@@ -143,68 +155,77 @@ public class PinballPrototypeGame implements Screen {
 
 		// This debugger is useful for testing purposes
 		debugRender = new Box2DDebugRenderer();
-		
+
 		// Load sounds
-		
+
 		pinballMachineSound = loadSound("pinball-machine.mp3");
 		hornSound = loadSound("horn.mp3");
-		
+
 		// Create contact listener
 		ContactListener groundContactListener = new ContactListener() {
 			// http://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/physics/box2d/ContactListener.html
-			
+
 			@Override
 			public void postSolve(Contact arg0, ContactImpulse arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void endContact(Contact arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void beginContact(Contact contact) {
-				//pinballMachineSound.play();
-				
-				if(contact.getFixtureA() == ballFixture && contact.getFixtureB() == groundFixture 
-						|| contact.getFixtureB() == ballFixture && contact.getFixtureA() == groundFixture)
+				// pinballMachineSound.play();
+
+				if (contact.getFixtureA() == ballFixture
+						&& contact.getFixtureB() == groundFixture
+						|| contact.getFixtureB() == ballFixture
+						&& contact.getFixtureA() == groundFixture)
 					hornSound.play();
-				
-				if(contact.getFixtureA() == ballFixture && contact.getFixtureB() == ceilingFixture
-						|| contact.getFixtureB() == ballFixture && contact.getFixtureA() == ceilingFixture)
+
+				if (contact.getFixtureA() == ballFixture
+						&& contact.getFixtureB() == ceilingFixture
+						|| contact.getFixtureB() == ballFixture
+						&& contact.getFixtureA() == ceilingFixture)
 					pinballMachineSound.play();
-				
+
 			}
 
 			@Override
 			public void preSolve(Contact arg0, Manifold arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		};
 
 		world.setContactListener(groundContactListener);
 	}
-	
-	
+
 	/**
 	 * Load sound file
-	 * @param filename name of file ( relative to data/sounds/ )
+	 * 
+	 * @param filename
+	 *            name of file ( relative to data/sounds/ )
 	 * @return Sound file
 	 */
-	private static Sound loadSound (String filename) {  
-        return Gdx.audio.newSound(Gdx.files.internal("data/sounds/" + filename));  
-    } 
+	private static Sound loadSound(String filename) {
+		return Gdx.audio
+				.newSound(Gdx.files.internal("data/sounds/" + filename));
+	}
 
 	@Override
 	public void dispose() {
 		batch.dispose();
 		world.dispose();
 		debugRender.dispose();
-//		texture.dispose();
+		// texture.dispose();
+		
+		hornSound.dispose();
+		pinballMachineSound.dispose();
 	}
 
 	@Override
@@ -232,15 +253,15 @@ public class PinballPrototypeGame implements Screen {
 		if (Gdx.input.isKeyPressed(Keys.RIGHT))
 			circleBody.applyForceToCenter(2000, 0);
 
-		
-		if (Gdx.input.isKeyPressed(Keys.Q)){
-			leftFlipperBody.applyTorque(500000f);
+		if (Gdx.input.isKeyPressed(Keys.Q)) {
+			// leftFlipperBody.applyTorque(500000f);
+			leftFlipperBody.applyAngularImpulse(50000f);
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.W)){
+
+		if (Gdx.input.isKeyPressed(Keys.W)) {
 			leftFlipperBody.applyTorque(-500000f);
 		}
-		
+
 		// update actors and sprites
 		/*
 		 * Iterator<Body> bodies = world.getBodies();
@@ -255,7 +276,7 @@ public class PinballPrototypeGame implements Screen {
 
 		// Render physics should be called before physical rendering
 		debugRender.render(world, camera.combined);
-		
+
 		// step/update the world
 		// param1 = timestep 1/60 of a second...
 		// param2 = velocityIterations
