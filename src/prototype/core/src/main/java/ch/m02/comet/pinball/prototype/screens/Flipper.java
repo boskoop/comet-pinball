@@ -1,5 +1,6 @@
 package ch.m02.comet.pinball.prototype.screens;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -13,7 +14,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 public class Flipper {
-
+	private float scale = 0.75f;
+	private float force = 3000000f;
 	public final static float FACTOR_DEG_TO_RAD = (float) (Math.PI / 180);
 	private BodyDef bodyDef;
 	private Body body;
@@ -34,11 +36,17 @@ public class Flipper {
 		bodyDef.angle = (float)Math.PI;
 		body = world.createBody(bodyDef);
 		
+		PolygonShape polygonShape = new PolygonShape();
+		polygonShape.set(new float[]{0,0,100 * scale,0,100 * scale,30 * scale,0,30 * scale});
+		//polygonShape.set(new float[]{0,0,100,0,100,50,0,50});
 		
-		shape = new PolygonShape();
-		shape = new CircleShape();
+		//polygonShape.
+		
+		shape = polygonShape;
+		
+		//shape = new CircleShape();
 		//Shape leftFlipper = new CircleShape();
-		shape.setRadius(20f);
+		//shape.setRadius(20f);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
@@ -53,17 +61,20 @@ public class Flipper {
 		fixPoint = world.createBody(leftFlipperFixPointBodyDef);
 		
 		
-		RevoluteJointDef leftFlipperJointDef = new RevoluteJointDef();
-		leftFlipperJointDef.bodyB = fixPoint;
-		leftFlipperJointDef.bodyA = body;
-		leftFlipperJointDef.upperAngle = 90 * FACTOR_DEG_TO_RAD;
-		leftFlipperJointDef.lowerAngle = 0;
-		leftFlipperJointDef.enableLimit = true;
-		leftFlipperJointDef.maxMotorTorque = -100000f;
-		leftFlipperJointDef.motorSpeed = 20000000;
-		leftFlipperJointDef.enableMotor = true;
-		leftFlipperJointDef.referenceAngle = 0;
-		joint = world.createJoint(leftFlipperJointDef);
+		RevoluteJointDef jointDef = new RevoluteJointDef();
+		jointDef.bodyB = fixPoint;
+		jointDef.bodyA = body;
+		jointDef.upperAngle = 20 * FACTOR_DEG_TO_RAD;
+		jointDef.lowerAngle =  -30*  FACTOR_DEG_TO_RAD;
+		jointDef.enableLimit = true;
+		jointDef.maxMotorTorque = -10000000f;
+		jointDef.motorSpeed = 20000000;
+		//jointDef.enableMotor = true;
+		jointDef.referenceAngle = 0;
+		jointDef.localAnchorA.set(15 * scale,15 * scale);
+		jointDef.localAnchorB.set(50,50);
+		
+		joint = world.createJoint(jointDef);
 	}
 
 	
@@ -83,7 +94,10 @@ public class Flipper {
 	}
 	
 	public void moveUpward(){
-		body.applyAngularImpulse(50000f);
+		body.applyAngularImpulse(force);
 	}
 	
+	public void moveDownward(){
+		body.applyAngularImpulse(-force);
+	}
 }

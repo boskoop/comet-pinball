@@ -82,7 +82,7 @@ public class PinballPrototypeGame implements Screen {
 		// This thing should move so we set it dynamic. A floor is a static body
 		bodyDef.type = BodyType.DynamicBody;
 		// starting point
-		bodyDef.position.set(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		bodyDef.position.set(WINDOW_WIDTH / 6, WINDOW_HEIGHT / 2);
 		circleBody = world.createBody(bodyDef);
 
 		// Create a shape
@@ -94,7 +94,7 @@ public class PinballPrototypeGame implements Screen {
 		fixtureDef.shape = circle;
 		fixtureDef.density = 0.5f; // 0.5f
 		fixtureDef.friction = 0.4f;
-		fixtureDef.restitution = 0.1f; // Make it bounce a little bit
+		fixtureDef.restitution = 0f; // Make it bounce a little bit
 
 		/* Fixture circleFixture = */
 		ballFixture = circleBody.createFixture(fixtureDef);
@@ -282,6 +282,12 @@ public class PinballPrototypeGame implements Screen {
 			//leftFlipperBody.applyAngularImpulse(50000f);
 			leftFlipper.moveUpward();
 		}
+		if (!Gdx.input.isKeyPressed(Keys.Q)) {
+			// leftFlipperBody.applyTorque(500000f);
+			//leftFlipperBody.applyAngularImpulse(50000f);
+			leftFlipper.moveDownward();
+		}
+		
 		/*
 		if (Gdx.input.isKeyPressed(Keys.W)) {
 			//leftFlipperBody.applyTorque(-500000f);
