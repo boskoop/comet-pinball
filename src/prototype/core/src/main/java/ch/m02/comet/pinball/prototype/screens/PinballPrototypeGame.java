@@ -29,6 +29,8 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 public class PinballPrototypeGame implements Screen {
 
+	public final static float FACTOR_DEG_TO_RAD = (float) (Math.PI / 180);
+	
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	// private Texture texture;
@@ -45,7 +47,9 @@ public class PinballPrototypeGame implements Screen {
 	// private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
 	private Box2DDebugRenderer debugRender;
 
-	private Fixture groundFixture, ceilingFixture, ballFixture, leftFlipper;
+	private Fixture groundFixture, ceilingFixture, ballFixture;
+	
+	private Flipper leftFlipper;
 
 	// private Game game;
 
@@ -62,6 +66,7 @@ public class PinballPrototypeGame implements Screen {
 		// real life)
 		world = new World(new Vector2(0, -10), true);
 
+		//camera = new OrthographicCamera(WINDOW_WIDTH,WINDOW_HEIGHT);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -95,19 +100,28 @@ public class PinballPrototypeGame implements Screen {
 		ballFixture = circleBody.createFixture(fixtureDef);
 
 		/*
-		 * Left Flipper
+		 * Left flipper
 		 */
-
+		
+		leftFlipper = new Flipper(world,WINDOW_WIDTH/4,WINDOW_HEIGHT/4);
+		
+		/*
 		BodyDef leftFlipperBodyDef = new BodyDef();
 		leftFlipperBodyDef.type = BodyType.DynamicBody;
 		leftFlipperBodyDef.position.set(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4);
+		leftFlipperBodyDef.angle = (float)Math.PI;
 		leftFlipperBody = world.createBody(leftFlipperBodyDef);
-		Shape leftFlipper = new CircleShape();
+		
+		
+		PolygonShape leftFlipper = new PolygonShape();
+		leftFlipper.
+		
+		//Shape leftFlipper = new CircleShape();
 		leftFlipper.setRadius(20f);
 
 		FixtureDef leftFlipperFixtureDef = new FixtureDef();
 		leftFlipperFixtureDef.shape = leftFlipper;
-		leftFlipperFixtureDef.density = 2f;
+		leftFlipperFixtureDef.density = 1f;
 		leftFlipperFixtureDef.friction = 2f;
 		leftFlipperFixtureDef.restitution = 0.2f;
 		Fixture leftFlipperFixture = leftFlipperBody
@@ -122,8 +136,15 @@ public class PinballPrototypeGame implements Screen {
 		RevoluteJointDef leftFlipperJointDef = new RevoluteJointDef();
 		leftFlipperJointDef.bodyB = leftFlipperFixPoint;
 		leftFlipperJointDef.bodyA = leftFlipperBody;
+		leftFlipperJointDef.upperAngle = 90 * FACTOR_DEG_TO_RAD;
+		leftFlipperJointDef.lowerAngle = 0;
+		leftFlipperJointDef.enableLimit = true;
+		leftFlipperJointDef.maxMotorTorque = -100000f;
+		leftFlipperJointDef.motorSpeed = 20000000;
+		leftFlipperJointDef.enableMotor = true;
+		leftFlipperJointDef.referenceAngle = 0;
 		world.createJoint(leftFlipperJointDef);
-
+		*/
 		/*
 		 * Static Bodies
 		 */
@@ -155,6 +176,7 @@ public class PinballPrototypeGame implements Screen {
 
 		// This debugger is useful for testing purposes
 		debugRender = new Box2DDebugRenderer();
+	
 
 		// Load sounds
 
@@ -173,20 +195,22 @@ public class PinballPrototypeGame implements Screen {
 
 			@Override
 			public void endContact(Contact arg0) {
-				// TODO Auto-generated method stub
-
+				hornSound.stop();
+				pinballMachineSound.stop();
 			}
 
 			@Override
 			public void beginContact(Contact contact) {
-				// pinballMachineSound.play();
-
+				
+				
+				// Ball hits floor
 				if (contact.getFixtureA() == ballFixture
 						&& contact.getFixtureB() == groundFixture
 						|| contact.getFixtureB() == ballFixture
 						&& contact.getFixtureA() == groundFixture)
 					hornSound.play();
-
+				
+				// Ball hits ceiling
 				if (contact.getFixtureA() == ballFixture
 						&& contact.getFixtureB() == ceilingFixture
 						|| contact.getFixtureB() == ballFixture
@@ -244,7 +268,7 @@ public class PinballPrototypeGame implements Screen {
 			 * camera.unproject(touchPos);
 			 */
 
-			circleBody.applyForceToCenter(0, 5000);
+			circleBody.applyForceToCenter(0,5000);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT))
@@ -255,13 +279,15 @@ public class PinballPrototypeGame implements Screen {
 
 		if (Gdx.input.isKeyPressed(Keys.Q)) {
 			// leftFlipperBody.applyTorque(500000f);
-			leftFlipperBody.applyAngularImpulse(50000f);
+			//leftFlipperBody.applyAngularImpulse(50000f);
+			leftFlipper.moveUpward();
 		}
-
+		/*
 		if (Gdx.input.isKeyPressed(Keys.W)) {
-			leftFlipperBody.applyTorque(-500000f);
+			//leftFlipperBody.applyTorque(-500000f);
+			//leftFlipperBody.applyAngularImpulse(-50000f);
 		}
-
+		 */
 		// update actors and sprites
 		/*
 		 * Iterator<Body> bodies = world.getBodies();
