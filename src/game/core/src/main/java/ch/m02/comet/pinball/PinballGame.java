@@ -5,7 +5,10 @@ import ch.m02.comet.pinball.screens.MainMenuScreen;
 import ch.m02.comet.pinball.screens.SplashScreen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.FPSLogger;
 
 
 public class PinballGame extends Game {
@@ -15,6 +18,14 @@ public class PinballGame extends Game {
 	private GameScreen gameScreen;
 	private SplashScreen splashScreen;
 	private MainMenuScreen menuScreen;
+
+	private FPSLogger fpsLogger;
+
+	private MainApplication application;
+	
+	public PinballGame(MainApplication application) {
+		this.application = application;
+	}
 	
 	public Screen getGameScreen() {
 		return gameScreen;
@@ -41,6 +52,7 @@ public class PinballGame extends Game {
 		} else {
 			setScreen(splashScreen);
 		}
+		fpsLogger = new FPSLogger();
 	}
 
 	@Override
@@ -52,22 +64,15 @@ public class PinballGame extends Game {
 	}
 
 	@Override
-	public void render() {		
+	public void render() {
+		checkExit();
+		fpsLogger.log();
 		super.render();
 	}
 
-	@Override
-	public void resize(int width, int height) {
-		super.resize(width, height);
-	}
-
-	@Override
-	public void pause() {
-		super.pause();
-	}
-
-	@Override
-	public void resume() {
-		super.resume();
+	private void checkExit() {
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			application.exit();
+		}
 	}
 }
