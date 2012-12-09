@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-public class Ball implements PhysicsObject {
+public class Ball implements InteractivePhysicsObject {
 
 	// Steel has a density of 8000 kg/m^3
 	private static final float BALL_DENSITY = 8000f / PhysicsDefinition.CUBE_METER_SCALE_FACTOR;

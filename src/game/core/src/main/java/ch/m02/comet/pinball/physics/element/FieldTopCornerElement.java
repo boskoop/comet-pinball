@@ -62,8 +62,4 @@ public class FieldTopCornerElement implements PhysicsObject {
 		return body;
 	}
 
-	@Override
-	public void handlePhysicsEvents() {
-	}
-
 }

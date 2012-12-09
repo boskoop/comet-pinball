@@ -57,8 +57,4 @@ public class FieldBoundsElement implements PhysicsObject {
 		}
 	}
 
-	@Override
-	public void handlePhysicsEvents() {
-	}
-
 }

@@ -1,8 +1,8 @@
 package ch.m02.comet.pinball.screens;
 
 import ch.m02.comet.pinball.physics.Ball;
+import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
-import ch.m02.comet.pinball.physics.PhysicsObject;
 import ch.m02.comet.pinball.physics.Playfield;
 
 import com.badlogic.gdx.Game;
@@ -37,9 +37,9 @@ public class GameScreen implements Screen {
 
 	private Box2DDebugRenderer debugRender;
 
-	private PhysicsObject ball;
+	private InteractivePhysicsObject ball;
 
-	private PhysicsObject playfield;
+	private InteractivePhysicsObject playfield;
 
 	public GameScreen(Game game) {
 	}

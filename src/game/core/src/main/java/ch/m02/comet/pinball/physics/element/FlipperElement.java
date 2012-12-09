@@ -1,10 +1,10 @@
 package ch.m02.comet.pinball.physics.element;
 
+import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
+
 import com.badlogic.gdx.physics.box2d.World;
 
-import ch.m02.comet.pinball.physics.PhysicsObject;
-
-public class FlipperElement implements PhysicsObject {
+public class FlipperElement implements InteractivePhysicsObject {
 
 	@Override
 	public void init(World world) {
