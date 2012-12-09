@@ -1,7 +1,7 @@
-package ch.m02.comet.pinball.playfield.element;
+package ch.m02.comet.pinball.physics.element;
 
-import ch.m02.comet.pinball.playfield.PhysicsDefinition;
-import ch.m02.comet.pinball.playfield.PlayfieldElement;
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
+import ch.m02.comet.pinball.physics.PhysicsObject;
 import ch.m02.comet.pinball.util.DisposeUtil;
 
 import com.badlogic.gdx.math.MathUtils;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class FieldTopCorner implements PlayfieldElement {
+public class FieldTopCornerElement implements PhysicsObject {
 
 	private static final float CORNER_SIZE = 0.3f * PhysicsDefinition.METER_SCALE_FACTOR;
 	
@@ -63,7 +63,7 @@ public class FieldTopCorner implements PlayfieldElement {
 	}
 
 	@Override
-	public void render() {
+	public void handlePhysicsEvents() {
 	}
 
 }

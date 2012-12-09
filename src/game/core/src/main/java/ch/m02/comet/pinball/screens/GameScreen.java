@@ -1,10 +1,9 @@
 package ch.m02.comet.pinball.screens;
 
-import ch.m02.comet.pinball.playfield.PhysicsDefinition;
-import ch.m02.comet.pinball.playfield.PlayfieldElement;
-import ch.m02.comet.pinball.playfield.element.Ball;
-import ch.m02.comet.pinball.playfield.element.FieldBounds;
-import ch.m02.comet.pinball.playfield.element.FieldTopCorner;
+import ch.m02.comet.pinball.physics.Ball;
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
+import ch.m02.comet.pinball.physics.PhysicsObject;
+import ch.m02.comet.pinball.physics.Playfield;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -38,11 +37,9 @@ public class GameScreen implements Screen {
 
 	private Box2DDebugRenderer debugRender;
 
-	private PlayfieldElement ball;
+	private PhysicsObject ball;
 
-	private PlayfieldElement fieldBounds;
-
-	private FieldTopCorner fieldTopCorner;
+	private PhysicsObject playfield;
 
 	public GameScreen(Game game) {
 	}
@@ -57,15 +54,12 @@ public class GameScreen implements Screen {
 		final boolean yPointsDown = false;
 		camera.setToOrtho(yPointsDown, PhysicsDefinition.FIELD_WIDTH,
 				PhysicsDefinition.FIELD_HEIGHT);
+
+		playfield = new Playfield();
+		playfield.init(world);
 		
 		ball = new Ball();
 		ball.init(world);
-		
-		fieldBounds = new FieldBounds();
-		fieldBounds.init(world);
-		
-		fieldTopCorner = new FieldTopCorner();
-		fieldTopCorner.init(world);
 
 		// This debugger is useful for testing purposes
 		final boolean drawBodies = true;
@@ -86,7 +80,8 @@ public class GameScreen implements Screen {
 		clearScreen();
 		updateCamera();
 		
-		ball.render();
+		playfield.handlePhysicsEvents();
+		ball.handlePhysicsEvents();
 
 		// Render physics should be called before physical rendering
 		debugRender.render(world, camera.combined);

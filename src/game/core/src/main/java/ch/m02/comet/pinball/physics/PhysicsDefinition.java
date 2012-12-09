@@ -1,4 +1,4 @@
-package ch.m02.comet.pinball.playfield;
+package ch.m02.comet.pinball.physics;
 
 import com.badlogic.gdx.math.MathUtils;
 

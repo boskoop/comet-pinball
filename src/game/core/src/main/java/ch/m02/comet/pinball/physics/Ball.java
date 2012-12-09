@@ -1,7 +1,5 @@
-package ch.m02.comet.pinball.playfield.element;
+package ch.m02.comet.pinball.physics;
 
-import ch.m02.comet.pinball.playfield.PhysicsDefinition;
-import ch.m02.comet.pinball.playfield.PlayfieldElement;
 import ch.m02.comet.pinball.util.DisposeUtil;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-public class Ball implements PlayfieldElement {
+public class Ball implements PhysicsObject {
 
 	// Steel has a density of 8000 kg/m^3
 	private static final float BALL_DENSITY = 8000f / PhysicsDefinition.CUBE_METER_SCALE_FACTOR;
@@ -71,7 +69,7 @@ public class Ball implements PlayfieldElement {
 	}
 
 	@Override
-	public void render() {
+	public void handlePhysicsEvents() {
 		if (Gdx.input.isKeyPressed(Keys.UP)) {
 			final float force = Math.abs(ball.getMass() * 2 * PhysicsDefinition.RAMP_GRAVITY);
 			ball.applyForceToCenter(0, force);
