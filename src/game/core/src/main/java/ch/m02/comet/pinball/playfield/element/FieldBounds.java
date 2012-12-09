@@ -14,7 +14,7 @@ import ch.m02.comet.pinball.util.DisposeUtil;
 public class FieldBounds implements PlayfieldElement {
 
 	// the border is 1cm wide
-	private static final float BORDER_THICKNESS = 1.0f;
+	private static final float BORDER_THICKNESS = 0.01f * PhysicsDefinition.METER_SCALE_FACTOR;
 
 	private static final float BORDER_RADIUS = BORDER_THICKNESS / 2;
 	private static final float FIELD_WIDTH_RADIUS = PhysicsDefinition.FIELD_WIDTH / 2;

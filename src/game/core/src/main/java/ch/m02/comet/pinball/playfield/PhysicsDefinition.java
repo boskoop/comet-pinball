@@ -16,17 +16,21 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public interface PhysicsDefinition {
 
+	public static final float METER_SCALE_FACTOR = 10f;
+	public static final float SQUARE_METER_SCALE_FACTOR = METER_SCALE_FACTOR * METER_SCALE_FACTOR;
+	public static final float CUBE_METER_SCALE_FACTOR = SQUARE_METER_SCALE_FACTOR * METER_SCALE_FACTOR;
+	
 	// field size: 76cm x 140cm
-	public static final float FIELD_WIDTH = 76.0f;
-	public static final float FIELD_HEIGHT = 140.0f;
+	public static final float FIELD_WIDTH = 0.76f * METER_SCALE_FACTOR;
+	public static final float FIELD_HEIGHT = 1.40f * METER_SCALE_FACTOR;
 
 	// typical diameter = 2.7cm
 	// pinball radius: 1.35cm
-	public static final float PINBALL_RADIUS = 1.35f;
+	public static final float PINBALL_RADIUS = 0.0135f * METER_SCALE_FACTOR;
 
 	// typical value ~6.5-7 degrees
 	public static final float RAMP_ANGLE_DEGREES = 7.0f;
-	public static final float EARTH_GRAVITY = -981.0f;
+	public static final float EARTH_GRAVITY = -9.81f * METER_SCALE_FACTOR;
 	public static final float RAMP_GRAVITY = EARTH_GRAVITY
 			* MathUtils.sinDeg(RAMP_ANGLE_DEGREES);
 
