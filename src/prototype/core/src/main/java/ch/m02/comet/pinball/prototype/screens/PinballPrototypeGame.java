@@ -7,6 +7,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -46,7 +48,8 @@ public class PinballPrototypeGame implements Screen {
 	private Fixture groundFixture, ceilingFixture, ballFixture;
 	
 	private Flipper leftFlipper;
-
+	private Texture ballTexture;
+	private Sprite ballSprite;
 	// private Game game;
 
 	public PinballPrototypeGame(Game game) {
@@ -70,6 +73,11 @@ public class PinballPrototypeGame implements Screen {
 
 		// texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
 		// texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		ballTexture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
+		ballSprite = new Sprite(ballTexture);
+	
+		
 
 		/*
 		 * Physics definition
@@ -84,7 +92,7 @@ public class PinballPrototypeGame implements Screen {
 		// Create a shape
 		circle = new CircleShape();
 		circle.setRadius(10f);
-
+		ballSprite.setSize(circle.getRadius()*2,circle.getRadius()*2);
 		// Create a fixture definition
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
@@ -101,46 +109,7 @@ public class PinballPrototypeGame implements Screen {
 		
 		leftFlipper = new Flipper(world,WINDOW_WIDTH/4,WINDOW_HEIGHT/4);
 		
-		/*
-		BodyDef leftFlipperBodyDef = new BodyDef();
-		leftFlipperBodyDef.type = BodyType.DynamicBody;
-		leftFlipperBodyDef.position.set(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4);
-		leftFlipperBodyDef.angle = (float)Math.PI;
-		leftFlipperBody = world.createBody(leftFlipperBodyDef);
 		
-		
-		PolygonShape leftFlipper = new PolygonShape();
-		leftFlipper.
-		
-		//Shape leftFlipper = new CircleShape();
-		leftFlipper.setRadius(20f);
-
-		FixtureDef leftFlipperFixtureDef = new FixtureDef();
-		leftFlipperFixtureDef.shape = leftFlipper;
-		leftFlipperFixtureDef.density = 1f;
-		leftFlipperFixtureDef.friction = 2f;
-		leftFlipperFixtureDef.restitution = 0.2f;
-		Fixture leftFlipperFixture = leftFlipperBody
-				.createFixture(leftFlipperFixtureDef);
-
-		BodyDef leftFlipperFixPointBodyDef = new BodyDef();
-		leftFlipperFixPointBodyDef.type = BodyType.StaticBody;
-		leftFlipperBodyDef.position.set(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-		Body leftFlipperFixPoint = world.createBody(leftFlipperFixPointBodyDef);
-		
-		
-		RevoluteJointDef leftFlipperJointDef = new RevoluteJointDef();
-		leftFlipperJointDef.bodyB = leftFlipperFixPoint;
-		leftFlipperJointDef.bodyA = leftFlipperBody;
-		leftFlipperJointDef.upperAngle = 90 * FACTOR_DEG_TO_RAD;
-		leftFlipperJointDef.lowerAngle = 0;
-		leftFlipperJointDef.enableLimit = true;
-		leftFlipperJointDef.maxMotorTorque = -100000f;
-		leftFlipperJointDef.motorSpeed = 20000000;
-		leftFlipperJointDef.enableMotor = true;
-		leftFlipperJointDef.referenceAngle = 0;
-		world.createJoint(leftFlipperJointDef);
-		*/
 		/*
 		 * Static Bodies
 		 */
@@ -255,7 +224,7 @@ public class PinballPrototypeGame implements Screen {
 
 		camera.update();
 
-		batch.setProjectionMatrix(camera.combined);
+		//batch.setProjectionMatrix(camera.combined);
 
 		if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.UP)) {
 			/*
@@ -304,6 +273,15 @@ public class PinballPrototypeGame implements Screen {
 
 		// Render physics should be called before physical rendering
 		debugRender.render(world, camera.combined);
+		
+		batch.begin();
+		leftFlipper.draw(batch);
+		
+		ballSprite.setPosition(ballFixture.getBody().getPosition().x - ballFixture.getShape().getRadius(), ballFixture.getBody().getPosition().y- ballFixture.getShape().getRadius());
+		ballSprite.draw(batch);
+		
+		batch.end();
+		
 
 		// step/update the world
 		// param1 = timestep 1/60 of a second...
