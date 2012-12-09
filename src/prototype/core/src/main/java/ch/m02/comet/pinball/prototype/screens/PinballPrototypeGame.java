@@ -37,13 +37,13 @@ public class PinballPrototypeGame implements Screen {
 
 	private static final int WINDOW_WIDTH = 512, WINDOW_HEIGHT = 1024;
 	private World world;
-	
+
 	private Sound pinballMachineSound, hornSound;
 
 	// private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
 	private Box2DDebugRenderer debugRender;
 
-	private Fixture groundFixture, ceilingFixture, ballFixture, leftFixture, rightFixture;
+	private Fixture groundFixture, ceilingFixture, ballFixture;
 	
 	private Flipper leftFlipper;
 
@@ -158,7 +158,6 @@ public class PinballPrototypeGame implements Screen {
 		groundBox.setAsBox(camera.viewportWidth * 2, borderThickness);
 
 		groundFixture = groundBody.createFixture(groundBox, 0.0f);
-		groundFixture.setRestitution(1f);
 
 		// Create body of ceiling
 		BodyDef ceilingBodyDef = new BodyDef();
@@ -170,29 +169,6 @@ public class PinballPrototypeGame implements Screen {
 		ceilingBox.setAsBox(camera.viewportWidth * 2, borderThickness);
 
 		ceilingFixture = ceilingBody.createFixture(ceilingBox, 0.0f);
-		ceilingFixture.setRestitution(1f);
-		
-		// Create left body
-		BodyDef leftBodyDef = new BodyDef();
-		leftBodyDef.position.set(new Vector2(0, 0));
-		Body leftBody = world.createBody(leftBodyDef);
-		
-		PolygonShape leftBox = new PolygonShape();
-		leftBox.setAsBox(borderThickness, camera.viewportHeight * 2);
-		
-		leftFixture = leftBody.createFixture(leftBox, 0.0f);
-		leftFixture.setRestitution(1f);
-		
-		// Create right body
-		BodyDef rightBodyDef = new BodyDef();
-		rightBodyDef.position.set(new Vector2(camera.viewportWidth - borderThickness, 0));
-		Body rightBody = world.createBody(rightBodyDef);
-		
-		PolygonShape rightBox = new PolygonShape();
-		rightBox.setAsBox(borderThickness, camera.viewportHeight * 2);
-		
-		rightFixture = rightBody.createFixture(rightBox, 0.0f);
-		rightFixture.setRestitution(1f);
 
 		// This debugger is useful for testing purposes
 		debugRender = new Box2DDebugRenderer();
@@ -210,6 +186,7 @@ public class PinballPrototypeGame implements Screen {
 			@Override
 			public void postSolve(Contact arg0, ContactImpulse arg1) {
 				// TODO Auto-generated method stub
+
 			}
 
 			@Override
@@ -220,6 +197,8 @@ public class PinballPrototypeGame implements Screen {
 
 			@Override
 			public void beginContact(Contact contact) {
+				
+				
 				// Ball hits floor
 				if (contact.getFixtureA() == ballFixture
 						&& contact.getFixtureB() == groundFixture
@@ -239,6 +218,7 @@ public class PinballPrototypeGame implements Screen {
 			@Override
 			public void preSolve(Contact arg0, Manifold arg1) {
 				// TODO Auto-generated method stub
+
 			}
 		};
 
@@ -334,26 +314,31 @@ public class PinballPrototypeGame implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void show() {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void hide() {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void pause() {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void resume() {
+		// TODO Auto-generated method stub
 
 	}
 

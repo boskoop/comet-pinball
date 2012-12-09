@@ -5,9 +5,9 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
+import ch.m02.comet.pinball.PinballGame;
 import ch.m02.comet.pinball.tween.SpriteTween;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -22,12 +22,19 @@ public class SplashScreen implements Screen {
 	Sprite splashSprite;
 	SpriteBatch batch;
 	TweenManager tweenManager;
-	Game game;
+	PinballGame game;
 
-	public SplashScreen(Game game) {
+	public SplashScreen(PinballGame game) {
 		this.game = game;
 	}
-
+	
+	public void init() {
+		splashTexture = new Texture("data/splash.png");
+		splashTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		batch = new SpriteBatch();
+	}
+	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1); // black
@@ -45,13 +52,8 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void show() {
-		splashTexture = new Texture("data/splash.png");
-		splashTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
 		splashSprite = new Sprite(splashTexture);
 		splashSprite.setColor(1, 1, 1, 0);
-
-		batch = new SpriteBatch();
 
 		Tween.registerAccessor(Sprite.class, new SpriteTween());
 		tweenManager = new TweenManager();
@@ -71,7 +73,7 @@ public class SplashScreen implements Screen {
 	}
 
 	private void tweenCompleted() {
-		game.setScreen(new MainMenu(game));
+		game.setScreen(game.getMenuScreen());
 	}
 
 	@Override
@@ -88,6 +90,8 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		batch.dispose();
+		splashTexture.dispose();
 	}
 
 }

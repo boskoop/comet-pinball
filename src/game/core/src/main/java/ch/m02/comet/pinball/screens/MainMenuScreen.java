@@ -1,7 +1,8 @@
 package ch.m02.comet.pinball.screens;
 
 
-import com.badlogic.gdx.Game;
+import ch.m02.comet.pinball.PinballGame;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -13,13 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class MainMenu implements Screen {
+public class MainMenuScreen implements Screen {
 
 	private static final String DRAWABLE_BUTTON = "buttonnormal";
 	private static final String DRAWABLE_BUTTON_PRESSED = "buttonpressed";
@@ -33,10 +34,22 @@ public class MainMenu implements Screen {
 	private TextButton button;
 	private Label gameNameLabel;
 	
-	private Game game;
+	private PinballGame game;
 
-	public MainMenu(Game game) {
+	public MainMenuScreen(PinballGame game) {
 		this.game = game;
+	}
+	
+	public void init(){
+		batch = new SpriteBatch();
+		atlas = new TextureAtlas("data/menu/button.pack");
+		skin = new Skin();
+		skin.addRegions(atlas);
+		blackFont = new BitmapFont(Gdx.files.internal("data/menu/nueva_black.fnt"),
+				false);
+		whiteFont = new BitmapFont(Gdx.files.internal("data/menu/nueva_white.fnt"),
+				false);
+		stage = new Stage();
 	}
 
 	@Override
@@ -81,7 +94,7 @@ public class MainMenu implements Screen {
 			@Override
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				game.setScreen(new GameScreen(game));
+				game.setScreen(game.getGameScreen());
 			}
 		});
 		
@@ -98,19 +111,10 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void show() {
-		batch = new SpriteBatch();
-		atlas = new TextureAtlas("data/menu/button.pack");
-		skin = new Skin();
-		skin.addRegions(atlas);
-		blackFont = new BitmapFont(Gdx.files.internal("data/menu/nueva_black.fnt"),
-				false);
-		whiteFont = new BitmapFont(Gdx.files.internal("data/menu/nueva_white.fnt"),
-				false);
 	}
 
 	@Override
 	public void hide() {
-		dispose();
 	}
 
 	@Override

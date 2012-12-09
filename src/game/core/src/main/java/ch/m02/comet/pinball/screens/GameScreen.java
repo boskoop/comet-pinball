@@ -4,9 +4,10 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -21,39 +22,58 @@ public class GameScreen implements Screen {
 
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-//	private Texture texture;
-	// private Sprite sprite;
 
-	private CircleShape circle;
 	private Body circleBody;
 
-	private static final int WINDOW_WIDTH = 512, WINDOW_HEIGHT = 1024;
+	// a typical pinball machine is 76cm x 140cm
+	// we use scale 6px = 1cm in real
+	// 6*76 = 456
+	public static final int WINDOW_WIDTH = 456;
+	// 6*140 = 840
+	public static final int WINDOW_HEIGHT = 840;
+
 	private World world;
 
-	// private static final float WORLD_TO_BOX = 0.01f, BOX_WORLD_TO = 100f;
-	private Box2DDebugRenderer debugRender;
+	// 600px are 1m in real -> 1 box2d unit = 1m
+//	private static final float BOX_TO_WORLD = 600f;
+//	private static final float WORLD_TO_BOX = 1 / BOX_TO_WORLD;
+	private static final float FACTOR = 100f;
+	
+	private static final float FIELD_WIDTH = 0.76f * FACTOR;
+	private static final float FIELD_HEIGHT = 1.40f * FACTOR;
+	
+	// typical diameter = 2.7cm
+	// pinball radius: 1.35cm
+	private static final float PINBALL_RADIUS = 0.0135f * FACTOR;
+	
+	// typical value ~6.5-7 degrees
+	private static final float RAMP_ANGLE_DEGREES = 7f;
+	private static final float EARTH_GRAVITY = -9.81f * FACTOR;
+	private static final float RAMP_GRAVITY = EARTH_GRAVITY * MathUtils.sinDeg(RAMP_ANGLE_DEGREES);
 
-//	private Game game;
+	private Box2DDebugRenderer debugRender;
+	private static final int VELOCITY_ITERATIONS = 8;
+	private static final int POSITION_ITERATIONS = 8;
+
+	// private Game game;
 
 	public GameScreen(Game game) {
-//		this.game = game;
-		create();
+		// this.game = game;
 	}
 
-	public void create() {
+	public void init() {
 		// Setting up a new world for simulating the play field
-		// Vector2 param1 = Gravity in x plane (-10 is a downwards force like in
-		// real life)
-		// Vector2 param2 = Gravity in y plane (-10 is a downwards force like in
-		// real life)
-		world = new World(new Vector2(0, -10), true);
+		final Vector2 gravity = new Vector2(0, RAMP_GRAVITY);
+		final boolean dontSimulateInactiveBodies = true;
+		world = new World(gravity, dontSimulateInactiveBodies);
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
+		final boolean yPointsDown = false;
+		camera.setToOrtho(yPointsDown, FIELD_WIDTH, FIELD_HEIGHT);
 
 		batch = new SpriteBatch();
 
-//		texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
+		// texture = new Texture(Gdx.files.internal("data/metallkugel.jpg"));
 		// texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		/*
@@ -63,53 +83,80 @@ public class GameScreen implements Screen {
 		// This thing should move so we set it dynamic. A floor is a static body
 		bodyDef.type = BodyType.DynamicBody;
 		// starting point
-		bodyDef.position.set(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		bodyDef.position.set(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
 		circleBody = world.createBody(bodyDef);
 
 		// Create a shape
-		circle = new CircleShape();
-		circle.setRadius(10f);
+		CircleShape circle = new CircleShape();
+		circle.setRadius(PINBALL_RADIUS);
 
 		// Create a fixture definition
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
-		fixtureDef.density = 0.5f; // 0.5f
+		fixtureDef.density = 8000f / (FACTOR * FACTOR * FACTOR); // kg/cm^3
 		fixtureDef.friction = 0.4f;
-		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
+		fixtureDef.restitution = 0.56f; // Make it bounce a little bit
 
 		/* Fixture circleFixture = */
 		circleBody.createFixture(fixtureDef);
+		circle.dispose();
 
 		/*
 		 * Static Bodies
 		 */
-
-		float borderThickness = 3;
+		final float borderThickness = 1f;
 
 		BodyDef groundBodyDef = new BodyDef();
-		groundBodyDef.position.set(new Vector2(0, borderThickness));
+		groundBodyDef.type = BodyType.StaticBody;
+		groundBodyDef.position.set(FIELD_WIDTH / 2, borderThickness / 2);
 
 		// Create body of ground
-
 		Body groundBody = world.createBody(groundBodyDef);
 
 		PolygonShape groundBox = new PolygonShape();
-		groundBox.setAsBox(camera.viewportWidth * 2, borderThickness);
+		groundBox.setAsBox(FIELD_WIDTH / 2, borderThickness / 2);
 
 		groundBody.createFixture(groundBox, 0.0f);
+		groundBox.dispose();
 
 		// Create body of ceiling
 		BodyDef ceilingBodyDef = new BodyDef();
-		ceilingBodyDef.position.set(new Vector2(0, camera.viewportHeight
-				- borderThickness));
+		ceilingBodyDef.type = BodyType.StaticBody;
+		ceilingBodyDef.position.set(FIELD_WIDTH / 2, FIELD_HEIGHT - (borderThickness / 2));
 		Body ceilingBody = world.createBody(ceilingBodyDef);
 
 		PolygonShape ceilingBox = new PolygonShape();
-		ceilingBox.setAsBox(camera.viewportWidth * 2, borderThickness);
+		ceilingBox.setAsBox(FIELD_WIDTH / 2, borderThickness / 2);
 
 		ceilingBody.createFixture(ceilingBox, 0.0f);
+		ceilingBox.dispose();
 
+		// Create left body
+		BodyDef leftBodyDef = new BodyDef();
+		leftBodyDef.type = BodyType.StaticBody;
+		leftBodyDef.position.set(borderThickness / 2, FIELD_HEIGHT / 2);
+		Body leftBody = world.createBody(leftBodyDef);
+
+		PolygonShape leftBox = new PolygonShape();
+		leftBox.setAsBox(borderThickness / 2, FIELD_HEIGHT / 2);
+
+		leftBody.createFixture(leftBox, 0.0f);
+		leftBox.dispose();
+
+		// Create right body
+		BodyDef rightBodyDef = new BodyDef();
+		rightBodyDef.type = BodyType.StaticBody;
+		rightBodyDef.position.set(FIELD_WIDTH - (borderThickness / 2), FIELD_HEIGHT / 2);
+		Body rightBody = world.createBody(rightBodyDef);
+
+		PolygonShape rightBox = new PolygonShape();
+		rightBox.setAsBox(borderThickness / 2, FIELD_HEIGHT / 2);
+
+		rightBody.createFixture(rightBox, 0.0f);
+		rightBox.dispose();
+		
 		// This debugger is useful for testing purposes
+		// debugRender = new Box2DDebugRenderer(true, true, false, true);
 		debugRender = new Box2DDebugRenderer();
 
 	}
@@ -119,33 +166,39 @@ public class GameScreen implements Screen {
 		batch.dispose();
 		world.dispose();
 		debugRender.dispose();
-//		texture.dispose();
+		// texture.dispose();
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		clearScreen();
 
+		if (Gdx.input.isKeyPressed(Keys.Q)) {
+			camera.zoom = 1f;
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.Z)) {
+			camera.zoom *= 1.02f;
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			camera.zoom /= 1.02f;
+		}
 		camera.update();
 
 		batch.setProjectionMatrix(camera.combined);
 
-		if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.UP)) {
-			/*
-			 * // Get touched position Vector3 touchPos = new Vector3();
-			 * touchPos.set(Gdx.input.getX(),Gdx.input.getY(),0);
-			 * camera.unproject(touchPos);
-			 */
-
-			circleBody.applyForceToCenter(0, 5000);
+		if (Gdx.input.isKeyPressed(Keys.UP)) {
+			circleBody.applyForceToCenter(0, circleBody.getMass() * (-2) * RAMP_GRAVITY);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.LEFT))
-			circleBody.applyForceToCenter(-2000, 0);
+		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+			circleBody.applyForceToCenter(circleBody.getMass() * RAMP_GRAVITY, 0);
+		}
 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT))
-			circleBody.applyForceToCenter(2000, 0);
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			circleBody.applyForceToCenter(circleBody.getMass() * -RAMP_GRAVITY, 0);
+		}
 
 		// update actors and sprites
 		/*
@@ -161,12 +214,14 @@ public class GameScreen implements Screen {
 
 		// Render physics should be called before physical rendering
 		debugRender.render(world, camera.combined);
-
+		
 		// step/update the world
-		// param1 = timestep 1/60 of a second...
-		// param2 = velocityIterations
-		// param2 = positionIterations
-		world.step(1 / 60f, 6, 2);
+		world.step(delta, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+	}
+
+	private void clearScreen() {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 
 	@Override
