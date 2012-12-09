@@ -20,12 +20,12 @@ public class PlungerTubeElement implements PhysicsObject {
 
 	@Override
 	public void init(World world) {
-		BoxPolygonCreator creator = new BoxPolygonCreator(world);
+		BodyCreator creator = new BodyCreator(world);
 		
 		Vector2 dimension = new Vector2(ELEMENT_THICKNESS_RADIUS, ELEMENT_LENGTH_RADIUS);
 		float xPosition = PhysicsDefinition.FIELD_WIDTH - TUBE_TO_BORDER_DISTANCE - ELEMENT_THICKNESS_RADIUS;
 		Vector2 position = new Vector2(xPosition, ELEMENT_LENGTH_RADIUS);
-		creator.createBoxPolygonBody(dimension, position);
+		creator.createStaticBoxBody(dimension, position);
 	}
 
 }

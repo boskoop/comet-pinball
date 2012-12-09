@@ -17,23 +17,23 @@ public class FieldBoundsElement implements PhysicsObject {
 
 	@Override
 	public void init(World world) {
-		BoxPolygonCreator creator = new BoxPolygonCreator(world);
+		BodyCreator creator = new BodyCreator(world);
 		
 		Vector2 groundDimension = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
 		Vector2 groundPosition = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
-		creator.createBoxPolygonBody(groundDimension, groundPosition);
+		creator.createStaticBoxBody(groundDimension, groundPosition);
 
 		Vector2 ceilingDimension = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
 		Vector2 ceilingPosition = new Vector2(FIELD_WIDTH_RADIUS, PhysicsDefinition.FIELD_HEIGHT - BORDER_RADIUS);
-		creator.createBoxPolygonBody(ceilingDimension, ceilingPosition);
+		creator.createStaticBoxBody(ceilingDimension, ceilingPosition);
 
 		Vector2 leftBoundDimension = new Vector2(BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
 		Vector2 leftBoundPosition = new Vector2(BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
-		creator.createBoxPolygonBody(leftBoundDimension, leftBoundPosition);
+		creator.createStaticBoxBody(leftBoundDimension, leftBoundPosition);
 
 		Vector2 rightBoundDimension = new Vector2(BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
 		Vector2 rightBoundPosition = new Vector2(PhysicsDefinition.FIELD_WIDTH - BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
-		creator.createBoxPolygonBody(rightBoundDimension, rightBoundPosition);
+		creator.createStaticBoxBody(rightBoundDimension, rightBoundPosition);
 		
 	}
 

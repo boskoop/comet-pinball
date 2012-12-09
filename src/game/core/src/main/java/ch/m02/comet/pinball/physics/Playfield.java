@@ -3,6 +3,7 @@ package ch.m02.comet.pinball.physics;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.m02.comet.pinball.physics.element.FieldBottomCornerElement;
 import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
 import ch.m02.comet.pinball.physics.element.FlipperElement;
@@ -18,6 +19,7 @@ public class Playfield implements InteractivePhysicsObject {
 	public Playfield() {
 		physicsObjects.add(new FieldBoundsElement());
 		physicsObjects.add(new FieldTopCornerElement());
+		physicsObjects.add(new FieldBottomCornerElement());
 		physicsObjects.add(new PlungerTubeElement());
 
 		interactiveObjects.add(new FlipperElement());
