@@ -4,7 +4,7 @@ import ch.m02.comet.pinball.playfield.PhysicsDefinition;
 import ch.m02.comet.pinball.playfield.PlayfieldElement;
 import ch.m02.comet.pinball.playfield.element.Ball;
 import ch.m02.comet.pinball.playfield.element.FieldBounds;
-import ch.m02.comet.pinball.playfield.element.FieldCorner;
+import ch.m02.comet.pinball.playfield.element.FieldTopCorner;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -42,6 +42,8 @@ public class GameScreen implements Screen {
 
 	private PlayfieldElement fieldBounds;
 
+	private FieldTopCorner fieldTopCorner;
+
 	public GameScreen(Game game) {
 	}
 
@@ -62,7 +64,8 @@ public class GameScreen implements Screen {
 		fieldBounds = new FieldBounds();
 		fieldBounds.init(world);
 		
-		new FieldCorner().init(world);
+		fieldTopCorner = new FieldTopCorner();
+		fieldTopCorner.init(world);
 
 		// This debugger is useful for testing purposes
 		final boolean drawBodies = true;
