@@ -108,7 +108,9 @@ public class Ball implements InteractivePhysicsObject {
 		// Should be the last handled event since it overrides the others
 		if (Gdx.input.isKeyPressed(Keys.R)) {
 			ball.setLinearVelocity(Vector2.Zero);
+			ball.setAngularVelocity(0f);
 			ball.setTransform(ballResetPosition, 0);
+			ball.setAwake(true);
 		}
 	}
 	

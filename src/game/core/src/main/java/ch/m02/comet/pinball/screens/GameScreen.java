@@ -77,6 +77,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		if (delta > 0.02) {
+			Gdx.app.log(GameScreen.class.getCanonicalName(), "Slow frame, took " + delta + " seconds");
+		}
 		clearScreen();
 		updateCamera();
 		
