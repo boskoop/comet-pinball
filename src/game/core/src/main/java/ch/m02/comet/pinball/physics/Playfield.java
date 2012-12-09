@@ -6,6 +6,7 @@ import java.util.List;
 import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
 import ch.m02.comet.pinball.physics.element.FlipperElement;
+import ch.m02.comet.pinball.physics.element.PlungerTubeElement;
 
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -17,6 +18,7 @@ public class Playfield implements InteractivePhysicsObject {
 	public Playfield() {
 		physicsObjects.add(new FieldBoundsElement());
 		physicsObjects.add(new FieldTopCornerElement());
+		physicsObjects.add(new PlungerTubeElement());
 
 		interactiveObjects.add(new FlipperElement());
 		interactiveObjects.add(new FlipperElement());

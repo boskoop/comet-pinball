@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class FieldTopCornerElement implements PhysicsObject {
 
-	private static final float CORNER_SIZE = 0.3f * PhysicsDefinition.METER_SCALE_FACTOR;
+	static final float CORNER_SIZE = 0.3f * PhysicsDefinition.METER_SCALE_FACTOR;
 	
 	private static final float TOTAL_ANGLE_DEGREES = 90f;
 	private static final int NUMBER_OF_ELEMENTS = 30;

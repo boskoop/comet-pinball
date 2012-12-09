@@ -1,15 +1,10 @@
 package ch.m02.comet.pinball.physics.element;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.PhysicsObject;
-import ch.m02.comet.pinball.util.DisposeUtil;
+
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class FieldBoundsElement implements PhysicsObject {
 
@@ -22,39 +17,24 @@ public class FieldBoundsElement implements PhysicsObject {
 
 	@Override
 	public void init(World world) {
+		BoxPolygonCreator creator = new BoxPolygonCreator(world);
+		
 		Vector2 groundDimension = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
 		Vector2 groundPosition = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
-		createBound(world, groundDimension, groundPosition);
+		creator.createBoxPolygonBody(groundDimension, groundPosition);
 
 		Vector2 ceilingDimension = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
 		Vector2 ceilingPosition = new Vector2(FIELD_WIDTH_RADIUS, PhysicsDefinition.FIELD_HEIGHT - BORDER_RADIUS);
-		createBound(world, ceilingDimension, ceilingPosition);
+		creator.createBoxPolygonBody(ceilingDimension, ceilingPosition);
 
 		Vector2 leftBoundDimension = new Vector2(BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
 		Vector2 leftBoundPosition = new Vector2(BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
-		createBound(world, leftBoundDimension, leftBoundPosition);
+		creator.createBoxPolygonBody(leftBoundDimension, leftBoundPosition);
 
 		Vector2 rightBoundDimension = new Vector2(BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
 		Vector2 rightBoundPosition = new Vector2(PhysicsDefinition.FIELD_WIDTH - BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
-		createBound(world, rightBoundDimension, rightBoundPosition);
+		creator.createBoxPolygonBody(rightBoundDimension, rightBoundPosition);
 		
-	}
-
-	private void createBound(World world, Vector2 dimension, Vector2 position) {
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.StaticBody;
-		bodyDef.position.set(position);
-		Body body = world.createBody(bodyDef);
-
-		PolygonShape shape = null;
-		try {
-			shape = new PolygonShape();
-			shape.setAsBox(dimension.x, dimension.y);
-
-			body.createFixture(shape, 0.0f);
-		} finally {
-			DisposeUtil.safelyDispose(shape);
-		}
 	}
 
 }

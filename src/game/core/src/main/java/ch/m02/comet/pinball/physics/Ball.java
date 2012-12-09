@@ -13,6 +13,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Ball implements InteractivePhysicsObject {
+	
+	private static final float DEFAULT_BALL_RESET_X = PhysicsDefinition.FIELD_WIDTH - (0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
+	private static final float DEFAULT_BALL_RESET_Y = (0.02f * PhysicsDefinition.METER_SCALE_FACTOR) + PhysicsDefinition.PINBALL_RADIUS;
 
 	// Steel has a density of 8000 kg/m^3
 	private static final float BALL_DENSITY = 8000f / PhysicsDefinition.CUBE_METER_SCALE_FACTOR;
@@ -34,6 +37,12 @@ public class Ball implements InteractivePhysicsObject {
 	private static final float PLUNGE_DURATION = 0.1f;
 	private static final long MILLISECONDS_TO_NANOSECONDS = 1000000L;
 	private static final long MIN_PLUNGE_INTERVAL_NANOS = MIN_PLUNGE_INTERVAL * MILLISECONDS_TO_NANOSECONDS;
+	
+	private final Vector2 ballResetPosition;
+	
+	public Ball() {
+		ballResetPosition = new Vector2(DEFAULT_BALL_RESET_X, DEFAULT_BALL_RESET_Y);
+	}
 
 	@Override
 	public void init(World world) {
@@ -94,6 +103,12 @@ public class Ball implements InteractivePhysicsObject {
 				lastPlunge = currentTime;
 				plungeBall();
 			}
+		}
+		
+		// Should be the last handled event since it overrides the others
+		if (Gdx.input.isKeyPressed(Keys.R)) {
+			ball.setLinearVelocity(Vector2.Zero);
+			ball.setTransform(ballResetPosition, 0);
 		}
 	}
 	
