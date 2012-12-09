@@ -43,8 +43,6 @@ public class FieldBounds implements PlayfieldElement {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.position.set(position);
-
-		// Create body of ground
 		Body body = world.createBody(bodyDef);
 
 		PolygonShape shape = null;
