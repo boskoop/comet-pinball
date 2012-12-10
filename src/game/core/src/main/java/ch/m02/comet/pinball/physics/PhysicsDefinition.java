@@ -28,6 +28,9 @@ public interface PhysicsDefinition {
 	// pinball radius: 1.35cm
 	public static final float PINBALL_RADIUS = 0.0135f * METER_SCALE_FACTOR;
 
+	// Steel restitution coefficient
+	public static final float STEEL_RESTITUTION = 0.56f;
+	
 	// typical value ~6.5-7 degrees
 	public static final float RAMP_ANGLE_DEGREES = 7.0f;
 	public static final float EARTH_GRAVITY = -9.81f * METER_SCALE_FACTOR;

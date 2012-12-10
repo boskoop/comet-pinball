@@ -1,10 +1,12 @@
 package ch.m02.comet.pinball.physics.element;
 
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.util.DisposeUtil;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -30,8 +32,10 @@ class BodyCreator {
 		try {
 			shape = new PolygonShape();
 			shape.setAsBox(dimension.x, dimension.y);
-
-			body.createFixture(shape, 0.0f);
+			FixtureDef fixture = new FixtureDef();
+			fixture.shape = shape;
+			fixture.restitution = PhysicsDefinition.STEEL_RESTITUTION;
+			body.createFixture(fixture);
 		} finally {
 			DisposeUtil.safelyDispose(shape);
 		}
@@ -51,7 +55,10 @@ class BodyCreator {
 		try {
 			shape = new PolygonShape();
 			shape.set(vertices);
-			body.createFixture(shape, 0.0f);
+			FixtureDef fixture = new FixtureDef();
+			fixture.shape = shape;
+			fixture.restitution = PhysicsDefinition.STEEL_RESTITUTION;
+			body.createFixture(fixture);
 		} finally {
 			DisposeUtil.safelyDispose(shape);
 		}

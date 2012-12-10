@@ -1,9 +1,13 @@
 package ch.m02.comet.pinball.physics.element;
 
+import java.util.ArrayList;
+
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.PhysicsObject;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class FieldBoundsElement implements PhysicsObject {
@@ -21,7 +25,11 @@ public class FieldBoundsElement implements PhysicsObject {
 		
 		Vector2 groundDimension = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
 		Vector2 groundPosition = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
-		creator.createStaticBoxBody(groundDimension, groundPosition);
+		Body ground = creator.createStaticBoxBody(groundDimension, groundPosition);
+		ArrayList<Fixture> groundFixtures = ground.getFixtureList();
+		for (Fixture f : groundFixtures) {
+			f.setRestitution(0.2f);
+		}
 
 		Vector2 ceilingDimension = new Vector2(FIELD_WIDTH_RADIUS, BORDER_RADIUS);
 		Vector2 ceilingPosition = new Vector2(FIELD_WIDTH_RADIUS, PhysicsDefinition.FIELD_HEIGHT - BORDER_RADIUS);

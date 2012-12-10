@@ -23,8 +23,8 @@ public class Ball implements InteractivePhysicsObject {
 	// Steel on stell friction coefficient
 	private static final float BALL_FRICTION = 0.4f;
 
-	// Steel restitution coefficient
-	private static final float BALL_RESTITUTION = 0.56f;
+	// Bouncing shoud be dependent on ground (tends to bigger value)
+	private static final float BALL_RESTITUTION = 0f;
 
 	private Body ball;
 	
