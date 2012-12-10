@@ -28,6 +28,9 @@ public interface PhysicsDefinition {
 	// pinball radius: 1.35cm
 	public static final float PINBALL_RADIUS = 0.0135f * METER_SCALE_FACTOR;
 
+	// Steel has a density of 8000 kg/m^3
+	public static final float STEEL_DENSITY = 8000f / CUBE_METER_SCALE_FACTOR;
+	
 	// Steel restitution coefficient
 	public static final float STEEL_RESTITUTION = 0.56f;
 	

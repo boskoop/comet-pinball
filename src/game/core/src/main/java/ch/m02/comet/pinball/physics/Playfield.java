@@ -23,7 +23,6 @@ public class Playfield implements InteractivePhysicsObject {
 		physicsObjects.add(new PlungerTubeElement());
 
 		interactiveObjects.add(new FlipperElement());
-		interactiveObjects.add(new FlipperElement());
 	}
 
 	@Override

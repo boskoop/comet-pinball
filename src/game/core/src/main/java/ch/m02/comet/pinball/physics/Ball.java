@@ -17,9 +17,6 @@ public class Ball implements InteractivePhysicsObject {
 	private static final float DEFAULT_BALL_RESET_X = PhysicsDefinition.FIELD_WIDTH - (0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
 	private static final float DEFAULT_BALL_RESET_Y = (0.02f * PhysicsDefinition.METER_SCALE_FACTOR) + PhysicsDefinition.PINBALL_RADIUS;
 
-	// Steel has a density of 8000 kg/m^3
-	private static final float BALL_DENSITY = 8000f / PhysicsDefinition.CUBE_METER_SCALE_FACTOR;
-
 	// Steel on stell friction coefficient
 	private static final float BALL_FRICTION = 0.4f;
 
@@ -58,12 +55,13 @@ public class Ball implements InteractivePhysicsObject {
 		} finally {
 			DisposeUtil.safelyDispose(circle);
 		}
+		ball.setBullet(true);
 	}
 
 	private FixtureDef defineBallFixture(CircleShape circle) {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
-		fixtureDef.density = BALL_DENSITY;
+		fixtureDef.density = PhysicsDefinition.STEEL_DENSITY;
 		fixtureDef.friction = BALL_FRICTION;
 		fixtureDef.restitution = BALL_RESTITUTION;
 		return fixtureDef;
@@ -72,8 +70,7 @@ public class Ball implements InteractivePhysicsObject {
 	private BodyDef defineBallBody() {
 		BodyDef ballDef = new BodyDef();
 		ballDef.type = BodyType.DynamicBody;
-		ballDef.position.set(PhysicsDefinition.FIELD_WIDTH / 2,
-				PhysicsDefinition.FIELD_HEIGHT / 2);
+		ballDef.position.set(ballResetPosition);
 		return ballDef;
 	}
 
