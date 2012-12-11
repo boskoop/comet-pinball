@@ -9,6 +9,7 @@ import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
 import ch.m02.comet.pinball.physics.element.FlipperElement;
 import ch.m02.comet.pinball.physics.element.PlungerTubeElement;
 
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Playfield implements InteractivePhysicsObject {
@@ -40,6 +41,12 @@ public class Playfield implements InteractivePhysicsObject {
 		for (InteractivePhysicsObject object : interactiveObjects) {
 			object.handlePhysicsEvents();
 		}
+	}
+	
+	@Override
+	public Body getBody() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

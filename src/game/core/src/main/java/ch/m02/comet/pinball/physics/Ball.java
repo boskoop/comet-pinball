@@ -7,10 +7,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Ball implements InteractivePhysicsObject {
 	
@@ -24,6 +24,7 @@ public class Ball implements InteractivePhysicsObject {
 	private static final float BALL_RESTITUTION = 0f;
 
 	private Body ball;
+	
 	
 	private long lastPlunge = 0L;
 	// min plunge interval in units of milliseconds
@@ -120,4 +121,10 @@ public class Ball implements InteractivePhysicsObject {
 				"force: " + impulse.y + "Ns");
 		ball.applyLinearImpulse(impulse, ballWorldCenter);
 	}
+
+	@Override
+	public Body getBody() {
+		return ball;
+	}
+
 }

@@ -23,6 +23,8 @@ public interface PhysicsDefinition {
 	// field size: 76cm x 140cm
 	public static final float FIELD_WIDTH = 0.76f * METER_SCALE_FACTOR;
 	public static final float FIELD_HEIGHT = 1.40f * METER_SCALE_FACTOR;
+	
+	public static final float BOX2D_TO_WORLD = 60;
 
 	// typical diameter = 2.7cm
 	// pinball radius: 1.35cm

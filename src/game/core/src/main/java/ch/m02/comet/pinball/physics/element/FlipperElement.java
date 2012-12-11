@@ -122,5 +122,11 @@ public class FlipperElement implements InteractivePhysicsObject {
 			rightFlipper.setAngularVelocity(15f);
 		}
 	}
+	
+	@Override
+	public Body getBody() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

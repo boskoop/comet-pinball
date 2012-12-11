@@ -37,8 +37,10 @@ public class Flipper {
 	public Flipper(World world, float xPosition, float yPosition){
 		
 		texture = new Texture(Gdx.files.internal("data/flipper.png"));
+		
 		textureSprite = new Sprite(texture);
 		textureSprite.setSize(100*scale, 100*scale);
+		textureSprite.setOrigin(0,0);
 		//textureSprite.setRotation(-90f);
 		
 		bodyDef = new BodyDef();
@@ -115,9 +117,12 @@ public class Flipper {
 	}
 	
 	public void draw(SpriteBatch batch){
-		textureSprite.setPosition(body.getPosition().x,body.getPosition().y);
+		textureSprite.setPosition(body.getPosition().x  ,body.getPosition().y);
 		//System.out.println(((RevoluteJoint)joint).getJointAngle()* FACTOR_RAD_TO_DEG);
-		textureSprite.setRotation((float)(((RevoluteJoint)joint).getJointAngle())* FACTOR_RAD_TO_DEG);
+		//textureSprite.setOrigin(body.getPosition().x ,body.getPosition().y);
+		
+		textureSprite.setRotation(-90-((RevoluteJoint)joint).getJointAngle()* FACTOR_RAD_TO_DEG);
+	
 		textureSprite.draw(batch);
 		//batch.draw(texture,body.localVector.x,body.localVector.y);
 		

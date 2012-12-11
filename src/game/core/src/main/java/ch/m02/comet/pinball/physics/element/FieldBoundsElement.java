@@ -19,6 +19,8 @@ public class FieldBoundsElement implements PhysicsObject {
 	private static final float FIELD_WIDTH_RADIUS = PhysicsDefinition.FIELD_WIDTH / 2;
 	private static final float FIELD_HEIGHT_RADIUS = PhysicsDefinition.FIELD_HEIGHT / 2;
 
+	private Body fieldBoundsElementBody;
+	
 	@Override
 	public void init(World world) {
 		BodyCreator creator = new BodyCreator(world);
@@ -41,8 +43,13 @@ public class FieldBoundsElement implements PhysicsObject {
 
 		Vector2 rightBoundDimension = new Vector2(BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
 		Vector2 rightBoundPosition = new Vector2(PhysicsDefinition.FIELD_WIDTH - BORDER_RADIUS, FIELD_HEIGHT_RADIUS);
-		creator.createStaticBoxBody(rightBoundDimension, rightBoundPosition);
+		fieldBoundsElementBody = creator.createStaticBoxBody(rightBoundDimension, rightBoundPosition);
 		
+	}
+
+	@Override
+	public Body getBody() {
+		return fieldBoundsElementBody;
 	}
 
 }

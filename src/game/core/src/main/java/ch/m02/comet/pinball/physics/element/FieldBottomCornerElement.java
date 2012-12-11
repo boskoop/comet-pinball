@@ -1,15 +1,16 @@
 package ch.m02.comet.pinball.physics.element;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.PhysicsObject;
+
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class FieldBottomCornerElement implements PhysicsObject {
 
 	private static final float PLUNGER_TUBE_WIDTH = 0.04f * PhysicsDefinition.METER_SCALE_FACTOR;
-
+	private Body fieldBottomCornerElementBody;
 	@Override
 	public void init(World world) {
 		BodyCreator creator = new BodyCreator(world);
@@ -50,7 +51,12 @@ public class FieldBottomCornerElement implements PhysicsObject {
 
 		position = new Vector2(PhysicsDefinition.FIELD_WIDTH
 				- PLUNGER_TUBE_WIDTH - (0.2f * scale), 0.2f * scale);
-		creator.createStaticPolygonBody(rightFlipperCorner, position);
+		fieldBottomCornerElementBody = creator.createStaticPolygonBody(rightFlipperCorner, position);
+	}
+	
+	@Override
+	public Body getBody() {
+		return fieldBottomCornerElementBody;
 	}
 
 }

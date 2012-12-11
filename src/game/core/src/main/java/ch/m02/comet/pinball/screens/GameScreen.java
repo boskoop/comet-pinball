@@ -1,5 +1,7 @@
 package ch.m02.comet.pinball.screens;
 
+import ch.m02.comet.pinball.graphics.BallGraphics;
+import ch.m02.comet.pinball.graphics.GraphicsObject;
 import ch.m02.comet.pinball.physics.Ball;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -28,7 +31,7 @@ public class GameScreen implements Screen {
 
 	private World world;
 
-	// 600px are 1m in real -> 1 box2d unit = 1m
+	// 600px are 10m in real -> 1 box2d unit = 1m
 	// private static final float BOX_TO_WORLD = 600f;
 	// private static final float WORLD_TO_BOX = 1 / BOX_TO_WORLD;
 
@@ -36,8 +39,12 @@ public class GameScreen implements Screen {
 	private static final int POSITION_ITERATIONS = 2;
 
 	private Box2DDebugRenderer debugRender;
+	
+	private SpriteBatch spriteBatch;
 
 	private InteractivePhysicsObject ball;
+	
+	private GraphicsObject ballGraphicsObject;
 
 	private InteractivePhysicsObject playfield;
 
@@ -48,6 +55,7 @@ public class GameScreen implements Screen {
 		final Vector2 gravity = new Vector2(0, PhysicsDefinition.RAMP_GRAVITY);
 		final boolean dontSimulateInactiveBodies = true;
 		world = new World(gravity, dontSimulateInactiveBodies);
+		spriteBatch = new SpriteBatch();
 		// TODO use a DestructionListener
 
 		camera = new OrthographicCamera();
@@ -60,6 +68,9 @@ public class GameScreen implements Screen {
 		
 		ball = new Ball();
 		ball.init(world);
+		
+		ballGraphicsObject = new BallGraphics();
+		ballGraphicsObject.init(ball);
 
 		// This debugger is useful for testing purposes
 		final boolean drawBodies = true;
@@ -88,6 +99,11 @@ public class GameScreen implements Screen {
 
 		// Render physics should be called before physical rendering
 		debugRender.render(world, camera.combined);
+		
+		spriteBatch.begin();
+		ballGraphicsObject.draw(spriteBatch);
+		
+		spriteBatch.end();
 
 		// step/update the world
 		world.step(delta, VELOCITY_ITERATIONS, POSITION_ITERATIONS);

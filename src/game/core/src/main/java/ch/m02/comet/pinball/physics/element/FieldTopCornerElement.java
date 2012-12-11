@@ -26,6 +26,8 @@ public class FieldTopCornerElement implements PhysicsObject {
 	private static final float ELEMENT_HALF_LENGTH = CURVE_ELEMENT_LENGTH / 2;
 	private static final float ELEMENT_HALF_WIDTH = CURVE_ELEMENT_WIDTH / 2;
 	
+	private Body fieldTopCornerElementBody;
+	
 	@Override
 	public void init(World world) {
 		Vector2 topRightPosition = new Vector2(PhysicsDefinition.FIELD_WIDTH, PhysicsDefinition.FIELD_HEIGHT);
@@ -41,7 +43,7 @@ public class FieldTopCornerElement implements PhysicsObject {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.position.set(position);
-		Body body = world.createBody(bodyDef);
+		fieldTopCornerElementBody = world.createBody(bodyDef);
 		
 
 		Vector2 positionToRotationCenter = new Vector2(-CORNER_SIZE, -CORNER_SIZE);
@@ -58,12 +60,17 @@ public class FieldTopCornerElement implements PhysicsObject {
 				FixtureDef fixture = new FixtureDef();
 				fixture.shape = shape;
 				fixture.restitution = PhysicsDefinition.STEEL_RESTITUTION;
-				body.createFixture(fixture);
+				fieldTopCornerElementBody.createFixture(fixture);
 			}
 		} finally {
 			DisposeUtil.safelyDispose(shape);
 		}
-		return body;
+		return fieldTopCornerElementBody;
+	}
+	
+	@Override
+	public Body getBody() {
+		return fieldTopCornerElementBody;
 	}
 
 }
