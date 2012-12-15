@@ -12,7 +12,8 @@ public class Main {
 		cfg.width = 512;
 		cfg.height = 1024;
 		
-		new LwjglApplication(new PinballPrototype(), cfg);
+		LwjglApplication application = new LwjglApplication(new PinballPrototype(), cfg);
+		application.log("Main", "Prototype application started");
 	}
 	
 }
