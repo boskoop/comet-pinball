@@ -20,5 +20,6 @@ public interface PhysicsObject {
 	 * Returns the fixture of the PhysicsObject
 	 */
 	//public Fixture getFixture();
+
 	
 }

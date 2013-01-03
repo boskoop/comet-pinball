@@ -29,6 +29,7 @@ public interface PhysicsDefinition {
 	// typical diameter = 2.7cm
 	// pinball radius: 1.35cm
 	public static final float PINBALL_RADIUS = 0.0135f * METER_SCALE_FACTOR;
+	
 
 	// Steel has a density of 8000 kg/m^3
 	public static final float STEEL_DENSITY = 8000f / CUBE_METER_SCALE_FACTOR;
@@ -36,6 +37,11 @@ public interface PhysicsDefinition {
 	// Steel restitution coefficient
 	public static final float STEEL_RESTITUTION = 0.56f;
 	
+	// Bumper
+	public static final float BUMPER_RADIUS = 0.03f * METER_SCALE_FACTOR;
+	public static final float BUMPER_FORCE = 20f * METER_SCALE_FACTOR;
+	public static final float BUMPER_RESTITUTION = STEEL_RESTITUTION;
+
 	// typical value ~6.5-7 degrees
 	public static final float RAMP_ANGLE_DEGREES = 7.0f;
 	public static final float EARTH_GRAVITY = -9.81f * METER_SCALE_FACTOR;
