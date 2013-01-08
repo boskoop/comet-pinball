@@ -2,7 +2,7 @@ package ch.m02.comet.pinball.desktop;
 
 import ch.m02.comet.pinball.MainApplication;
 import ch.m02.comet.pinball.PinballGame;
-import ch.m02.comet.pinball.screens.GameScreen;
+import ch.m02.comet.pinball.presentation.screens.GameScreen;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;

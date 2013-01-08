@@ -13,6 +13,10 @@
 
 	<modules>
 		<module>core</module>
+		<module>logic</module>
+		<module>physics</module>
+		<module>presentation</module>
+		<module>application</module>
 		<module>desktop</module>
 	</modules>
 
