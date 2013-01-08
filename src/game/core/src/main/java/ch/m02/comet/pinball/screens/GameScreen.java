@@ -66,6 +66,8 @@ public class GameScreen implements Screen {
 		playfield = new Playfield();
 		playfield.init(world);
 		
+		// TODO placement of elements
+		
 		ball = new Ball();
 		ball.init(world);
 		
