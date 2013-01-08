@@ -1,5 +1,6 @@
 package ch.m02.comet.pinball;
 
+import ch.m02.comet.pinball.config.Configuration;
 import ch.m02.comet.pinball.screens.GameScreen;
 import ch.m02.comet.pinball.screens.MainMenuScreen;
 import ch.m02.comet.pinball.screens.SplashScreen;
@@ -41,13 +42,15 @@ public class PinballGame extends Game {
 
 	@Override
 	public void create() {
+		
+		
 		splashScreen = new SplashScreen(this);
 		menuScreen = new MainMenuScreen(this);
 		gameScreen = new GameScreen(this);
 		gameScreen.init();
-		if(Configuration.SKIP_SPLASHSCREEN) {
-			splashScreen.init();
-			menuScreen.init();
+		splashScreen.init();
+		menuScreen.init();
+		if(Configuration.INSTANCE.skipSplashscreen()) {
 			setScreen(gameScreen);
 		} else {
 			setScreen(splashScreen);
@@ -66,7 +69,9 @@ public class PinballGame extends Game {
 	@Override
 	public void render() {
 		checkExit();
-		fpsLogger.log();
+		if(Configuration.INSTANCE.isDebugEnabled()) {
+			fpsLogger.log();
+		}
 		super.render();
 	}
 
