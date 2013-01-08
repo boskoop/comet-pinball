@@ -13,6 +13,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>ch.m02.comet</groupId>
+			<artifactId>pinball-game-application</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.badlogic</groupId>
 			<artifactId>gdx-backend-lwjgl</artifactId>
 			<version>${gdx.version}</version>
@@ -28,12 +34,6 @@
 			<version>${gdx.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>ch.m02.comet</groupId>
-			<artifactId>pinball-game-core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
