@@ -5,12 +5,12 @@ import java.util.List;
 
 public interface Simulation extends Serializable {
 
-	public List<Player> getPlayer();
+	public List<? extends Player> getPlayer();
 	
 	public PlayFieldId getPlayFieldId();
 	
 	public Score getScore();
 	
-	public List<Game> getGames();
+	public List<? extends Game> getGames();
 	
 }

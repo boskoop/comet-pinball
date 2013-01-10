@@ -1,4 +1,4 @@
-package ch.m02.comet.pinball.core.model.simulation;
+package ch.m02.comet.pinball.core.model.playfield;
 
 import java.io.Serializable;
 

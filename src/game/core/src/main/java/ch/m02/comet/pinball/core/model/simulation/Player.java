@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface Player extends Serializable {
 
-	public List<Simulation> getSimulations();
+	public List<? extends Simulation> getSimulations();
 	
 	public String getName();
 	
