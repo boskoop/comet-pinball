@@ -43,7 +43,8 @@ public class Playfield implements InteractivePhysicsObject {
 			object.init(world);
 		}
 		
-		world.setContactListener(getCollectionContactListener());
+		ContactListener contactListener = createCollectionContactListener();
+		world.setContactListener(contactListener);
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class Playfield implements InteractivePhysicsObject {
 		
 	}
 	
-	private ContactListener getCollectionContactListener(){
+	private ContactListener createCollectionContactListener(){
 		return new ContactListener() {
 			
 			@Override
