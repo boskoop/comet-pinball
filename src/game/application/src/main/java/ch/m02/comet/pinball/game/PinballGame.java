@@ -1,5 +1,8 @@
-package ch.m02.comet.pinball;
+package ch.m02.comet.pinball.game;
 
+import org.picocontainer.annotations.Inject;
+
+import ch.m02.comet.pinball.MainApplication;
 import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.presentation.PinballScreenManager;
 import ch.m02.comet.pinball.presentation.ScreenPresenter;
@@ -18,10 +21,10 @@ public class PinballGame extends Game implements ScreenPresenter {
 
 	private FPSLogger fpsLogger;
 
+	@Inject
 	private MainApplication application;
 	
-	public PinballGame(MainApplication application) {
-		this.application = application;
+	public PinballGame() {
 		this.screenManager = new PinballScreenManager(this);
 	}
 

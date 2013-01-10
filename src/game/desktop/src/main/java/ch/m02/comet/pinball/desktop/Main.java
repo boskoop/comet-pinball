@@ -1,7 +1,7 @@
 package ch.m02.comet.pinball.desktop;
 
 import ch.m02.comet.pinball.MainApplication;
-import ch.m02.comet.pinball.PinballGame;
+import ch.m02.comet.pinball.Pinball;
 import ch.m02.comet.pinball.presentation.screens.GameScreen;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -22,8 +22,10 @@ public class Main implements MainApplication {
 		cfg.useGL20 = true;
 		cfg.width = GameScreen.WINDOW_WIDTH;
 		cfg.height = GameScreen.WINDOW_HEIGHT;
-
-		application = new LwjglApplication(new PinballGame(this), cfg);
+		
+		Pinball pinball = new Pinball(this);
+		pinball.init();
+		application = new LwjglApplication(pinball.getGame(), cfg);
 	}
 
 	@Override
