@@ -1,7 +1,9 @@
-package ch.m02.comet.pinball.core.model;
+package ch.m02.comet.pinball.core.model.simulation;
 
 import java.io.Serializable;
 
 public interface Score extends Serializable {
 
+	public int getScore();
+	
 }
