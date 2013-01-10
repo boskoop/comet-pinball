@@ -10,6 +10,8 @@ import org.picocontainer.gems.monitors.Slf4jComponentMonitor;
 import org.picocontainer.injectors.AnnotatedFieldInjection;
 import org.picocontainer.injectors.ProviderAdapter;
 import org.picocontainer.parameters.ConstantParameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.Configuration;
@@ -22,6 +24,8 @@ import ch.m02.comet.pinball.presentation.PinballScreenManager;
 import com.badlogic.gdx.Game;
 
 public class Pinball {
+	
+	private static final Logger log = LoggerFactory.getLogger(Pinball.class);
 
 	private MainApplication application;
 	private MutablePicoContainer container;
@@ -41,6 +45,7 @@ public class Pinball {
 	}
 
 	private void registerSingletons() {
+		log.debug("Registering pico component singletons");
 		MutablePicoContainer singletonContainer = container.as(Characteristics.CACHE);
 		singletonContainer.addAdapter(new ProviderAdapter(new ApplicationProvider(application)));
 		singletonContainer.addComponent(Game.class, PinballGame.class);
@@ -52,6 +57,7 @@ public class Pinball {
 	}
 	
 	private void registerPrototypes() {
+		log.debug("Registering pico component prototypes");
 	}
 
 	public Game getGame() {
