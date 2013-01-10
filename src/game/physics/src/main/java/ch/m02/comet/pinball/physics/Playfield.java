@@ -30,7 +30,14 @@ public class Playfield implements InteractivePhysicsObject {
 		physicsObjects.add(new PlungerTubeElement());
 		interactiveObjects.add(new FlipperElement());
 		
-		generateBumpers();
+		Bumper leftTopBumper = new Bumper(new Vector2(0.25f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+		Bumper rightTopBumper = new Bumper(new Vector2(0.5f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+		physicsObjects.add(rightTopBumper);
+		physicsObjects.add(leftTopBumper);
+		
+		// TODO: this should only be done at init time (not in constructor!), see todo in Bumper
+		contactListeners.add(leftTopBumper.getContactListener());
+		contactListeners.add(rightTopBumper.getContactListener());
 		
 	}
 
@@ -58,16 +65,6 @@ public class Playfield implements InteractivePhysicsObject {
 	public Body getBody() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	private void generateBumpers(){
-		Bumper leftTopBumper = new Bumper(new Vector2(0.25f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-		Bumper rightTopBumper = new Bumper(new Vector2(0.5f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-		contactListeners.add(leftTopBumper.getContactListener());
-		contactListeners.add(rightTopBumper.getContactListener());
-		physicsObjects.add(rightTopBumper);
-		physicsObjects.add(leftTopBumper);
-		
 	}
 	
 	private ContactListener createCollectionContactListener(){

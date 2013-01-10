@@ -28,6 +28,9 @@ public class Bumper implements PhysicsObject {
 		if (position == null)
 			throw new IllegalArgumentException();
 		this.position = position;
+
+		// TODO: move this to init, fix Playfield initialization first!
+		createContactListener();
 	}
 
 	@Override
@@ -45,8 +48,6 @@ public class Bumper implements PhysicsObject {
 		} finally {
 			DisposeUtil.safelyDispose(circle);
 		}
-
-		createContactListener();
 	}
 
 	private void createContactListener() {
