@@ -48,20 +48,17 @@ Each \emph{Game} has exactly one \emph{PlayField} it plays on and belongs to one
 Each \emph{Obstacle} has a type, which identifies it as a Bumper, Slingshot or alike, and a position to store it's position on the play field.
 
 \subsubsection{Player}
-
+The \emph{Player} is used to identify \emph{Simulation}s and \emph{Score}s in order to map them to a physical player.
 
 \subsubsection{PlayField}
-
+The \emph{PlayField} contains information about the physical play field on which a simulation takes place.
 
 \subsubsection{Score}
-The score keeps tracks of the points the \emph{Player} scored.
+The \emph{Score} keeps tracks of the points the \emph{Player} scored.
 
 \subsubsection{Simulation}
+A \emph{Simulation} is a self-contained process and consists a fixed amount of \emph{Game}s in which the \emph{Player} can achieve a \emph{Score}. 
 
-
-%\subsubsection{Administrator} 
-
-%The \texttt{Administrator} has the attributes \texttt{mailAddress} and \texttt{password} which are used as credentials to authenticate against the system. 
 
 \subsection{Relationships}
 
