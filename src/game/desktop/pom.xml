@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>ch.m02.comet</groupId>
 			<artifactId>pinball-game-application</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>

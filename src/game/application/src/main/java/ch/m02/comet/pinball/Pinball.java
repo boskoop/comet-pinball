@@ -6,6 +6,7 @@ import org.picocontainer.Characteristics;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.PicoBuilder;
 import org.picocontainer.behaviors.OptInCaching;
+import org.picocontainer.gems.monitors.Slf4jComponentMonitor;
 import org.picocontainer.injectors.AnnotatedFieldInjection;
 import org.picocontainer.injectors.ProviderAdapter;
 import org.picocontainer.parameters.ConstantParameter;
@@ -28,7 +29,7 @@ public class Pinball {
 	public Pinball(MainApplication application) {
 		this.application = application;
 		container = new PicoBuilder()
-				.withConsoleMonitor()
+				.withMonitor(new Slf4jComponentMonitor())
 				.withBehaviors(new OptInCaching()) // Enable singletons
 				.withComponentFactory(new AnnotatedFieldInjection(Inject.class)) // use JSR-330
 				.withHiddenImplementations() // Hide concrete implementations when using an interface

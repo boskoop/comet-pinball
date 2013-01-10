@@ -1,5 +1,7 @@
 package ch.m02.comet.pinball.desktop;
 
+import uk.org.lidalia.sysoutslf4j.context.LogLevel;
+import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 import ch.m02.comet.pinball.MainApplication;
 import ch.m02.comet.pinball.Pinball;
 import ch.m02.comet.pinball.presentation.screens.GameScreen;
@@ -12,6 +14,7 @@ public class Main implements MainApplication {
 	private LwjglApplication application;
 
 	public static void main(String[] args) {
+		SysOutOverSLF4J.sendSystemOutAndErrToSLF4J(LogLevel.DEBUG, LogLevel.ERROR);
 		Main m = new Main();
 		m.run();
 	}

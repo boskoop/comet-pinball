@@ -41,6 +41,9 @@
 		<project.version>1.0.0-SNAPSHOT</project.version>
 		<gdx.version>0.9.7-SNAPSHOT</gdx.version>
 		<tweenengine.version>6.3.3</tweenengine.version>
+		<slf4j.version>1.7.2</slf4j.version>
+		<logback.version>1.0.9</logback.version>
+		<picocontainer.version>2.13.6</picocontainer.version>
 	</properties>
 
 	<build>
