@@ -1,6 +1,6 @@
 package ch.m02.comet.pinball.game;
 
-import org.picocontainer.annotations.Inject;
+import javax.inject.Inject;
 
 import ch.m02.comet.pinball.MainApplication;
 import ch.m02.comet.pinball.core.config.Configuration;
@@ -16,21 +16,21 @@ import com.badlogic.gdx.graphics.FPSLogger;
 public class PinballGame extends Game implements ScreenPresenter {
 	
 	public static final String LOG = "comet-pinball-game";
-	
-	private PinballScreenManager screenManager;
 
 	private FPSLogger fpsLogger;
+	
+	@Inject
+	private Configuration configuration;
 
 	@Inject
 	private MainApplication application;
-	
-	public PinballGame() {
-		this.screenManager = new PinballScreenManager(this);
-	}
+
+	@Inject
+	private PinballScreenManager screenManager;
 
 	@Override
 	public void create() {
-		screenManager.init();
+		screenManager.init(this);
 		fpsLogger = new FPSLogger();
 	}
 
@@ -43,7 +43,7 @@ public class PinballGame extends Game implements ScreenPresenter {
 	@Override
 	public void render() {
 		checkExit();
-		if(Configuration.INSTANCE.isDebugEnabled()) {
+		if(configuration.isDebugEnabled()) {
 			fpsLogger.log();
 		}
 		super.render();

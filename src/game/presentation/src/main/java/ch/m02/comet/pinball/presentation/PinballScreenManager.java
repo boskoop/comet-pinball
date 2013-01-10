@@ -4,6 +4,8 @@ package ch.m02.comet.pinball.presentation;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.presentation.screens.GameScreen;
 import ch.m02.comet.pinball.presentation.screens.MainMenuScreen;
@@ -16,18 +18,19 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class PinballScreenManager implements Disposable, ScreenManager {
 
+	@Inject
+	private Configuration configuration;
+	
 	private ScreenPresenter presenter;
 
 	private Map<Class<? extends ManagedScreen>, ManagedScreen> screens;
 	
-	public PinballScreenManager(ScreenPresenter presenter) {
+	public void init(ScreenPresenter presenter) {
 		this.presenter = presenter;
-	}
-	
-	public void init() {
+		
 		registerAndInitScreens();
 		
-		if(Configuration.INSTANCE.skipSplashscreen()) {
+		if(configuration.skipSplashscreen()) {
 			changeScreenTo(GameScreen.class);
 		} else {
 			changeScreenTo(SplashScreen.class);

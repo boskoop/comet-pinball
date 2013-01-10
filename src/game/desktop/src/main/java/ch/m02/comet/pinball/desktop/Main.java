@@ -24,7 +24,6 @@ public class Main implements MainApplication {
 		cfg.height = GameScreen.WINDOW_HEIGHT;
 		
 		Pinball pinball = new Pinball(this);
-		pinball.init();
 		application = new LwjglApplication(pinball.getGame(), cfg);
 	}
 
