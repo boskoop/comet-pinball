@@ -14,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
-import ch.m02.comet.pinball.core.config.Configuration;
-import ch.m02.comet.pinball.core.config.internal.ConfigurationImpl;
+import ch.m02.comet.pinball.core.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
+import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
 import ch.m02.comet.pinball.game.ApplicationProvider;
 import ch.m02.comet.pinball.game.PinballGame;
 import ch.m02.comet.pinball.presentation.PinballScreenManager;

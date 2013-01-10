@@ -1,4 +1,4 @@
-package ch.m02.comet.pinball.core.config;
+package ch.m02.comet.pinball.core;
 
 public interface Configuration {
 

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import ch.m02.comet.pinball.core.config.Configuration;
+import ch.m02.comet.pinball.core.Configuration;
 import ch.m02.comet.pinball.presentation.screens.GameScreen;
 import ch.m02.comet.pinball.presentation.screens.MainMenuScreen;
 import ch.m02.comet.pinball.presentation.screens.ManagedScreen;

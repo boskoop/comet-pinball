@@ -1,10 +1,10 @@
-package ch.m02.comet.pinball.core.config.internal;
+package ch.m02.comet.pinball.core.internal;
 
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
-import ch.m02.comet.pinball.core.config.Configuration;
+import ch.m02.comet.pinball.core.Configuration;
 
 public class ConfigurationImpl implements Configuration {
 	
