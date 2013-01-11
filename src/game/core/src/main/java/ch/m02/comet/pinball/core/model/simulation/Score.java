@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public interface Score extends Serializable {
 
-	public int getScore();
+	public int getScoreValue();
+	
+	public Simulation getSimulation();
 	
 }

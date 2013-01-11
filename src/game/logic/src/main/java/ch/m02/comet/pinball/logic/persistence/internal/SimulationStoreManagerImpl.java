@@ -94,12 +94,12 @@ public class SimulationStoreManagerImpl implements SimulationStoreManager {
 	}
 
 	@Override
-	public synchronized SimulationStore getSimulationStore() {
+	public SimulationStore getSimulationStore() {
 		return store;
 	}
 	
 	@Override
-	public synchronized void saveSimulationStore(SimulationStore store) {
+	public void saveSimulationStore(SimulationStore store) {
 		this.store = store;
 		save();
 	}
