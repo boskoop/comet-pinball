@@ -6,8 +6,8 @@ public interface PlayField {
 	
 	public String getName();
 
-	public List<PlayFieldElement> getObstacles();
+	public List<? extends PlayFieldElement> getElements();
 	
-	public List<PlayFieldRule> getGameRules();
+	public List<? extends PlayFieldRule> getGameRules();
 	
 }

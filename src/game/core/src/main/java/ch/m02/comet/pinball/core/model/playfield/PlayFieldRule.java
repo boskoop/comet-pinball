@@ -1,7 +1,11 @@
 package ch.m02.comet.pinball.core.model.playfield;
 
-import java.io.Serializable;
+import java.util.List;
 
-public interface PlayFieldRule extends Serializable {
+public interface PlayFieldRule {
 
+	public String getClassName();
+	
+	public List<Integer> getParameters();
+	
 }

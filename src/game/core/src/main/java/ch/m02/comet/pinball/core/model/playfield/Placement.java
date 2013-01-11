@@ -1,12 +1,11 @@
 package ch.m02.comet.pinball.core.model.playfield;
 
-import java.io.Serializable;
 
-public interface Placement extends Serializable {
+public interface Placement {
 
-	public float getX();
+	public float getPositionX();
 	
-	public float getY();
+	public float getPositionY();
 	
 	public float getScale();
 	
