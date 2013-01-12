@@ -9,24 +9,25 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldRule;
+import ch.m02.comet.pinball.core.model.playfield.Rule;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "rule")
 public class PlayFieldRulePdo implements PlayFieldRule {
 
 	@XmlElement(name = "class", required = true)
-	private Class<?> className;
+	private Class<? extends Rule> className;
 
 	@XmlElementWrapper(name = "parameters")
 	@XmlElement(name = "parameter", required = true)
 	private List<Integer> parameters;
 
 	@Override
-	public Class<?> getClassName() {
+	public Class<? extends Rule> getClassName() {
 		return className;
 	}
 
-	public void setClassName(Class<?> className) {
+	public void setClassName(Class<? extends Rule> className) {
 		this.className = className;
 	}
 

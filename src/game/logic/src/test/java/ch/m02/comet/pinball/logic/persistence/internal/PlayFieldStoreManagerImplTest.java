@@ -8,6 +8,7 @@ import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
 
+import ch.m02.comet.pinball.core.model.playfield.Rule;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldBumperElementPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldElementPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldObstacleElementPdo;
@@ -22,13 +23,13 @@ public class PlayFieldStoreManagerImplTest {
 	@Test
 	public void testPlayFieldGeneration() throws Exception {
 		PlayFieldRulePdo rule = new PlayFieldRulePdo();
-		rule.setClassName(String.class);
+		rule.setClassName(Rule1.class);
 		List<Integer> parameters = new ArrayList<Integer>();
 		parameters.add(5);
 		rule.setParameters(parameters);
 		
 		PlayFieldRulePdo rule2 = new PlayFieldRulePdo();
-		rule2.setClassName(Integer.class);
+		rule2.setClassName(Rule2.class);
 		List<Integer> parameters2 = new ArrayList<Integer>();
 		parameters2.add(7);
 		rule2.setParameters(parameters2);
@@ -106,5 +107,8 @@ public class PlayFieldStoreManagerImplTest {
 //	    };
 //	    context.generateSchema(sor);
 	}
+	
+	private static class Rule1 implements Rule { }
+	private static class Rule2 implements Rule { }
 
 }
