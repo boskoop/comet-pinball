@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldBumperElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -22,6 +24,14 @@ public class PlayFieldBumperElementPdo extends PlayFieldElementPdo implements
 	
 	public void setRadius(float radius) {
 		this.radius = radius;
+	}
+	
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.appendSuper(super.toString())
+				.append("radius", radius)
+				.build();
 	}
 
 }

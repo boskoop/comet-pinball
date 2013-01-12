@@ -1,10 +1,14 @@
 package ch.m02.comet.pinball.logic.persistence.internal;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 
@@ -110,10 +114,26 @@ public class PlayFieldStoreManagerImplTest {
 //	    };
 //	    context.generateSchema(sor);
 	}
-	
+
 	@Test
-	public void testLoadPlayField() {
+	public void testLoadPlayField() throws Exception {
+		InputStream playfieldStream = getClass().getResourceAsStream(
+				getClass().getSimpleName() + ".xml");
+		PlayFieldStore store = null;
+		try {
+			JAXBContext context = JAXBContext.newInstance(PlayFieldStore.class);
+			Unmarshaller u = context.createUnmarshaller();
+
+			store = (PlayFieldStore) u.unmarshal(playfieldStream);
+		} finally {
+			playfieldStream.close();
+		}
+		System.out.println(store.getPlayFields().get(0));
 		
+		PlayFieldPdo playField = store.getPlayFields().get(0);
+		assertEquals("testfield", playField.getName());
+		assertEquals(3, playField.getElements().size());
+		assertEquals(2, playField.getGameRules().size());
 	}
 	
 

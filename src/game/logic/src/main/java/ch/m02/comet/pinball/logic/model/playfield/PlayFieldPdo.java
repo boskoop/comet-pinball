@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import ch.m02.comet.pinball.core.model.playfield.PlayField;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -50,6 +52,22 @@ public class PlayFieldPdo implements PlayField {
 
 	public void setRules(List<PlayFieldRulePdo> rules) {
 		this.rules = rules;
+	}
+
+	@Override
+	public String toString() {
+		ToStringBuilder builder = new ToStringBuilder(this)
+				.append("name", name);
+		builder.append("elements=[");
+		for (PlayFieldElementPdo e : elements) {
+			builder.append(e);
+		}
+		builder.append("],rules=[");
+		for (PlayFieldRulePdo r : rules) {
+			builder.append(r);
+		}
+		builder.append("]");
+		return builder.build();
 	}
 
 }

@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -34,6 +36,14 @@ public abstract class PlayFieldElementPdo implements PlayFieldElement {
 
 	public void setPosition(VectorPdo position) {
 		this.position = position;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("id", id)
+				.append("position", position)
+				.build();
 	}
 
 }
