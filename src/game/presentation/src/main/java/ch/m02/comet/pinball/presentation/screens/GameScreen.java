@@ -12,6 +12,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -23,10 +24,14 @@ public class GameScreen extends ManagedScreen {
 	// a typical pinball machine is 76cm x 140cm
 	// we use scale 6px = 1cm in real
 	// 6*76 = 456
-	public static final int WINDOW_WIDTH = 456;
+	public static final int VIRTUAL_WINDOW_WIDTH = 456;
 	// 6*140 = 840
-	public static final int WINDOW_HEIGHT = 840;
-
+	public static final int VIRTUAL_WINDOW_HEIGHT = 840;
+	private static final float ASPECT_RATIO =
+		        (float)VIRTUAL_WINDOW_WIDTH/(float)VIRTUAL_WINDOW_HEIGHT;
+	
+	private static Rectangle viewport;
+	
 	private World world;
 
 	// 600px are 10m in real -> 1 box2d unit = 1m
@@ -112,6 +117,12 @@ public class GameScreen extends ManagedScreen {
 	}
 
 	private void updateCamera() {
+		 // update camera
+		
+        // set viewport to correct aspect failures
+        Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
+                          (int) viewport.width, (int) viewport.height);
+		
 		if (Gdx.input.isKeyPressed(Keys.Q)) {
 			camera.zoom = 1f;
 		}
@@ -133,7 +144,29 @@ public class GameScreen extends ManagedScreen {
 
 	@Override
 	public void resize(int width, int height) {
+		// calculate new viewport
+        float aspectRatio = (float)width/(float)height;
+        float scale = 1f;
+        Vector2 crop = new Vector2(0f, 0f);
+        
+        if(aspectRatio > ASPECT_RATIO)
+        {
+            scale = (float)height/(float)VIRTUAL_WINDOW_HEIGHT;
+            crop.x = (width - VIRTUAL_WINDOW_WIDTH*scale)/2f;
+        }
+        else if(aspectRatio < ASPECT_RATIO)
+        {
+            scale = (float)width/(float)VIRTUAL_WINDOW_WIDTH;
+            crop.y = (height - VIRTUAL_WINDOW_HEIGHT*scale)/2f;
+        }
+        else
+        {
+            scale = (float)width/(float)VIRTUAL_WINDOW_WIDTH;
+        }
 
+        float w = (float)VIRTUAL_WINDOW_WIDTH*scale;
+        float h = (float)VIRTUAL_WINDOW_HEIGHT*scale;
+        viewport = new Rectangle(crop.x, crop.y, w, h);
 	}
 
 	@Override

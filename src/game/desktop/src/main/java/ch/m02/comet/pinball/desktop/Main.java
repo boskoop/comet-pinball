@@ -23,8 +23,8 @@ public class Main implements MainApplication {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "comet-pinball";
 		cfg.useGL20 = true;
-		cfg.width = GameScreen.WINDOW_WIDTH;
-		cfg.height = GameScreen.WINDOW_HEIGHT;
+		cfg.width = GameScreen.VIRTUAL_WINDOW_WIDTH;
+		cfg.height = GameScreen.VIRTUAL_WINDOW_HEIGHT;
 		
 		Pinball pinball = new Pinball(this);
 		application = new LwjglApplication(pinball.getGame(), cfg);
