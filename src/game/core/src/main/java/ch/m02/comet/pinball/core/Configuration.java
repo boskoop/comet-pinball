@@ -2,11 +2,19 @@ package ch.m02.comet.pinball.core;
 
 public interface Configuration {
 
-	public boolean isDebugEnabled();
+	/**
+	 * @param booleanPropertyKey {@link BooleanProperties}
+	 */
+	public Boolean getBooleanProperty(String booleanPropertyKey);
 	
 	/**
-	 * Skip the splash screen. Makes it easier to debug the application
+	 * @param stringPropertyKey {@link StringProperties}
 	 */
-	public boolean skipSplashscreen();
+	public String getStringProperty(String stringPropertyKey);
+	
+	/**
+	 * @param integerPropertyKey {@link IntegerProperties}
+	 */
+	public Integer getIntegerProperty(String integerPropertyKey);
 	
 }

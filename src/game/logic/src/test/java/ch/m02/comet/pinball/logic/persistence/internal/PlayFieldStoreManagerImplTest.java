@@ -20,6 +20,9 @@ import ch.m02.comet.pinball.logic.persistence.PlayFieldStore;
 
 public class PlayFieldStoreManagerImplTest {
 
+	private static class Rule1 implements Rule { }
+	private static class Rule2 implements Rule { }
+	
 	@Test
 	public void testPlayFieldGeneration() throws Exception {
 		PlayFieldRulePdo rule = new PlayFieldRulePdo();
@@ -108,7 +111,10 @@ public class PlayFieldStoreManagerImplTest {
 //	    context.generateSchema(sor);
 	}
 	
-	private static class Rule1 implements Rule { }
-	private static class Rule2 implements Rule { }
+	@Test
+	public void testLoadPlayField() {
+		
+	}
+	
 
 }
