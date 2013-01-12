@@ -8,11 +8,13 @@ import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
 
-import ch.m02.comet.pinball.core.model.playfield.PlayFieldElementType;
-import ch.m02.comet.pinball.logic.model.playfield.PlacementPdo;
+import ch.m02.comet.pinball.logic.model.playfield.PlayFieldBumperElementPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldElementPdo;
+import ch.m02.comet.pinball.logic.model.playfield.PlayFieldObstacleElementPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldRulePdo;
+import ch.m02.comet.pinball.logic.model.playfield.PlayFieldSlingshotElementPdo;
+import ch.m02.comet.pinball.logic.model.playfield.VectorPdo;
 import ch.m02.comet.pinball.logic.persistence.PlayFieldStore;
 
 public class PlayFieldStoreManagerImplTest {
@@ -20,13 +22,13 @@ public class PlayFieldStoreManagerImplTest {
 	@Test
 	public void testPlayFieldGeneration() throws Exception {
 		PlayFieldRulePdo rule = new PlayFieldRulePdo();
-		rule.setClassName("java.lang.String");
+		rule.setClassName(String.class);
 		List<Integer> parameters = new ArrayList<Integer>();
 		parameters.add(5);
 		rule.setParameters(parameters);
 		
 		PlayFieldRulePdo rule2 = new PlayFieldRulePdo();
-		rule2.setClassName("java.lang.Integer");
+		rule2.setClassName(Integer.class);
 		List<Integer> parameters2 = new ArrayList<Integer>();
 		parameters2.add(7);
 		rule2.setParameters(parameters2);
@@ -35,29 +37,46 @@ public class PlayFieldStoreManagerImplTest {
 		rules.add(rule);
 		rules.add(rule2);
 		
-		PlayFieldElementPdo element = new PlayFieldElementPdo();
-		element.setId(1);
-		PlacementPdo placement = new PlacementPdo();
-		placement.setPositionX(50.0f);
-		placement.setPositionY(40.0f);
-		placement.setRotation(0.0f);
-		placement.setScale(1.0f);
-		element.setPlacement(placement);
-		element.setType(PlayFieldElementType.BUMPER);
+		PlayFieldBumperElementPdo bumperElement = new PlayFieldBumperElementPdo();
+		bumperElement.setId(1);
+		VectorPdo v = new VectorPdo();
+		v.setX(50f);
+		v.setY(40f);
+		bumperElement.setPosition(v);
+		bumperElement.setRadius(5f);
 
-		PlayFieldElementPdo element2 = new PlayFieldElementPdo();
-		element2.setId(2);
-		PlacementPdo placement2 = new PlacementPdo();
-		placement2.setPositionX(35.0f);
-		placement2.setPositionY(20.0f);
-		placement2.setRotation(0.0f);
-		placement2.setScale(1.0f);
-		element2.setPlacement(placement2);
-		element2.setType(PlayFieldElementType.SLINGSHOT);
+		PlayFieldSlingshotElementPdo slingshotElement = new PlayFieldSlingshotElementPdo();
+		slingshotElement.setId(2);
+		v = new VectorPdo();
+		v.setX(20f);
+		v.setY(15f);
+		slingshotElement.setPosition(v);
+		v = new VectorPdo();
+		v.setX(2f);
+		v.setY(0f);
+		slingshotElement.setCornerA(v);
+		v = new VectorPdo();
+		v.setX(0f);
+		v.setY(2f);
+		slingshotElement.setCornerB(v);
+		
+		PlayFieldObstacleElementPdo obstacleElement = new PlayFieldObstacleElementPdo();
+		obstacleElement.setId(3);
+		v = new VectorPdo();
+		v.setX(60f);
+		v.setY(60f);
+		obstacleElement.setPosition(v);
+		List<VectorPdo> vertices = new ArrayList<VectorPdo>();
+		vertices.add(new VectorPdo(1, 1));
+		vertices.add(new VectorPdo(-1, 1));
+		vertices.add(new VectorPdo(-1, -1));
+		vertices.add(new VectorPdo(1, -1));
+		obstacleElement.setVertices(vertices);
 		
 		List<PlayFieldElementPdo> elements = new ArrayList<PlayFieldElementPdo>();
-		elements.add(element);
-		elements.add(element2);
+		elements.add(bumperElement);
+		elements.add(slingshotElement);
+		elements.add(obstacleElement);
 		
 		PlayFieldPdo field = new PlayFieldPdo();
 		field.setName("testfield");

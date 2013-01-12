@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PlayFieldRule {
 
-	public String getClassName();
+	public Class<?> getClassName();
 	
 	public List<Integer> getParameters();
 	

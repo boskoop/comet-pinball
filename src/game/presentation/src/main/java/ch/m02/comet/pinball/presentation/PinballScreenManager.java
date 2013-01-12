@@ -31,7 +31,7 @@ public class PinballScreenManager implements Disposable, ScreenManager {
 		registerAndInitScreens();
 		
 		if(configuration.skipSplashscreen()) {
-			changeScreenTo(GameScreen.class);
+			changeScreenTo(MainMenuScreen.class);
 		} else {
 			changeScreenTo(SplashScreen.class);
 		}

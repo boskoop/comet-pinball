@@ -7,13 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayField;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "playfield")
-@XmlType
 public class PlayFieldPdo implements PlayField {
 
 	@XmlElement(name = "name", required = true)

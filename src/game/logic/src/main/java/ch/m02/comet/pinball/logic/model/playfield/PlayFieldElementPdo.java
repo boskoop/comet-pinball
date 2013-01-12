@@ -3,35 +3,20 @@ package ch.m02.comet.pinball.logic.model.playfield;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldElement;
-import ch.m02.comet.pinball.core.model.playfield.PlayFieldElementType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "element")
-@XmlType
-public class PlayFieldElementPdo implements PlayFieldElement {
+@XmlSeeAlso({ PlayFieldBumperElementPdo.class,
+		PlayFieldObstacleElementPdo.class, PlayFieldSlingshotElementPdo.class })
+public abstract class PlayFieldElementPdo implements PlayFieldElement {
 
 	@XmlElement(name = "id", required = true)
 	private int id;
 
-	@XmlElement(name = "type", required = true)
-	private PlayFieldElementType type;
-
-	@XmlElement(name = "placement", required = true)
-	private PlacementPdo placement;
-
-	@Override
-	public PlayFieldElementType getType() {
-		return type;
-	}
-
-	@Override
-	public PlacementPdo getPlacement() {
-		return placement;
-	}
+	@XmlElement(name = "position", required = true)
+	private VectorPdo position;
 
 	@Override
 	public int getId() {
@@ -42,12 +27,13 @@ public class PlayFieldElementPdo implements PlayFieldElement {
 		this.id = id;
 	}
 
-	public void setPlacement(PlacementPdo placement) {
-		this.placement = placement;
+	@Override
+	public VectorPdo getPosition() {
+		return position;
 	}
 
-	public void setType(PlayFieldElementType type) {
-		this.type = type;
+	public void setPosition(VectorPdo position) {
+		this.position = position;
 	}
 
 }
