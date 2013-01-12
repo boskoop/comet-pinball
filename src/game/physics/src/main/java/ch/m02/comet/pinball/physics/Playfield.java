@@ -8,6 +8,7 @@ import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
 import ch.m02.comet.pinball.physics.element.FlipperElement;
 import ch.m02.comet.pinball.physics.element.PlungerTubeElement;
+import ch.m02.comet.pinball.physics.element.SlingshotElement;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -22,6 +23,10 @@ public class Playfield implements InteractivePhysicsObject {
 	private List<PhysicsObject> physicsObjects = new ArrayList<PhysicsObject>();
 	private List<InteractivePhysicsObject> interactiveObjects = new ArrayList<InteractivePhysicsObject>();
 	private List<ContactListener> contactListeners = new ArrayList<ContactListener>();
+	
+	private Bumper leftTopBumper,rightTopBumper;
+	private SlingshotElement leftSlingshotElement;
+	
 
 	public Playfield() {
 		physicsObjects.add(new FieldBoundsElement());
@@ -30,15 +35,17 @@ public class Playfield implements InteractivePhysicsObject {
 		physicsObjects.add(new PlungerTubeElement());
 		interactiveObjects.add(new FlipperElement());
 		
-		Bumper leftTopBumper = new Bumper(new Vector2(0.25f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-		Bumper rightTopBumper = new Bumper(new Vector2(0.5f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+		leftTopBumper = new Bumper(new Vector2(0.25f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+		rightTopBumper = new Bumper(new Vector2(0.5f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+		
+		leftSlingshotElement = new SlingshotElement(new Vector2(0.25f * PhysicsDefinition.METER_SCALE_FACTOR,0.4f * PhysicsDefinition.METER_SCALE_FACTOR), 90);
+		
+		// add bumpers
 		physicsObjects.add(rightTopBumper);
 		physicsObjects.add(leftTopBumper);
 		
-		// TODO: this should only be done at init time (not in constructor!), see todo in Bumper
-		contactListeners.add(leftTopBumper.getContactListener());
-		contactListeners.add(rightTopBumper.getContactListener());
-		
+		// add slingshots
+		physicsObjects.add(leftSlingshotElement);
 	}
 
 	@Override
@@ -52,6 +59,10 @@ public class Playfield implements InteractivePhysicsObject {
 		
 		ContactListener contactListener = createCollectionContactListener();
 		world.setContactListener(contactListener);
+		
+		contactListeners.add(leftTopBumper.getContactListener());
+		contactListeners.add(rightTopBumper.getContactListener());
+		contactListeners.add(leftSlingshotElement.getContactListener());
 	}
 
 	@Override

@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class SlingshotElement implements PhysicsObject, Placeable {
@@ -30,15 +32,33 @@ public class SlingshotElement implements PhysicsObject, Placeable {
 	@Override
 	public void init(World world) {
 		slingshotBody = createSlingshotBody(world);
-		
-		createContactListener();
 	}
 
 	private Body createSlingshotBody(World world){
+		createContactListener();
+		// create body definition of slingshot
 		BodyDef slingshotDef = new BodyDef();
 		slingshotDef.type = BodyType.DynamicBody;
 		slingshotDef.position.set(centerPosition);
 		Body slingshot = world.createBody(slingshotDef);
+		PolygonShape reactiveSlingshotShape;
+		
+		FixtureDef reactiveSlingshotFixtureDef = new FixtureDef();
+		
+		
+		
+		try {
+			// create reactive part of slingshot
+			Vector2[] reactiveSlingshotVertices = new Vector2[4];
+			reactiveSlingshotVertices[0] = new Vector2(0f, -2f);
+			reactiveSlingshotVertices[1] = new Vector2(3f, 1f);
+			reactiveSlingshotVertices[2] = new Vector2(3f, 1f);
+			reactiveSlingshotVertices[3] = new Vector2(0f, -2f);
+			//reactiveSlingshotShape = new PolygonShape();
+			//reactiveSlingshotShape.set(reactiveSlingshotVertices);
+		} finally {
+			
+		}
 		
 		//Rectan
 		return slingshot;

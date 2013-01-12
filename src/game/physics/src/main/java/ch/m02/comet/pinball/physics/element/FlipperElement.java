@@ -113,7 +113,7 @@ public class FlipperElement implements InteractivePhysicsObject {
 	public void handlePhysicsEvents() {
 		if (Gdx.input.isKeyPressed(Keys.TAB)) {
 			leftFlipper.setAngularVelocity(50f);
-		} else {
+		} else {	
 			leftFlipper.setAngularVelocity(-15f);
 		}
 		if (Gdx.input.isKeyPressed(Keys.ENTER)) {
