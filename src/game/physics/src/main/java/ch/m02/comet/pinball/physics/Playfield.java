@@ -23,10 +23,9 @@ public class Playfield implements InteractivePhysicsObject {
 	private List<PhysicsObject> physicsObjects = new ArrayList<PhysicsObject>();
 	private List<InteractivePhysicsObject> interactiveObjects = new ArrayList<InteractivePhysicsObject>();
 	private List<ContactListener> contactListeners = new ArrayList<ContactListener>();
-	
-	private Bumper leftTopBumper,rightTopBumper;
-	private SlingshotElement leftSlingshotElement;
-	
+
+	private Bumper leftTopBumper, rightTopBumper;
+	private SlingshotElement leftSlingshotElement, rightSlingshotElement;
 
 	public Playfield() {
 		physicsObjects.add(new FieldBoundsElement());
@@ -34,18 +33,51 @@ public class Playfield implements InteractivePhysicsObject {
 		physicsObjects.add(new FieldBottomCornerElement());
 		physicsObjects.add(new PlungerTubeElement());
 		interactiveObjects.add(new FlipperElement());
+
+		leftTopBumper = new Bumper(new Vector2(
+				0.25f * PhysicsDefinition.METER_SCALE_FACTOR,
+				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+		rightTopBumper = new Bumper(new Vector2(
+				0.5f * PhysicsDefinition.METER_SCALE_FACTOR,
+				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+
 		
-		leftTopBumper = new Bumper(new Vector2(0.25f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-		rightTopBumper = new Bumper(new Vector2(0.5f * PhysicsDefinition.METER_SCALE_FACTOR,1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+
+		Vector2 vectorToCornerAleftSlingshot = new Vector2(
+				0.075f * PhysicsDefinition.METER_SCALE_FACTOR,
+				0.00f * PhysicsDefinition.METER_SCALE_FACTOR);
+		Vector2 vectorToCornerBleftSlingshot = new Vector2(
+				0.00f * PhysicsDefinition.METER_SCALE_FACTOR,
+				0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
+
+		leftSlingshotElement = new SlingshotElement(new Vector2(
+				0.12f * PhysicsDefinition.METER_SCALE_FACTOR, // 0.25
+				0.4f * PhysicsDefinition.METER_SCALE_FACTOR), vectorToCornerAleftSlingshot, // 0.4
+				vectorToCornerBleftSlingshot);
 		
-		leftSlingshotElement = new SlingshotElement(new Vector2(0.25f * PhysicsDefinition.METER_SCALE_FACTOR,0.4f * PhysicsDefinition.METER_SCALE_FACTOR), 90);
+		Vector2 vectorToCornerBrightSlingshot = new Vector2(
+				-0.075f * PhysicsDefinition.METER_SCALE_FACTOR,
+				0.00f * PhysicsDefinition.METER_SCALE_FACTOR);
+		Vector2 vectorToCornerArightSlingshot = new Vector2(
+				0.00f * PhysicsDefinition.METER_SCALE_FACTOR,
+				0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
+		
+		
+		rightSlingshotElement = new SlingshotElement(new Vector2(
+				0.6f * PhysicsDefinition.METER_SCALE_FACTOR, // 0.25
+				0.4f * PhysicsDefinition.METER_SCALE_FACTOR), vectorToCornerArightSlingshot, // 0.4
+				vectorToCornerBrightSlingshot);
+
+		
 		
 		// add bumpers
 		physicsObjects.add(rightTopBumper);
 		physicsObjects.add(leftTopBumper);
-		
+
 		// add slingshots
 		physicsObjects.add(leftSlingshotElement);
+		physicsObjects.add(rightSlingshotElement);
+		
 	}
 
 	@Override
@@ -56,13 +88,14 @@ public class Playfield implements InteractivePhysicsObject {
 		for (InteractivePhysicsObject object : interactiveObjects) {
 			object.init(world);
 		}
-		
+
 		ContactListener contactListener = createCollectionContactListener();
 		world.setContactListener(contactListener);
-		
+
 		contactListeners.add(leftTopBumper.getContactListener());
 		contactListeners.add(rightTopBumper.getContactListener());
 		contactListeners.add(leftSlingshotElement.getContactListener());
+		contactListeners.add(rightSlingshotElement.getContactListener());
 	}
 
 	@Override
@@ -71,37 +104,37 @@ public class Playfield implements InteractivePhysicsObject {
 			object.handlePhysicsEvents();
 		}
 	}
-	
+
 	@Override
 	public Body getBody() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	private ContactListener createCollectionContactListener(){
+
+	private ContactListener createCollectionContactListener() {
 		return new ContactListener() {
-			
+
 			@Override
 			public void preSolve(Contact contact, Manifold oldManifold) {
 				for (ContactListener contactListener : contactListeners) {
-					contactListener.preSolve(contact,oldManifold);
+					contactListener.preSolve(contact, oldManifold);
 				}
 			}
-			
+
 			@Override
 			public void postSolve(Contact contact, ContactImpulse impulse) {
 				for (ContactListener contactListener : contactListeners) {
 					contactListener.postSolve(contact, impulse);
 				}
 			}
-			
+
 			@Override
 			public void endContact(Contact contact) {
 				for (ContactListener contactListener : contactListeners) {
 					contactListener.endContact(contact);
 				}
 			}
-			
+
 			@Override
 			public void beginContact(Contact contact) {
 				for (ContactListener contactListener : contactListeners) {
