@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldRule;
 import ch.m02.comet.pinball.core.model.playfield.Rule;
 
@@ -38,6 +40,18 @@ public class PlayFieldRulePdo implements PlayFieldRule {
 
 	public void setParameters(List<Integer> parameters) {
 		this.parameters = parameters;
+	}
+
+	@Override
+	public String toString() {
+		ToStringBuilder builder = new ToStringBuilder(this)
+				.append("className", className);
+		builder.append("parameters=[");
+		for (Integer i : parameters) {
+			builder.append(i);
+		}
+		builder.append("]");
+		return builder.build();
 	}
 
 }

@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import ch.m02.comet.pinball.core.model.playfield.Vector;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -41,6 +43,14 @@ public class VectorPdo implements Vector {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("x", x)
+				.append("y", y)
+				.build();
 	}
 
 }

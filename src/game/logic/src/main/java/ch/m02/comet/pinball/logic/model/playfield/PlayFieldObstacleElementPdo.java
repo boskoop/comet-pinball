@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldObstacleElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -26,6 +28,18 @@ public class PlayFieldObstacleElementPdo extends PlayFieldElementPdo implements
 
 	public void setVertices(List<VectorPdo> vertices) {
 		this.vertices = vertices;
+	}
+
+	@Override
+	public String toString() {
+		ToStringBuilder builder = new ToStringBuilder(this)
+				.appendSuper(super.toString());
+		builder.append("vertices=[");
+		for (VectorPdo v : vertices) {
+			builder.append(v);
+		}
+		builder.append("]");
+		return builder.build();
 	}
 
 }

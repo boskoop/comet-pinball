@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldSlingshotElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -34,6 +36,15 @@ public class PlayFieldSlingshotElementPdo extends PlayFieldElementPdo implements
 
 	public void setCornerB(VectorPdo cornerB) {
 		this.cornerB = cornerB;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.appendSuper(super.toString())
+				.append("cornerA", cornerA)
+				.append("cornerB", cornerB)
+				.build();
 	}
 
 }
