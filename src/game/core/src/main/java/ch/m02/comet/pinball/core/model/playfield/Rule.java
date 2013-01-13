@@ -1,7 +1,11 @@
 package ch.m02.comet.pinball.core.model.playfield;
 
+import java.util.List;
+
 public interface Rule {
 
-	// TODO: something like handleBallCollisionEvent(elementId)
+	public void handleHit(int id);
+	
+	public void init(List<Integer> paramters);
 	
 }

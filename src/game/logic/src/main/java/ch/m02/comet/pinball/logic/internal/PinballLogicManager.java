@@ -20,6 +20,4 @@ public class PinballLogicManager implements LogicManager {
 		return stateContext.getCurrentState();
 	}
 	
-	
-	
 }

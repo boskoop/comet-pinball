@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.m02.comet.pinball.core.presentation.Display;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldElementPdo;
@@ -14,6 +13,7 @@ import ch.m02.comet.pinball.logic.model.simulation.ScorePdo;
 import ch.m02.comet.pinball.logic.model.simulation.SimulationPdo;
 import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreDao;
 import ch.m02.comet.pinball.logic.persistence.SimulationStoreDao;
+import ch.m02.comet.pinball.logic.simulation.rule.RuleEngine;
 
 public class SimulationManager {
 	
@@ -25,16 +25,17 @@ public class SimulationManager {
 	
 	@Inject
 	private PresentationManager presentation;
-	
-	@Inject
-	private Display display;
 
 	private SimulationPdo simulation;
+	
+	@Inject
+	private RuleEngine ruleEngine;
 
 	public void startNewSimulation() {
 		clearPlayField();
 		createSimulation();
 		loadPlayField();
+		initRuleEngine();
 		loadScreen();
 	}
 
@@ -62,15 +63,22 @@ public class SimulationManager {
 		}
 		simulation.setPlayFieldId(fieldId);
 	}
+
+	private void initRuleEngine() {
+		ruleEngine.initScore(simulation.getScore());
+	}
 	
 	private void loadScreen() {
-		display.displayScore(simulation.getScore().getScoreValue());
 		presentation.showScreen(GameScreen.class);
 	}
 
 	public void endSimulation() {
 		// TODO get player name
 //		simulation.setPlayer(player)
+	}
+
+	public RuleEngine getRuleEngine() {
+		return ruleEngine;
 	}
 	
 }

@@ -29,8 +29,27 @@ import ch.m02.comet.pinball.logic.model.playfield.VectorPdo;
 
 public class PlayFieldStoreDaoImplTest {
 
-	private static class Rule1 implements Rule { }
-	private static class Rule2 implements Rule { }
+	private static class Rule1 implements Rule {
+
+		@Override
+		public void handleHit(int id) {
+		}
+
+		@Override
+		public void init(List<Integer> paramters) {
+		} 
+	}
+	
+	private static class Rule2 implements Rule {
+
+		@Override
+		public void handleHit(int id) {
+		}
+
+		@Override
+		public void init(List<Integer> paramters) {
+		}
+	}
 	
 	@Test
 	public void testPlayFieldGeneration() throws Exception {

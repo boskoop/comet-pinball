@@ -21,6 +21,11 @@ public class SimulationState extends AbstractState {
 	}
 	
 	@Override
+	public void handleBallHitsId(int id) {
+		simulationManager.getRuleEngine().handleBallHitsId(id);
+	}
+	
+	@Override
 	public void gameOver() {
 		gamesPlayed++;
 		if (gamesPlayed >= 3) {
