@@ -9,6 +9,6 @@ public interface PlayFieldElement {
 
 	public Vector getPosition();
 	
-	public ElementFactory getElementFactory(ApplicationContext context);
+	public ElementFactory<? extends PlayFieldElement> getElementFactory(ApplicationContext context);
 	
 }

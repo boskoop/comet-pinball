@@ -23,9 +23,13 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 	private List<PhysicsObject> physicsObjects = new ArrayList<PhysicsObject>();
 	private List<InteractivePhysicsObject> interactiveObjects = new ArrayList<InteractivePhysicsObject>();
 	private List<ContactListener> contactListeners = new ArrayList<ContactListener>();
+	
+	private List<PlacablePhysicsObject> placedObjects = new ArrayList<PlacablePhysicsObject>();
 
 //	private Bumper leftTopBumper, rightTopBumper;
 	private Slingshot leftSlingshotElement, rightSlingshotElement;
+	
+	private World world;
 
 	public PhysicPlayFieldImpl() {
 		physicsObjects.add(new FieldBoundsElement());
@@ -74,19 +78,25 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 	
 	@Override
 	public void placePhysicsObject(PlacablePhysicsObject object) {
+		object.init(world);
 		physicsObjects.add(object);
 		contactListeners.add(object.getContactListener());
-		
+		placedObjects.add(object);
 	}
 
 	@Override
 	public void clearField() {
-		// TODO Auto-generated method stub
-		
+		for (PlacablePhysicsObject o : placedObjects) {
+			physicsObjects.remove(o);
+			world.destroyBody(o.getBody());
+			// TODO: is there any more to dispose?
+		}
+		placedObjects.clear();
 	}
 
 	@Override
 	public void init(World world) {
+		this.world = world;
 		for (PhysicsObject object : physicsObjects) {
 			object.init(world);
 		}
@@ -110,8 +120,7 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 
 	@Override
 	public Body getBody() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("PhysicPlayField does not have a body");
 	}
 
 	private ContactListener createCollectionContactListener() {

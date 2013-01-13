@@ -17,6 +17,9 @@ import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
+import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
+import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
+import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 import ch.m02.comet.pinball.game.ApplicationProvider;
 import ch.m02.comet.pinball.game.PinballGame;
 import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreManager;
@@ -25,6 +28,9 @@ import ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreManagerImpl
 import ch.m02.comet.pinball.logic.persistence.internal.SimulationStoreManagerImpl;
 import ch.m02.comet.pinball.physics.PhysicPlayField;
 import ch.m02.comet.pinball.physics.PhysicPlayFieldImpl;
+import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
+import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
+import ch.m02.comet.pinball.physics.placable.SlingshotElementFactoryImpl;
 import ch.m02.comet.pinball.presentation.PinballScreenManager;
 
 import com.badlogic.gdx.Game;
@@ -67,6 +73,9 @@ public class Pinball {
 	
 	private void registerPrototypes() {
 		log.debug("Registering pico component prototypes");
+		container.addComponent(BumperElementFactory.class, BumperElementFactoryImpl.class);
+		container.addComponent(SlingshotElementFactory.class, SlingshotElementFactoryImpl.class);
+		container.addComponent(ObstacleElementFactory.class, ObstacleElementFactoryImpl.class);
 	}
 
 	public Game getGame() {

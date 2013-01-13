@@ -19,17 +19,16 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Bumper implements PlacablePhysicsObject {
 	
 	private Vector2 position;
+	private float radius;
 	private Body body;
 	private ContactListener contactListener;
 
-	public Bumper() {
-		this(new Vector2(0, 0));
-	}
-
-	public Bumper(Vector2 position) {
-		if (position == null)
+	public Bumper(Vector2 position, float radius) {
+		if (position == null) {
 			throw new IllegalArgumentException();
+		}
 		this.position = position;
+		this.radius = radius;
 	}
 
 	@Override
@@ -41,7 +40,7 @@ public class Bumper implements PlacablePhysicsObject {
 		CircleShape circle = null;
 		try {
 			circle = new CircleShape();
-			circle.setRadius(PhysicsDefinition.BUMPER_RADIUS);
+			circle.setRadius(radius);
 			FixtureDef bumperFixtureDefinition = defineBumperFixture(circle);
 			body.createFixture(bumperFixtureDefinition);
 		} finally {

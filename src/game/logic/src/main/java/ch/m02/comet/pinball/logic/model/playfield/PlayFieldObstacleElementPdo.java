@@ -12,7 +12,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldObstacleElement;
-import ch.m02.comet.pinball.core.presentation.ElementFactory;
 import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -46,8 +45,11 @@ public class PlayFieldObstacleElementPdo extends PlayFieldElementPdo implements
 	}
 
 	@Override
-	public ElementFactory getElementFactory(ApplicationContext context) {
-		return context.getComponentContainer().getComponent(ObstacleElementFactory.class);
+	public ObstacleElementFactory getElementFactory(ApplicationContext context) {
+		ObstacleElementFactory factory = context.getComponentContainer()
+				.getComponent(ObstacleElementFactory.class);
+		factory.setPlayFieldElement(this);
+		return factory;
 	}
 
 }

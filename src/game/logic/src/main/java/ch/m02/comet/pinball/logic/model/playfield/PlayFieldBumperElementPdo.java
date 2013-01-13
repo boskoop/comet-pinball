@@ -9,7 +9,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldBumperElement;
-import ch.m02.comet.pinball.core.presentation.ElementFactory;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -38,8 +37,11 @@ public class PlayFieldBumperElementPdo extends PlayFieldElementPdo implements
 	}
 
 	@Override
-	public ElementFactory getElementFactory(ApplicationContext context) {
-		return context.getComponentContainer().getComponent(BumperElementFactory.class);
+	public BumperElementFactory getElementFactory(ApplicationContext context) {
+		BumperElementFactory factory = context.getComponentContainer()
+				.getComponent(BumperElementFactory.class);
+		factory.setPlayFieldElement(this);
+		return factory;
 	}
 
 }
