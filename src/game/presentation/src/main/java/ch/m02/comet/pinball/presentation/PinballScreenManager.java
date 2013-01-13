@@ -13,13 +13,11 @@ import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.presentation.screens.GameScreen;
 import ch.m02.comet.pinball.presentation.screens.MainMenuScreen;
 import ch.m02.comet.pinball.presentation.screens.ManagedScreen;
-import ch.m02.comet.pinball.presentation.screens.ScreenManager;
 import ch.m02.comet.pinball.presentation.screens.SplashScreen;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.Disposable;
 
-public class PinballScreenManager implements Disposable, ScreenManager {
+public class PinballScreenManager implements ScreenManager {
 
 	@Inject
 	private Configuration configuration;
@@ -31,6 +29,7 @@ public class PinballScreenManager implements Disposable, ScreenManager {
 
 	private Map<Class<? extends ManagedScreen>, ManagedScreen> screens;
 
+	@Override
 	public void init(ScreenPresenter presenter) {
 		this.presenter = presenter;
 

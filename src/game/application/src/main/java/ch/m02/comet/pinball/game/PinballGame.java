@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import ch.m02.comet.pinball.MainApplication;
 import ch.m02.comet.pinball.core.config.BooleanProperties;
 import ch.m02.comet.pinball.core.config.Configuration;
-import ch.m02.comet.pinball.presentation.PinballScreenManager;
+import ch.m02.comet.pinball.presentation.ScreenManager;
 import ch.m02.comet.pinball.presentation.ScreenPresenter;
 
 import com.badlogic.gdx.Game;
@@ -27,7 +27,7 @@ public class PinballGame extends Game implements ScreenPresenter {
 	private MainApplication application;
 
 	@Inject
-	private PinballScreenManager screenManager;
+	private ScreenManager screenManager;
 
 	@Override
 	public void create() {
