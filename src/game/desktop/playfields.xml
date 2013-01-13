@@ -123,6 +123,27 @@
 				</obstacle>
 			</elements>
 			<rules>
+				<rule>
+                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
+                    <parameters>
+                        <parameter>1</parameter>
+                        <parameter>20</parameter>
+                    </parameters>
+				</rule>
+				<rule>
+                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
+                    <parameters>
+                        <parameter>2</parameter>
+                        <parameter>20</parameter>
+                    </parameters>
+				</rule>
+				<rule>
+                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
+                    <parameters>
+                        <parameter>3</parameter>
+                        <parameter>20</parameter>
+                    </parameters>
+				</rule>
 			</rules>
 		</playfield>
 	</playfields>

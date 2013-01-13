@@ -20,6 +20,7 @@ import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
 import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
 import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
+import ch.m02.comet.pinball.core.logic.event.EventHandler;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
@@ -30,6 +31,7 @@ import ch.m02.comet.pinball.logic.LogicManager;
 import ch.m02.comet.pinball.logic.internal.PinballLogicManager;
 import ch.m02.comet.pinball.logic.internal.command.NewSimulationCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.SplashFinishedCommandImpl;
+import ch.m02.comet.pinball.logic.internal.event.EventHandlerImpl;
 import ch.m02.comet.pinball.logic.internal.state.MainMenuState;
 import ch.m02.comet.pinball.logic.internal.state.SimulationState;
 import ch.m02.comet.pinball.logic.internal.state.SplashState;
@@ -39,6 +41,8 @@ import ch.m02.comet.pinball.logic.persistence.SimulationStoreDao;
 import ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreDaoImpl;
 import ch.m02.comet.pinball.logic.persistence.internal.SimulationStoreDaoImpl;
 import ch.m02.comet.pinball.logic.simulation.SimulationManager;
+import ch.m02.comet.pinball.logic.simulation.rule.RuleEngine;
+import ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsPlayFieldImpl;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
@@ -97,6 +101,7 @@ public class Pinball {
 		singletonContainer.addComponent(LogicManager.class, PinballLogicManager.class);
 		singletonContainer.addComponent(PlayFieldStoreDao.class, PlayFieldStoreDaoImpl.class);
 		singletonContainer.addComponent(SimulationStoreDao.class, SimulationStoreDaoImpl.class);
+		singletonContainer.addComponent(EventHandler.class, EventHandlerImpl.class);
 		singletonContainer.addComponent(StateContext.class);
 	}
 	
@@ -126,6 +131,10 @@ public class Pinball {
 		
 		// Simulation
 		container.addComponent(SimulationManager.class);
+		container.addComponent(RuleEngine.class);
+		
+		// Rules
+		container.addComponent(HitScoreRule.class);
 	}
 	
 	public void start() {

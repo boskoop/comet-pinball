@@ -7,5 +7,7 @@ public interface State {
 	public void splashFinished();
 	
 	public void gameOver();
+
+	public void handleBallHitsId(int id);
 	
 }
