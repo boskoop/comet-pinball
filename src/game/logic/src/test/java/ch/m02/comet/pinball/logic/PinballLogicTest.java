@@ -1,12 +1,13 @@
 package ch.m02.comet.pinball.logic;
 
 import static org.junit.Assert.assertNotNull;
+import ch.m02.comet.pinball.logic.internal.PinballLogicManager;
 
 
 public class PinballLogicTest {
 
 	public void testPinballLogic() {
-		PinballLogic logic = new PinballLogic();
+		PinballLogicManager logic = new PinballLogicManager();
 		assertNotNull(logic);
 	}
 }

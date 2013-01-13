@@ -1,6 +1,10 @@
 package ch.m02.comet.pinball.presentation.screens;
 
 
+import javax.inject.Inject;
+
+import ch.m02.comet.pinball.core.ApplicationContext;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
@@ -18,6 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class MainMenuScreen extends ManagedScreen {
+	
+	@Inject
+	private ApplicationContext context;
 
 	private static final String DRAWABLE_BUTTON = "buttonnormal";
 	private static final String DRAWABLE_BUTTON_PRESSED = "buttonpressed";
@@ -30,10 +37,6 @@ public class MainMenuScreen extends ManagedScreen {
 	private SpriteBatch batch;
 	private TextButton button;
 	private Label gameNameLabel;
-
-	public MainMenuScreen(ScreenManager manager) {
-		super(manager);
-	}
 	
 	public void init(){
 		batch = new SpriteBatch();

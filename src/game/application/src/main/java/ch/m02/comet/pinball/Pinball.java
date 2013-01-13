@@ -17,11 +17,16 @@ import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
+import ch.m02.comet.pinball.core.logic.command.NewGameCommand;
+import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
 import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 import ch.m02.comet.pinball.game.ApplicationProvider;
 import ch.m02.comet.pinball.game.PinballGame;
+import ch.m02.comet.pinball.logic.LogicManager;
+import ch.m02.comet.pinball.logic.command.NewGameCommandImpl;
+import ch.m02.comet.pinball.logic.internal.PinballLogicManager;
 import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreManager;
 import ch.m02.comet.pinball.logic.persistence.SimulationStoreManager;
 import ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreManagerImpl;
@@ -31,7 +36,11 @@ import ch.m02.comet.pinball.physics.PhysicPlayFieldImpl;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.SlingshotElementFactoryImpl;
+import ch.m02.comet.pinball.presentation.PinballPresentationManager;
 import ch.m02.comet.pinball.presentation.PinballScreenManager;
+import ch.m02.comet.pinball.presentation.screens.GameScreen;
+import ch.m02.comet.pinball.presentation.screens.MainMenuScreen;
+import ch.m02.comet.pinball.presentation.screens.SplashScreen;
 
 import com.badlogic.gdx.Game;
 
@@ -69,20 +78,31 @@ public class Pinball {
 
 		singletonContainer.addComponent(PinballScreenManager.class);
 		singletonContainer.addComponent(PhysicPlayField.class, PhysicPlayFieldImpl.class);
+		singletonContainer.addComponent(PresentationManager.class, PinballPresentationManager.class);
+		singletonContainer.addComponent(LogicManager.class, PinballLogicManager.class);
 	}
 	
 	private void registerPrototypes() {
 		log.debug("Registering pico component prototypes");
+		// Element factories
 		container.addComponent(BumperElementFactory.class, BumperElementFactoryImpl.class);
 		container.addComponent(SlingshotElementFactory.class, SlingshotElementFactoryImpl.class);
 		container.addComponent(ObstacleElementFactory.class, ObstacleElementFactoryImpl.class);
+
+		// Screens
+		container.addComponent(SplashScreen.class);
+		container.addComponent(MainMenuScreen.class);
+		container.addComponent(GameScreen.class);
+
+		// Commands
+		container.addComponent(NewGameCommand.class, NewGameCommandImpl.class);
 	}
 
 	public Game getGame() {
 		return container.getComponent(Game.class);
 	}
 	
-	public ApplicationContext getApplicationContext() {
+	ApplicationContext getApplicationContext() {
 		return container.getComponent(ApplicationContext.class);
 	}
 }

@@ -20,10 +20,6 @@ public class SplashScreen extends ManagedScreen {
 	Sprite splashSprite;
 	SpriteBatch batch;
 	TweenManager tweenManager;
-
-	public SplashScreen(ScreenManager manager) {
-		super(manager);
-	}
 	
 	public void init() {
 		splashTexture = new Texture("data/splash.png");

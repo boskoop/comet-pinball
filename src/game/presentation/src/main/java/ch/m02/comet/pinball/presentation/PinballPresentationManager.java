@@ -3,7 +3,7 @@ package ch.m02.comet.pinball.presentation;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldElement;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 
-public class PresentationManagerImpl implements PresentationManager {
+public class PinballPresentationManager implements PresentationManager {
 
 	@Override
 	public void clearElements() {

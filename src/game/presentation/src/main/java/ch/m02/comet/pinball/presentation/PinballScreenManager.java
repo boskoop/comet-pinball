@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.picocontainer.PicoContainer;
+
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.BooleanProperties;
 import ch.m02.comet.pinball.core.config.Configuration;
@@ -43,9 +45,10 @@ public class PinballScreenManager implements Disposable, ScreenManager {
 	}
 
 	private void registerAndInitScreens() {
-		SplashScreen splashScreen = new SplashScreen(this);
-		MainMenuScreen menuScreen = new MainMenuScreen(this);
-		GameScreen gameScreen = new GameScreen(this, context);
+		PicoContainer container = context.getComponentContainer();
+		SplashScreen splashScreen = container.getComponent(SplashScreen.class);
+		MainMenuScreen menuScreen = container.getComponent(MainMenuScreen.class);
+		GameScreen gameScreen = container.getComponent(GameScreen.class);
 
 		screens = new HashMap<Class<? extends ManagedScreen>, ManagedScreen>();
 		screens.put(SplashScreen.class, splashScreen);

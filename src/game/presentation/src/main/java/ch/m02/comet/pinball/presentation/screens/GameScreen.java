@@ -1,5 +1,7 @@
 package ch.m02.comet.pinball.presentation.screens;
 
+import javax.inject.Inject;
+
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.physics.Ball;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
@@ -20,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class GameScreen extends ManagedScreen {
 	
+	@Inject
 	private ApplicationContext context;
 
 	private OrthographicCamera camera;
@@ -53,11 +56,6 @@ public class GameScreen extends ManagedScreen {
 	private GraphicsObject ballGraphicsObject, scoreDisplayGraphicsObject;
 
 	private InteractivePhysicsObject playfield;
-
-	public GameScreen(ScreenManager manager, ApplicationContext context) {
-		super(manager);
-		this.context = context;
-	}
 
 	public void init() {
 		final Vector2 gravity = new Vector2(0, PhysicsDefinition.RAMP_GRAVITY);
