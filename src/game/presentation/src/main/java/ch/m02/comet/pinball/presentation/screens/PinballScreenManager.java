@@ -1,4 +1,4 @@
-package ch.m02.comet.pinball.presentation;
+package ch.m02.comet.pinball.presentation.screens;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +10,12 @@ import org.picocontainer.PicoContainer;
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.BooleanProperties;
 import ch.m02.comet.pinball.core.config.Configuration;
-import ch.m02.comet.pinball.presentation.screens.GameScreen;
-import ch.m02.comet.pinball.presentation.screens.MainMenuScreen;
-import ch.m02.comet.pinball.presentation.screens.ManagedScreen;
-import ch.m02.comet.pinball.presentation.screens.SplashScreen;
+import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
+import ch.m02.comet.pinball.core.presentation.screen.MainMenuScreen;
+import ch.m02.comet.pinball.core.presentation.screen.PinballScreen;
+import ch.m02.comet.pinball.core.presentation.screen.SplashScreen;
+import ch.m02.comet.pinball.presentation.ScreenManager;
+import ch.m02.comet.pinball.presentation.ScreenPresenter;
 
 import com.badlogic.gdx.Screen;
 
@@ -27,7 +29,7 @@ public class PinballScreenManager implements ScreenManager {
 
 	private ScreenPresenter presenter;
 
-	private Map<Class<? extends ManagedScreen>, ManagedScreen> screens;
+	private Map<Class<? extends PinballScreen>, ManagedScreen> screens;
 
 	@Override
 	public void init(ScreenPresenter presenter) {
@@ -45,11 +47,11 @@ public class PinballScreenManager implements ScreenManager {
 
 	private void registerAndInitScreens() {
 		PicoContainer container = context.getComponentContainer();
-		SplashScreen splashScreen = container.getComponent(SplashScreen.class);
-		MainMenuScreen menuScreen = container.getComponent(MainMenuScreen.class);
-		GameScreen gameScreen = container.getComponent(GameScreen.class);
+		SplashScreenImpl splashScreen = container.getComponent(SplashScreenImpl.class);
+		MainMenuScreenImpl menuScreen = container.getComponent(MainMenuScreenImpl.class);
+		GameScreenImpl gameScreen = container.getComponent(GameScreenImpl.class);
 
-		screens = new HashMap<Class<? extends ManagedScreen>, ManagedScreen>();
+		screens = new HashMap<Class<? extends PinballScreen>, ManagedScreen>();
 		screens.put(SplashScreen.class, splashScreen);
 		screens.put(MainMenuScreen.class, menuScreen);
 		screens.put(GameScreen.class, gameScreen);
@@ -67,7 +69,7 @@ public class PinballScreenManager implements ScreenManager {
 	}
 
 	@Override
-	public void changeScreenTo(Class<? extends ManagedScreen> screenKey) {
+	public void changeScreenTo(Class<? extends PinballScreen> screenKey) {
 		Screen screen = screens.get(screenKey);
 		presenter.setScreen(screen);
 	}

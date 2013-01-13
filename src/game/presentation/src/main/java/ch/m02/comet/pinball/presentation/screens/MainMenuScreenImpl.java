@@ -3,7 +3,12 @@ package ch.m02.comet.pinball.presentation.screens;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ch.m02.comet.pinball.core.ApplicationContext;
+import ch.m02.comet.pinball.core.logic.command.NewGameCommand;
+import ch.m02.comet.pinball.core.presentation.screen.MainMenuScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -21,7 +26,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class MainMenuScreen extends ManagedScreen {
+public class MainMenuScreenImpl extends ManagedScreen implements MainMenuScreen {
+	
+	private static final Logger log = LoggerFactory.getLogger(MainMenuScreenImpl.class);
 	
 	@Inject
 	private ApplicationContext context;
@@ -93,7 +100,9 @@ public class MainMenuScreen extends ManagedScreen {
 			@Override
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				fireChangeScreen(GameScreen.class);
+				log.info("'New game' button pressed");
+				NewGameCommand command = context.getComponentContainer().getComponent(NewGameCommand.class);
+				command.execute();
 			}
 		});
 		

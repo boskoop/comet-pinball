@@ -4,7 +4,7 @@ import uk.org.lidalia.sysoutslf4j.context.LogLevel;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 import ch.m02.comet.pinball.MainApplication;
 import ch.m02.comet.pinball.Pinball;
-import ch.m02.comet.pinball.presentation.screens.GameScreen;
+import ch.m02.comet.pinball.presentation.screens.GameScreenImpl;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -23,8 +23,8 @@ public class Main implements MainApplication {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "comet-pinball";
 		cfg.useGL20 = true;
-		cfg.width = GameScreen.VIRTUAL_WINDOW_WIDTH;
-		cfg.height = GameScreen.VIRTUAL_WINDOW_HEIGHT;
+		cfg.width = GameScreenImpl.VIRTUAL_WINDOW_WIDTH;
+		cfg.height = GameScreenImpl.VIRTUAL_WINDOW_HEIGHT;
 		
 		Pinball pinball = new Pinball(this);
 		application = new LwjglApplication(pinball.getGame(), cfg);

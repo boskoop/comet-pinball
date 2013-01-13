@@ -37,11 +37,11 @@ import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.SlingshotElementFactoryImpl;
 import ch.m02.comet.pinball.presentation.PinballPresentationManager;
-import ch.m02.comet.pinball.presentation.PinballScreenManager;
 import ch.m02.comet.pinball.presentation.ScreenManager;
-import ch.m02.comet.pinball.presentation.screens.GameScreen;
-import ch.m02.comet.pinball.presentation.screens.MainMenuScreen;
-import ch.m02.comet.pinball.presentation.screens.SplashScreen;
+import ch.m02.comet.pinball.presentation.screens.GameScreenImpl;
+import ch.m02.comet.pinball.presentation.screens.MainMenuScreenImpl;
+import ch.m02.comet.pinball.presentation.screens.PinballScreenManager;
+import ch.m02.comet.pinball.presentation.screens.SplashScreenImpl;
 
 import com.badlogic.gdx.Game;
 
@@ -96,9 +96,9 @@ public class Pinball {
 		container.addComponent(ObstacleElementFactory.class, ObstacleElementFactoryImpl.class);
 
 		// Screens
-		container.addComponent(SplashScreen.class);
-		container.addComponent(MainMenuScreen.class);
-		container.addComponent(GameScreen.class);
+		container.addComponent(SplashScreenImpl.class);
+		container.addComponent(MainMenuScreenImpl.class);
+		container.addComponent(GameScreenImpl.class);
 
 		// Commands
 		container.addComponent(NewGameCommand.class, NewGameCommandImpl.class);

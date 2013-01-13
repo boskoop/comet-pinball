@@ -1,4 +1,4 @@
-package ch.m02.comet.pinball.core.presentation;
+package ch.m02.comet.pinball.core.presentation.playfield;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldElement;
 

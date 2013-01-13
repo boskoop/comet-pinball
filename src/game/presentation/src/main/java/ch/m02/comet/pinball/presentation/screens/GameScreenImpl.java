@@ -2,6 +2,7 @@ package ch.m02.comet.pinball.presentation.screens;
 
 import javax.inject.Inject;
 
+import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.physics.Ball;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicPlayField;
@@ -19,7 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class GameScreen extends ManagedScreen {
+public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	@Inject
 	private PhysicPlayField playfield;
@@ -97,7 +98,7 @@ public class GameScreen extends ManagedScreen {
 	@Override
 	public void render(float delta) {
 		if (delta > 0.02) {
-			Gdx.app.log(GameScreen.class.getCanonicalName(),
+			Gdx.app.log(GameScreenImpl.class.getCanonicalName(),
 					"Slow frame, took " + delta + " seconds");
 		}
 		clearScreen();

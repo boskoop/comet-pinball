@@ -1,14 +1,14 @@
 package ch.m02.comet.pinball.presentation;
 
-import com.badlogic.gdx.utils.Disposable;
+import ch.m02.comet.pinball.core.presentation.screen.PinballScreen;
 
-import ch.m02.comet.pinball.presentation.screens.ManagedScreen;
+import com.badlogic.gdx.utils.Disposable;
 
 
 public interface ScreenManager extends Disposable {
 	
 	public void init(ScreenPresenter presenter);
 
-	public void changeScreenTo(Class<? extends ManagedScreen> screen);
+	public void changeScreenTo(Class<? extends PinballScreen> screen);
 	
 }

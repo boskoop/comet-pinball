@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
+import ch.m02.comet.pinball.core.presentation.screen.SplashScreen;
 import ch.m02.comet.pinball.presentation.tween.SpriteTween;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class SplashScreen extends ManagedScreen {
+public class SplashScreenImpl extends ManagedScreen implements SplashScreen {
 
 	Texture splashTexture;
 	Sprite splashSprite;
@@ -67,7 +68,7 @@ public class SplashScreen extends ManagedScreen {
 	}
 
 	private void tweenCompleted() {
-		fireChangeScreen(MainMenuScreen.class);
+		fireChangeScreen(MainMenuScreenImpl.class);
 	}
 
 	@Override
