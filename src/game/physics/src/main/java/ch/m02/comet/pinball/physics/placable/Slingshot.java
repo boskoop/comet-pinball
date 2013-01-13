@@ -23,17 +23,19 @@ public class Slingshot implements PlacablePhysicsObject {
 	private Body slingshotBody;
 	private Body reactiveSlingshotBody;
 	
-	
 	private ContactListener contactListener;
 
 	/**
-	 * The three parameters cornerPosition, vectorToCornerA, vectorToCornerB should be filled with vertices that are arranged in a counterclockwise manner.
+	 * The three parameters cornerPosition, vectorToCornerA, vectorToCornerB
+	 * should be filled with vertices that are arranged in a counterclockwise
+	 * manner.
 	 * 
-	 * @param cornerPosition
-	 * @param vectorToCornerA
-	 * @param vectorToCornerB
+	 * @param cornerPosition The position of the corner in world coordinates
+	 * @param vectorToCornerA The position of corner A in object coordinates
+	 * @param vectorToCornerB The position of corner B in object coordinates
 	 */
-	public Slingshot(Vector2 cornerPosition,	Vector2 vectorToCornerA, Vector2 vectorToCornerB) {
+	public Slingshot(Vector2 cornerPosition, Vector2 vectorToCornerA,
+			Vector2 vectorToCornerB) {
 		this.cornerPosition = cornerPosition;
 		this.vectorToCornerA = vectorToCornerA;
 		this.vectorToCornerB = vectorToCornerB;
