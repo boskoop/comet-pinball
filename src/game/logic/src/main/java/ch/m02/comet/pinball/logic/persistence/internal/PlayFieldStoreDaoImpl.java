@@ -47,7 +47,6 @@ public class PlayFieldStoreDaoImpl implements PlayFieldStoreDao {
 				IOUtils.closeQuietly(input);
 				IOUtils.closeQuietly(output);
 			}
-			
 		}
 	}
 	
