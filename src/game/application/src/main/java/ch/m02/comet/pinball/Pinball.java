@@ -22,7 +22,7 @@ import ch.m02.comet.pinball.core.logic.command.BallDownCommand;
 import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
 import ch.m02.comet.pinball.core.logic.command.PlungeCommand;
 import ch.m02.comet.pinball.core.logic.command.ShowHighscoresCommand;
-import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
+import ch.m02.comet.pinball.core.logic.command.ShowMainMenuCommand;
 import ch.m02.comet.pinball.core.logic.event.EventHandler;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
@@ -36,7 +36,7 @@ import ch.m02.comet.pinball.logic.internal.command.BallDownCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.NewSimulationCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.PlungeCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.ShowHighscoresCommandImpl;
-import ch.m02.comet.pinball.logic.internal.command.SplashFinishedCommandImpl;
+import ch.m02.comet.pinball.logic.internal.command.ShowMainMenuCommandImpl;
 import ch.m02.comet.pinball.logic.internal.event.EventHandlerImpl;
 import ch.m02.comet.pinball.logic.internal.state.HighscoreState;
 import ch.m02.comet.pinball.logic.internal.state.MainMenuState;
@@ -67,6 +67,7 @@ import ch.m02.comet.pinball.presentation.screens.GameScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.HighscoreScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.MainMenuScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.PinballScreenManager;
+import ch.m02.comet.pinball.presentation.screens.PlayerNameScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.SplashScreenImpl;
 
 import com.badlogic.gdx.Game;
@@ -141,10 +142,11 @@ public class Pinball {
 		container.addComponent(MainMenuScreenImpl.class);
 		container.addComponent(GameScreenImpl.class);
 		container.addComponent(HighscoreScreenImpl.class);
+		container.addComponent(PlayerNameScreenImpl.class);
 
 		// Commands
 		container.addComponent(NewSimulationCommand.class, NewSimulationCommandImpl.class);
-		container.addComponent(SplashFinishedCommand.class, SplashFinishedCommandImpl.class);
+		container.addComponent(ShowMainMenuCommand.class, ShowMainMenuCommandImpl.class);
 		container.addComponent(ShowHighscoresCommand.class, ShowHighscoresCommandImpl.class);
 		container.addComponent(BallDownCommand.class, BallDownCommandImpl.class);
 		container.addComponent(PlungeCommand.class, PlungeCommandImpl.class);

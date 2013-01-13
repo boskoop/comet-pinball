@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.logic.command.ShowMainMenuCommand;
 import ch.m02.comet.pinball.core.model.simulation.Score;
-import ch.m02.comet.pinball.core.presentation.screen.HighscoreScreen;
+import ch.m02.comet.pinball.core.presentation.screen.PlayerNameScreen;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 
 import com.badlogic.gdx.Gdx;
@@ -29,11 +29,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class HighscoreScreenImpl extends ManagedScreen implements
-		HighscoreScreen {
+public class PlayerNameScreenImpl extends ManagedScreen implements
+		PlayerNameScreen {
 
 	private static final Logger log = LoggerFactory
-			.getLogger(HighscoreScreenImpl.class);
+			.getLogger(PlayerNameScreenImpl.class);
 
 	@Inject
 	private ApplicationContext context;
@@ -66,7 +66,7 @@ public class HighscoreScreenImpl extends ManagedScreen implements
 				Gdx.files.internal("data/menu/nueva_white.fnt"), false);
 		stage = new Stage();
 
-		display.registerHighscoreScreen(this);
+		display.registerPlayerNameScreen(this);
 	}
 
 	public void setHighscores(List<? extends Score> highscores) {
