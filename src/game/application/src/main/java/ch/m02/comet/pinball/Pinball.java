@@ -19,6 +19,7 @@ import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
 import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
+import ch.m02.comet.pinball.core.logic.command.ShowHighscoresCommand;
 import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
 import ch.m02.comet.pinball.core.logic.event.EventHandler;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
@@ -30,8 +31,10 @@ import ch.m02.comet.pinball.game.PinballGame;
 import ch.m02.comet.pinball.logic.LogicManager;
 import ch.m02.comet.pinball.logic.internal.PinballLogicManager;
 import ch.m02.comet.pinball.logic.internal.command.NewSimulationCommandImpl;
+import ch.m02.comet.pinball.logic.internal.command.ShowHighscoresCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.SplashFinishedCommandImpl;
 import ch.m02.comet.pinball.logic.internal.event.EventHandlerImpl;
+import ch.m02.comet.pinball.logic.internal.state.HighscoreState;
 import ch.m02.comet.pinball.logic.internal.state.MainMenuState;
 import ch.m02.comet.pinball.logic.internal.state.SimulationState;
 import ch.m02.comet.pinball.logic.internal.state.SplashState;
@@ -54,6 +57,7 @@ import ch.m02.comet.pinball.presentation.PinballPresentationManager;
 import ch.m02.comet.pinball.presentation.ScreenManager;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 import ch.m02.comet.pinball.presentation.screens.GameScreenImpl;
+import ch.m02.comet.pinball.presentation.screens.HighscoreScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.MainMenuScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.PinballScreenManager;
 import ch.m02.comet.pinball.presentation.screens.SplashScreenImpl;
@@ -124,15 +128,18 @@ public class Pinball {
 		container.addComponent(SplashScreenImpl.class);
 		container.addComponent(MainMenuScreenImpl.class);
 		container.addComponent(GameScreenImpl.class);
+		container.addComponent(HighscoreScreenImpl.class);
 
 		// Commands
 		container.addComponent(NewSimulationCommand.class, NewSimulationCommandImpl.class);
 		container.addComponent(SplashFinishedCommand.class, SplashFinishedCommandImpl.class);
+		container.addComponent(ShowHighscoresCommand.class, ShowHighscoresCommandImpl.class);
 		
 		// State
 		container.addComponent(MainMenuState.class);
 		container.addComponent(SplashState.class);
 		container.addComponent(SimulationState.class);
+		container.addComponent(HighscoreState.class);
 		
 		// Simulation
 		container.addComponent(SimulationManager.class);

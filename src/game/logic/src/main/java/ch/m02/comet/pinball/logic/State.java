@@ -10,4 +10,6 @@ public interface State {
 
 	public void handleBallHitsId(int id);
 	
+	public void showHighscores();
+	
 }

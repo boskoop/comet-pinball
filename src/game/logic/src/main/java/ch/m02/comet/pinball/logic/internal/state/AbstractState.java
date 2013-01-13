@@ -39,4 +39,7 @@ abstract class AbstractState implements State {
 	public void handleBallHitsId(int id) {
 	}
 	
+	@Override
+	public void showHighscores() {
+	}
 }
