@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.m02.comet.pinball.core.presentation.Display;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldElementPdo;
@@ -24,6 +25,9 @@ public class SimulationManager {
 	
 	@Inject
 	private PresentationManager presentation;
+	
+	@Inject
+	private Display display;
 
 	private SimulationPdo simulation;
 
@@ -60,6 +64,7 @@ public class SimulationManager {
 	}
 	
 	private void loadScreen() {
+		display.displayScore(simulation.getScore().getScoreValue());
 		presentation.showScreen(GameScreen.class);
 	}
 

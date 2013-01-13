@@ -13,6 +13,7 @@ import org.picocontainer.parameters.ConstantParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.m02.comet.pinball.adapter.PinballDisplayAdapter;
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
@@ -43,8 +44,10 @@ import ch.m02.comet.pinball.physics.PhysicsPlayFieldImpl;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.SlingshotElementFactoryImpl;
+import ch.m02.comet.pinball.presentation.PinballDisplay;
 import ch.m02.comet.pinball.presentation.PinballPresentationManager;
 import ch.m02.comet.pinball.presentation.ScreenManager;
+import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 import ch.m02.comet.pinball.presentation.screens.GameScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.MainMenuScreenImpl;
 import ch.m02.comet.pinball.presentation.screens.PinballScreenManager;
@@ -87,6 +90,8 @@ public class Pinball {
 		singletonContainer.addComponent(ScreenManager.class, PinballScreenManager.class);
 		singletonContainer.addComponent(PhysicsPlayField.class, PhysicsPlayFieldImpl.class);
 		singletonContainer.addComponent(PresentationManager.class, PinballPresentationManager.class);
+		singletonContainer.addComponent(GraphicsDisplay.class, PinballDisplay.class);
+		singletonContainer.addAdapter(new PinballDisplayAdapter());
 		
 		// Logic
 		singletonContainer.addComponent(LogicManager.class, PinballLogicManager.class);
