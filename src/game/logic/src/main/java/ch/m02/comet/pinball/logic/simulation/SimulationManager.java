@@ -31,6 +31,8 @@ public class SimulationManager {
 	@Inject
 	private RuleEngine ruleEngine;
 
+	private PlayFieldPdo playField;
+
 	public void startNewSimulation() {
 		clearPlayField();
 		createSimulation();
@@ -51,8 +53,7 @@ public class SimulationManager {
 	
 	private void loadPlayField() {
 		List<PlayFieldPdo> playFields = playfieldDao.findPlayFields();
-		// TODO add playfield selection
-		PlayFieldPdo playField = playFields.get(0);
+		playField = playFields.get(0);
 		for (PlayFieldElementPdo element : playField.getElements()) {
 			presentation.placeElement(element);
 		}
@@ -66,6 +67,7 @@ public class SimulationManager {
 
 	private void initRuleEngine() {
 		ruleEngine.initScore(simulation.getScore());
+		ruleEngine.registerRules(playField.getGameRules());
 	}
 	
 	private void loadScreen() {

@@ -13,12 +13,6 @@ import ch.m02.comet.pinball.core.presentation.screen.PinballScreen;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
 
 public class PinballPresentationManager implements PresentationManager {
-
-	@Inject
-	private ScreenManager screenManager;
-	
-	@Inject
-	private PhysicsPlayField playField;
 	
 	@Inject
 	private ApplicationContext context;
@@ -27,6 +21,7 @@ public class PinballPresentationManager implements PresentationManager {
 	
 	@Override
 	public void clearElements() {
+		PhysicsPlayField playField = context.getComponentContainer().getComponent(PhysicsPlayField.class);
 		playField.clearField();
 		placedElements.clear();
 	}
@@ -43,6 +38,7 @@ public class PinballPresentationManager implements PresentationManager {
 
 	@Override
 	public void showScreen(Class<? extends PinballScreen> screen) {
+		ScreenManager screenManager = context.getComponentContainer().getComponent(ScreenManager.class);
 		screenManager.changeScreenTo(screen);
 	}
 

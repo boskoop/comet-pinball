@@ -2,6 +2,7 @@ package ch.m02.comet.pinball.physics.placable;
 
 import javax.inject.Inject;
 
+import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldSlingshotElement;
 import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
@@ -14,10 +15,15 @@ public class SlingshotElementFactoryImpl implements SlingshotElementFactory {
 	@Inject
 	private PhysicsPlayField playField;
 	
+	@Inject
+	private ApplicationContext context;
+	
 	private PlayFieldSlingshotElement element;
 
 	@Override
 	public void createAndPlacePlayFieldElement() {
+		EventCreator creator = context.getComponentContainer().getComponent(EventCreator.class);
+		creator.setId(element.getId());
 		Vector2 cornerPosition = new Vector2(element.getPosition().getX(), element
 				.getPosition().getY());
 		cornerPosition.mul(PhysicsDefinition.METER_SCALE_FACTOR);
@@ -27,7 +33,7 @@ public class SlingshotElementFactoryImpl implements SlingshotElementFactory {
 		Vector2 cornerBVector = new Vector2(element.getCornerBVector().getX(), element
 				.getCornerBVector().getY());
 		cornerBVector.mul(PhysicsDefinition.METER_SCALE_FACTOR);
-		Slingshot slingshot = new Slingshot(cornerPosition, cornerAVector, cornerBVector);
+		Slingshot slingshot = new Slingshot(creator, cornerPosition, cornerAVector, cornerBVector);
 		playField.placePhysicsObject(slingshot);
 	}
 

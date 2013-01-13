@@ -46,6 +46,7 @@ import ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsPlayFieldImpl;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
+import ch.m02.comet.pinball.physics.placable.EventCreator;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.SlingshotElementFactoryImpl;
 import ch.m02.comet.pinball.presentation.PinballDisplay;
@@ -103,6 +104,9 @@ public class Pinball {
 		singletonContainer.addComponent(SimulationStoreDao.class, SimulationStoreDaoImpl.class);
 		singletonContainer.addComponent(EventHandler.class, EventHandlerImpl.class);
 		singletonContainer.addComponent(StateContext.class);
+		
+		// Rule engine
+		singletonContainer.addComponent(RuleEngine.class);
 	}
 	
 	private void registerPrototypes() {
@@ -114,6 +118,7 @@ public class Pinball {
 		container.addComponent(BumperElementFactory.class, BumperElementFactoryImpl.class);
 		container.addComponent(SlingshotElementFactory.class, SlingshotElementFactoryImpl.class);
 		container.addComponent(ObstacleElementFactory.class, ObstacleElementFactoryImpl.class);
+		container.addComponent(EventCreator.class);
 
 		// Screens
 		container.addComponent(SplashScreenImpl.class);
@@ -131,7 +136,6 @@ public class Pinball {
 		
 		// Simulation
 		container.addComponent(SimulationManager.class);
-		container.addComponent(RuleEngine.class);
 		
 		// Rules
 		container.addComponent(HitScoreRule.class);

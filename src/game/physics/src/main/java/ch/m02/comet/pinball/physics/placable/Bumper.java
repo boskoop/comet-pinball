@@ -16,14 +16,15 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Bumper implements PlacablePhysicsObject {
+public class Bumper extends PlacablePhysicsObject {
 	
 	private Vector2 position;
 	private float radius;
 	private Body body;
 	private ContactListener contactListener;
 
-	public Bumper(Vector2 position, float radius) {
+	public Bumper(EventCreator creator, Vector2 position, float radius) {
+		super(creator);
 		if (position == null) {
 			throw new IllegalArgumentException();
 		}
@@ -60,6 +61,7 @@ public class Bumper implements PlacablePhysicsObject {
 							.sub(body.getPosition()).nor();
 					ball.applyForceToCenter(normalizedCollisionNormal
 							.mul(PhysicsDefinition.BUMPER_FORCE));
+					fireEvent();
 				} else if (contact.getFixtureB().getBody() == Bumper.this
 						.getBody()) {
 					Body ball = contact.getFixtureA().getBody();
@@ -67,6 +69,7 @@ public class Bumper implements PlacablePhysicsObject {
 							.sub(body.getPosition()).nor();
 					ball.applyForceToCenter(normalizedCollisionNormal
 							.mul(PhysicsDefinition.BUMPER_FORCE));
+					fireEvent();
 				}
 			}
 		};

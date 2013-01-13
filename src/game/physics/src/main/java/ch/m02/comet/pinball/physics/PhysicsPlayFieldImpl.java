@@ -3,6 +3,9 @@ package ch.m02.comet.pinball.physics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import ch.m02.comet.pinball.core.logic.event.EventHandler;
 import ch.m02.comet.pinball.physics.element.FieldBottomCornerElement;
 import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
@@ -17,6 +20,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class PhysicsPlayFieldImpl implements PhysicsPlayField {
+	
+	@Inject
+	private EventHandler handler;
 
 	private List<PhysicsObject> physicsObjects = new ArrayList<PhysicsObject>();
 	private List<InteractivePhysicsObject> interactiveObjects = new ArrayList<InteractivePhysicsObject>();

@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Obstacle implements PlacablePhysicsObject {
+public class Obstacle extends PlacablePhysicsObject {
 	private Vector2 position;
 	private Vector2[] vertices;
 	
@@ -29,7 +29,8 @@ public class Obstacle implements PlacablePhysicsObject {
 	 * @param vertices first vertice is the position on the play field and all following vertices define the obstacles
 	 * body in an counterclockwise manner
 	 */
-	public Obstacle(Vector2 position, Vector2[] vertices) {
+	public Obstacle(EventCreator creator, Vector2 position, Vector2[] vertices) {
+		super(creator);
 		if (vertices == null || vertices.length == 0) {
 			throw new IllegalArgumentException("parameter vertices of an obstancle can not be null or empty");
 		}

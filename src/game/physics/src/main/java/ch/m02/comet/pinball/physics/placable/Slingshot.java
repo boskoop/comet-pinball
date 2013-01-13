@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Slingshot implements PlacablePhysicsObject {
+public class Slingshot extends PlacablePhysicsObject {
 
 	private Vector2 cornerPosition, vectorToCornerA, vectorToCornerB;
 	private Vector2 normalOfReactiveSide;
@@ -34,8 +34,9 @@ public class Slingshot implements PlacablePhysicsObject {
 	 * @param vectorToCornerA The position of corner A in object coordinates
 	 * @param vectorToCornerB The position of corner B in object coordinates
 	 */
-	public Slingshot(Vector2 cornerPosition, Vector2 vectorToCornerA,
+	public Slingshot(EventCreator creator, Vector2 cornerPosition, Vector2 vectorToCornerA,
 			Vector2 vectorToCornerB) {
+		super(creator);
 		this.cornerPosition = cornerPosition;
 		this.vectorToCornerA = vectorToCornerA;
 		this.vectorToCornerB = vectorToCornerB;
@@ -168,9 +169,11 @@ public class Slingshot implements PlacablePhysicsObject {
 				if(contact.getFixtureA().getBody() == Slingshot.this.getReactiveBody()){
 					Body ball = contact.getFixtureB().getBody();
 					ball.applyForceToCenter(normalOfReactiveSide.cpy().mul(PhysicsDefinition.BUMPER_FORCE));
+					fireEvent();
 				} else if (contact.getFixtureB().getBody() == Slingshot.this.getReactiveBody()){
 					Body ball = contact.getFixtureA().getBody();
 					ball.applyForceToCenter(normalOfReactiveSide.cpy().mul(PhysicsDefinition.BUMPER_FORCE));
+					fireEvent();
 				}
 			}
 		};
