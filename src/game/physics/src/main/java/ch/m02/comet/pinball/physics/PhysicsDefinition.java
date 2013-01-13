@@ -41,9 +41,13 @@ public interface PhysicsDefinition {
 	public static final float BUMPER_RADIUS = 0.03f * METER_SCALE_FACTOR;
 	public static final float BUMPER_FORCE = 20f * METER_SCALE_FACTOR;
 	public static final float BUMPER_RESTITUTION = STEEL_RESTITUTION;
+	public static final float BUMPER_DENSITY = STEEL_DENSITY;
+	
+	// Obstacle
+	public static final float OBSTACLE_RESTITUTION = STEEL_RESTITUTION;
+	public static final float OBSTACLE_DENSITY = STEEL_DENSITY;
 	
 	// Slingshot
-	//public static final float SLINGSHOT_SIZE = 0.05f * METER_SCALE_FACTOR;
 	public static final float SLINGSHOT_FORCE = 30f * METER_SCALE_FACTOR;
 	public static final float SLINGSHOT_RESTITUTION = STEEL_RESTITUTION;
 	public static final float SLINGSHOT_DENSITY = STEEL_DENSITY;
