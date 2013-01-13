@@ -40,7 +40,7 @@
 					</corner.a>
 					<corner.b>
 						<x>0.0</x>
-						<y>0.15</y>
+						<y>0.1</y>
 					</corner.b>
 				</slingshot>
 				<slingshot>
@@ -51,7 +51,7 @@
 					</position>
 					<corner.a>
 						<x>0.0</x>
-						<y>0.15</y>
+						<y>0.1</y>
 					</corner.a>
 					<corner.b>
 						<x>-0.12</x>
