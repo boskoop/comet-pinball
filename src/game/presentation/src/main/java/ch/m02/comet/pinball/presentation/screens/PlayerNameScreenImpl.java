@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
-import ch.m02.comet.pinball.core.logic.command.ShowMainMenuCommand;
 import ch.m02.comet.pinball.core.model.simulation.Score;
 import ch.m02.comet.pinball.core.presentation.screen.PlayerNameScreen;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
@@ -27,6 +26,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class PlayerNameScreenImpl extends ManagedScreen implements
@@ -50,7 +51,7 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 	private TextureAtlas atlas;
 	private Skin skin;
 	private SpriteBatch batch;
-	private TextButton backButton;
+	private TextButton saveButton;
 	private Label gameNameLabel;
 	private List<? extends Score> highscores;
 
@@ -82,7 +83,6 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 
 		batch.begin();
 		stage.draw();
-		// drawHighscores(batch);
 		batch.end();
 	}
 
@@ -100,15 +100,15 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 		style.down = skin.getDrawable(DRAWABLE_BUTTON_PRESSED);
 		style.font = blackFont;
 
-		String text = "Back";
-		backButton = new TextButton(text, style);
-		backButton.setWidth(blackFont.getBounds(text).width + width / 20);
-		backButton.setHeight(blackFont.getBounds(text).height + height / 20);
+		String text = "Save";
+		saveButton = new TextButton(text, style);
+		saveButton.setWidth(blackFont.getBounds(text).width + width / 20);
+		saveButton.setHeight(blackFont.getBounds(text).height + height / 20);
 		
-		backButton.setX(width / 2f - backButton.getWidth() / 2f);
-		backButton.setY(2 * height / 10f - backButton.getHeight() / 2f);
+		saveButton.setX(width / 2f - saveButton.getWidth() / 2f);
+		saveButton.setY(2 * height / 10f - saveButton.getHeight() / 2f);
 		
-		backButton.addListener(new InputListener() {
+		saveButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -118,30 +118,34 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 			@Override
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				log.info("'Back' button pressed");
-				ShowMainMenuCommand command = context.getComponentContainer().getComponent(ShowMainMenuCommand.class);
-				command.execute();
+				log.info("'Save' button pressed");
+				//ShowMainMenuCommand command = context.getComponentContainer().getComponent(ShowMainMenuCommand.class);
+				//command.execute();
+				
 			}
 		});
 		LabelStyle ls = new LabelStyle(whiteFont, Color.WHITE);
-		gameNameLabel = new Label("Highscores", ls);
+		gameNameLabel = new Label("Playername", ls);
 		gameNameLabel.setX(0f);
 		gameNameLabel.setY(9 * height / 10);
 		gameNameLabel.setWidth(width);
 		gameNameLabel.setAlignment(Align.center);
 
-		stage.addActor(backButton);
+		
+		TextFieldStyle playernameTextFieldStyle = new TextFieldStyle();
+		playernameTextFieldStyle.font = blackFont;
+		playernameTextFieldStyle.fontColor = Color.YELLOW;
+		//playernameTextFieldStyle.background
+		
+		TextField playernameTextField = new TextField("your name", playernameTextFieldStyle);
+		playernameTextField.setPosition(0, 4 * height / 10);
+		
+	//	playernameTextField.
+		
+		stage.addActor(playernameTextField);
+		stage.addActor(saveButton);
 		stage.addActor(gameNameLabel);
-
-		drawHighscores(stage);
-		if (highscores != null) {
-			log.info("count of highscores:" + highscores.size());
-			System.out.println("Highscores: ");
-			for (Score score : highscores)
-				System.out.println("Score:" + score.getScoreValue());
-		} else {
-			log.info("no highscores");
-		}
+		
 	}
 
 	public void drawHighscores(Stage stage) {

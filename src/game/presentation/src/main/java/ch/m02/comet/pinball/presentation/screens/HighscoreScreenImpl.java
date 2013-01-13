@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
-import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
+import ch.m02.comet.pinball.core.logic.command.ShowMainMenuCommand;
 import ch.m02.comet.pinball.core.model.simulation.Score;
 import ch.m02.comet.pinball.core.presentation.screen.HighscoreScreen;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
@@ -118,7 +118,7 @@ public class HighscoreScreenImpl extends ManagedScreen implements
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 				log.info("'Back' button pressed");
-				SplashFinishedCommand command = context.getComponentContainer().getComponent(SplashFinishedCommand.class);
+				ShowMainMenuCommand command = context.getComponentContainer().getComponent(ShowMainMenuCommand.class);
 				command.execute();
 			}
 		});

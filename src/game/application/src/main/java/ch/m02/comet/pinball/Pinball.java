@@ -40,6 +40,7 @@ import ch.m02.comet.pinball.logic.internal.command.ShowMainMenuCommandImpl;
 import ch.m02.comet.pinball.logic.internal.event.EventHandlerImpl;
 import ch.m02.comet.pinball.logic.internal.state.HighscoreState;
 import ch.m02.comet.pinball.logic.internal.state.MainMenuState;
+import ch.m02.comet.pinball.logic.internal.state.PlayerNameState;
 import ch.m02.comet.pinball.logic.internal.state.SimulationState;
 import ch.m02.comet.pinball.logic.internal.state.SplashState;
 import ch.m02.comet.pinball.logic.internal.state.StateContext;
@@ -156,6 +157,7 @@ public class Pinball {
 		container.addComponent(SplashState.class);
 		container.addComponent(SimulationState.class);
 		container.addComponent(HighscoreState.class);
+		container.addComponent(PlayerNameState.class);
 		
 		// Simulation
 		container.addComponent(SimulationManager.class);
