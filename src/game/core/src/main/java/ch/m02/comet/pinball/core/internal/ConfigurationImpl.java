@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.config.Configuration;
+import ch.m02.comet.pinball.core.config.KeyProperties;
 
 public class ConfigurationImpl implements Configuration {
 
@@ -76,5 +77,10 @@ public class ConfigurationImpl implements Configuration {
 			log.error(e.getMessage(), e);
 		}
 		return intValue;
+	}
+	
+	@Override
+	public String getKeyProperty(KeyProperties keyPropertyKey) {
+		return getStringProperty(keyPropertyKey.getPropertyName());
 	}
 }

@@ -54,6 +54,7 @@ import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsPlayFieldImpl;
 import ch.m02.comet.pinball.physics.ball.Ball;
 import ch.m02.comet.pinball.physics.ball.GroundSensorElement;
+import ch.m02.comet.pinball.physics.box2d.keys.KeyMap;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.EventCreator;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
@@ -106,6 +107,7 @@ public class Pinball {
 		singletonContainer.addComponent(PresentationManager.class, PinballPresentationManager.class);
 		singletonContainer.addComponent(GraphicsDisplay.class, PinballDisplay.class);
 		singletonContainer.addAdapter(new PinballDisplayAdapter());
+		singletonContainer.addComponent(KeyMap.class);
 		
 		// Physics
 		singletonContainer.addComponent(Ball.class);
