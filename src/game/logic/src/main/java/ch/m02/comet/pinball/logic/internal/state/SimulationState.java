@@ -34,10 +34,12 @@ public class SimulationState extends AbstractState {
 		}
 		ballPlunged = false;
 		if (gamesPlayed >= 3) {
-			stateContext.setState(createNewState(MainMenuState.class));
+			PlayerNameState playerNameState = applicationContext.getComponentContainer().getComponent(PlayerNameState.class);
+			playerNameState.setSimulation(simulationManager);
+			stateContext.setState(playerNameState);
 		}
 	}
-	
+
 	@Override
 	public void ballPlunged() {
 		ballPlunged = true;
