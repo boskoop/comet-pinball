@@ -8,7 +8,7 @@ import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
 import ch.m02.comet.pinball.physics.element.FlipperElement;
 import ch.m02.comet.pinball.physics.element.PlungerTubeElement;
-import ch.m02.comet.pinball.physics.placable.SlingshotElement;
+import ch.m02.comet.pinball.physics.placable.Slingshot;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -25,7 +25,7 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 	private List<ContactListener> contactListeners = new ArrayList<ContactListener>();
 
 //	private Bumper leftTopBumper, rightTopBumper;
-	private SlingshotElement leftSlingshotElement, rightSlingshotElement;
+	private Slingshot leftSlingshotElement, rightSlingshotElement;
 
 	public PhysicPlayFieldImpl() {
 		physicsObjects.add(new FieldBoundsElement());
@@ -48,7 +48,7 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 				0.00f * PhysicsDefinition.METER_SCALE_FACTOR,
 				0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
 
-		leftSlingshotElement = new SlingshotElement(new Vector2(
+		leftSlingshotElement = new Slingshot(new Vector2(
 				0.12f * PhysicsDefinition.METER_SCALE_FACTOR, // 0.25
 				0.4f * PhysicsDefinition.METER_SCALE_FACTOR), vectorToCornerAleftSlingshot, // 0.4
 				vectorToCornerBleftSlingshot);
@@ -61,7 +61,7 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 				0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
 		
 		
-		rightSlingshotElement = new SlingshotElement(new Vector2(
+		rightSlingshotElement = new Slingshot(new Vector2(
 				0.6f * PhysicsDefinition.METER_SCALE_FACTOR, // 0.25
 				0.4f * PhysicsDefinition.METER_SCALE_FACTOR), vectorToCornerArightSlingshot, // 0.4
 				vectorToCornerBrightSlingshot);

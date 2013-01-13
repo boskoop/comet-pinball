@@ -1,7 +1,7 @@
 package ch.m02.comet.pinball.physics.placable;
 
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
-import ch.m02.comet.pinball.physics.PhysicsObject;
+import ch.m02.comet.pinball.physics.PlacablePhysicsObject;
 import ch.m02.comet.pinball.physics.box2d.ContactListenerAdapter;
 import ch.m02.comet.pinball.physics.util.DisposeUtil;
 
@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class SlingshotElement implements PhysicsObject {
+public class Slingshot implements PlacablePhysicsObject {
 
 	private Vector2 cornerPosition, vectorToCornerA, vectorToCornerB;
 	private Vector2 normalOfReactiveSide;
@@ -33,7 +33,7 @@ public class SlingshotElement implements PhysicsObject {
 	 * @param vectorToCornerA
 	 * @param vectorToCornerB
 	 */
-	public SlingshotElement(Vector2 cornerPosition,	Vector2 vectorToCornerA, Vector2 vectorToCornerB) {
+	public Slingshot(Vector2 cornerPosition,	Vector2 vectorToCornerA, Vector2 vectorToCornerB) {
 		this.cornerPosition = cornerPosition;
 		this.vectorToCornerA = vectorToCornerA;
 		this.vectorToCornerB = vectorToCornerB;
@@ -163,10 +163,10 @@ public class SlingshotElement implements PhysicsObject {
 			
 			@Override
 			public void endContact(Contact contact) {
-				if(contact.getFixtureA().getBody() == SlingshotElement.this.getReactiveBody()){
+				if(contact.getFixtureA().getBody() == Slingshot.this.getReactiveBody()){
 					Body ball = contact.getFixtureB().getBody();
 					ball.applyForceToCenter(normalOfReactiveSide.cpy().mul(PhysicsDefinition.BUMPER_FORCE));
-				} else if (contact.getFixtureB().getBody() == SlingshotElement.this.getReactiveBody()){
+				} else if (contact.getFixtureB().getBody() == Slingshot.this.getReactiveBody()){
 					Body ball = contact.getFixtureA().getBody();
 					ball.applyForceToCenter(normalOfReactiveSide.cpy().mul(PhysicsDefinition.BUMPER_FORCE));
 				}
@@ -183,6 +183,7 @@ public class SlingshotElement implements PhysicsObject {
 		return reactiveSlingshotBody;
 	}
 	
+	@Override
 	public ContactListener getContactListener(){
 		return contactListener;
 	}
