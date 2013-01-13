@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
-import ch.m02.comet.pinball.core.logic.command.ShowHighscoresCommand;
-import ch.m02.comet.pinball.core.presentation.screen.MainMenuScreen;
+import ch.m02.comet.pinball.core.presentation.screen.HighscoreScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -27,9 +26,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class MainMenuScreenImpl extends ManagedScreen implements MainMenuScreen {
+public class HighscoreScreenImpl extends ManagedScreen implements HighscoreScreen {
 	
-	private static final Logger log = LoggerFactory.getLogger(MainMenuScreenImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(HighscoreScreenImpl.class);
 	
 	@Inject
 	private ApplicationContext context;
@@ -43,11 +42,8 @@ public class MainMenuScreenImpl extends ManagedScreen implements MainMenuScreen 
 	private TextureAtlas atlas;
 	private Skin skin;
 	private SpriteBatch batch;
-	private TextButton startButton;
-	private TextButton highscoreButton;
+	private TextButton button;
 	private Label gameNameLabel;
-	
-	public final static int BUTTON_OFFSET = 120;
 
 	@Override
 	public void init() {
@@ -88,75 +84,23 @@ public class MainMenuScreenImpl extends ManagedScreen implements MainMenuScreen 
 		style.down = skin.getDrawable(DRAWABLE_BUTTON_PRESSED);
 		style.font = blackFont;
 
-		startButton = createStartGameButton(style);
-		startButton.setX(Gdx.graphics.getWidth() / 2f - startButton.getWidth() / 2f);
-		startButton.setY(Gdx.graphics.getHeight() / 2f - startButton.getHeight() / 2f);
+		button = new TextButton("Patrick scores!", style);
+		button.setWidth(400);
+		button.setHeight(100);
+		button.setX(Gdx.graphics.getWidth() / 2f - button.getWidth() / 2f);
+		button.setY(Gdx.graphics.getHeight() / 2f - button.getHeight() / 2f);
 		
-		highscoreButton = createHighscoreButton(style);
-		highscoreButton.setX(Gdx.graphics.getWidth() / 2f - highscoreButton.getWidth() / 2f);
-		highscoreButton.setY(Gdx.graphics.getHeight() / 2f - highscoreButton.getHeight() / 2f - BUTTON_OFFSET);
 		
 		LabelStyle ls = new LabelStyle(whiteFont, Color.WHITE);
-		gameNameLabel = new Label("Comet Pinball", ls);
+		gameNameLabel = new Label("Highscores", ls);
 		gameNameLabel.setX(0f);
-		gameNameLabel.setY(Gdx.graphics.getHeight() / 2f + 100f);
+		gameNameLabel.setY(Gdx.graphics.getHeight()  - 100f);
 		gameNameLabel.setWidth(width);
 		gameNameLabel.setAlignment(Align.center);
 
-		stage.addActor(startButton);
-		stage.addActor(highscoreButton);
+		stage.addActor(button);
 		stage.addActor(gameNameLabel);
 	}
-	
-	private TextButton createStartGameButton(TextButtonStyle style){
-		TextButton startButton = new TextButton("Start Game",style);
-		startButton.setWidth(400);
-		startButton.setHeight(100);
-
-		startButton.addListener(new InputListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			@Override
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				log.info("'New game' button pressed");
-				NewSimulationCommand command = context.getComponentContainer().getComponent(NewSimulationCommand.class);
-				command.execute();
-			}
-		});
-		
-		return startButton;
-	}
-	
-	private TextButton createHighscoreButton(TextButtonStyle style){
-		TextButton startButton = new TextButton("Highscores",style);
-		startButton.setWidth(400);
-		startButton.setHeight(100);
-
-		startButton.addListener(new InputListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			@Override
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				log.info("'Highscore' button pressed");
-				ShowHighscoresCommand command = context.getComponentContainer().getComponent(ShowHighscoresCommand.class);
-				command.execute();
-			}
-		});
-		
-		return startButton;
-	}
-	
-	
 
 	@Override
 	public void show() {

@@ -35,4 +35,7 @@ abstract class AbstractState implements State {
 	public void gameOver() {
 	}
 	
+	@Override
+	public void showHighscores() {
+	}
 }

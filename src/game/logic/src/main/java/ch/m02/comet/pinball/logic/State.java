@@ -8,4 +8,6 @@ public interface State {
 	
 	public void gameOver();
 	
+	public void showHighscores();
+	
 }

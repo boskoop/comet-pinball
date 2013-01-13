@@ -12,6 +12,7 @@ import ch.m02.comet.pinball.core.config.BooleanProperties;
 import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
+import ch.m02.comet.pinball.core.presentation.screen.HighscoreScreen;
 import ch.m02.comet.pinball.core.presentation.screen.MainMenuScreen;
 import ch.m02.comet.pinball.core.presentation.screen.PinballScreen;
 import ch.m02.comet.pinball.core.presentation.screen.SplashScreen;
@@ -51,11 +52,13 @@ public class PinballScreenManager implements ScreenManager {
 		SplashScreenImpl splashScreen = container.getComponent(SplashScreenImpl.class);
 		MainMenuScreenImpl menuScreen = container.getComponent(MainMenuScreenImpl.class);
 		GameScreenImpl gameScreen = container.getComponent(GameScreenImpl.class);
-
+		HighscoreScreenImpl highscoreScreen = container.getComponent(HighscoreScreenImpl.class);
+		
 		screens = new HashMap<Class<? extends PinballScreen>, ManagedScreen>();
 		screens.put(SplashScreen.class, splashScreen);
 		screens.put(MainMenuScreen.class, menuScreen);
 		screens.put(GameScreen.class, gameScreen);
+		screens.put(HighscoreScreen.class,highscoreScreen);
 		
 		for (ManagedScreen screen : screens.values()) {
 			screen.init();
