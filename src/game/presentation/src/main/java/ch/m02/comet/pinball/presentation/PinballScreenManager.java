@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.BooleanProperties;
 import ch.m02.comet.pinball.core.Configuration;
 import ch.m02.comet.pinball.presentation.screens.GameScreen;
@@ -20,6 +21,9 @@ public class PinballScreenManager implements Disposable, ScreenManager {
 
 	@Inject
 	private Configuration configuration;
+	
+	@Inject
+	private ApplicationContext context;
 
 	private ScreenPresenter presenter;
 
@@ -41,7 +45,7 @@ public class PinballScreenManager implements Disposable, ScreenManager {
 	private void registerAndInitScreens() {
 		SplashScreen splashScreen = new SplashScreen(this);
 		MainMenuScreen menuScreen = new MainMenuScreen(this);
-		GameScreen gameScreen = new GameScreen(this);
+		GameScreen gameScreen = new GameScreen(this, context);
 
 		screens = new HashMap<Class<? extends ManagedScreen>, ManagedScreen>();
 		screens.put(SplashScreen.class, splashScreen);

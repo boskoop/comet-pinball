@@ -1,14 +1,14 @@
 package ch.m02.comet.pinball.presentation.screens;
 
+import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.physics.Ball;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
+import ch.m02.comet.pinball.physics.PhysicPlayField;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
-import ch.m02.comet.pinball.physics.Playfield;
 import ch.m02.comet.pinball.presentation.graphics.BallGraphics;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsObject;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class GameScreen extends ManagedScreen {
+	
+	private ApplicationContext context;
 
 	private OrthographicCamera camera;
 
@@ -41,7 +43,7 @@ public class GameScreen extends ManagedScreen {
 	private static final int VELOCITY_ITERATIONS = 6;
 	private static final int POSITION_ITERATIONS = 2;
 
-	private Box2DDebugRenderer debugRender;
+	private Box2DDebugRenderer debugRenderer;
 
 	private SpriteBatch spriteBatch;
 
@@ -51,8 +53,9 @@ public class GameScreen extends ManagedScreen {
 
 	private InteractivePhysicsObject playfield;
 
-	public GameScreen(ScreenManager manager) {
+	public GameScreen(ScreenManager manager, ApplicationContext context) {
 		super(manager);
+		this.context = context;
 	}
 
 	public void init() {
@@ -67,7 +70,7 @@ public class GameScreen extends ManagedScreen {
 		camera.setToOrtho(yPointsDown, PhysicsDefinition.FIELD_WIDTH,
 				PhysicsDefinition.FIELD_HEIGHT);
 
-		playfield = new Playfield();
+		playfield = context.getComponentContainer().getComponent(PhysicPlayField.class);
 		playfield.init(world);
 		
 		// TODO placement of elements
@@ -82,13 +85,13 @@ public class GameScreen extends ManagedScreen {
 		final boolean drawJoints = true;
 		final boolean drawAABBs = false;
 		final boolean drawInactiveBodies = true;
-		debugRender = new Box2DDebugRenderer(drawBodies, drawJoints, drawAABBs,
+		debugRenderer = new Box2DDebugRenderer(drawBodies, drawJoints, drawAABBs,
 				drawInactiveBodies);
 	}
 
 	@Override
 	public void dispose() {
-		debugRender.dispose();
+		debugRenderer.dispose();
 		world.dispose();
 	}
 
@@ -105,7 +108,7 @@ public class GameScreen extends ManagedScreen {
 		ball.handlePhysicsEvents();
 
 		// Render physics should be called before physical rendering
-		debugRender.render(world, camera.combined);
+		debugRenderer.render(world, camera.combined);
 
 		spriteBatch.begin();
 		ballGraphicsObject.draw(spriteBatch);
@@ -123,17 +126,6 @@ public class GameScreen extends ManagedScreen {
         Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
                           (int) viewport.width, (int) viewport.height);
 		
-		if (Gdx.input.isKeyPressed(Keys.Q)) {
-			camera.zoom = 1f;
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.Z)) {
-			camera.zoom *= 1.02f;
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.A)) {
-			camera.zoom /= 1.02f;
-		}
 		camera.update();
 	}
 

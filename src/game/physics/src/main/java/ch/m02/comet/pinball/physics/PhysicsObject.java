@@ -15,11 +15,4 @@ public interface PhysicsObject {
 	 */
 	public Body getBody();
 	
-	
-	/**
-	 * Returns the fixture of the PhysicsObject
-	 */
-	//public Fixture getFixture();
-
-	
 }

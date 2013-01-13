@@ -7,7 +7,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldSlingshotElement;
+import ch.m02.comet.pinball.core.presentation.ElementFactory;
+import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "element")
@@ -45,6 +48,11 @@ public class PlayFieldSlingshotElementPdo extends PlayFieldElementPdo implements
 				.append("cornerA", cornerA)
 				.append("cornerB", cornerB)
 				.build();
+	}
+
+	@Override
+	public ElementFactory getElementFactory(ApplicationContext context) {
+		return context.getComponentContainer().getComponent(SlingshotElementFactory.class);
 	}
 
 }

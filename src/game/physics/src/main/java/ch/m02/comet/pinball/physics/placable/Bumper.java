@@ -1,5 +1,7 @@
-package ch.m02.comet.pinball.physics;
+package ch.m02.comet.pinball.physics.placable;
 
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
+import ch.m02.comet.pinball.physics.PlacablePhysicsObject;
 import ch.m02.comet.pinball.physics.box2d.ContactListenerAdapter;
 import ch.m02.comet.pinball.physics.util.DisposeUtil;
 
@@ -14,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Bumper implements PhysicsObject {
+public class Bumper implements PlacablePhysicsObject {
 	
 	private Vector2 position;
 	private Body body;
@@ -94,6 +96,7 @@ public class Bumper implements PhysicsObject {
 		this.position.set(position);
 	}
 
+	@Override
 	public ContactListener getContactListener() {
 		return contactListener;
 	}

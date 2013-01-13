@@ -7,7 +7,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldBumperElement;
+import ch.m02.comet.pinball.core.presentation.ElementFactory;
+import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "element")
@@ -32,6 +35,11 @@ public class PlayFieldBumperElementPdo extends PlayFieldElementPdo implements
 				.appendSuper(super.toString())
 				.append("radius", radius)
 				.build();
+	}
+
+	@Override
+	public ElementFactory getElementFactory(ApplicationContext context) {
+		return context.getComponentContainer().getComponent(BumperElementFactory.class);
 	}
 
 }

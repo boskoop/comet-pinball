@@ -1,8 +1,7 @@
-package ch.m02.comet.pinball.physics.element;
+package ch.m02.comet.pinball.physics.placable;
 
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.PhysicsObject;
-import ch.m02.comet.pinball.physics.Placeable;
 import ch.m02.comet.pinball.physics.box2d.ContactListenerAdapter;
 import ch.m02.comet.pinball.physics.util.DisposeUtil;
 
@@ -17,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class SlingshotElement implements PhysicsObject, Placeable {
+public class SlingshotElement implements PhysicsObject {
 
 	private Vector2 cornerPosition, vectorToCornerA, vectorToCornerB;
 	private Vector2 normalOfReactiveSide;

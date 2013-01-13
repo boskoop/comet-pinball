@@ -10,7 +10,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldObstacleElement;
+import ch.m02.comet.pinball.core.presentation.ElementFactory;
+import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "element")
@@ -40,6 +43,11 @@ public class PlayFieldObstacleElementPdo extends PlayFieldElementPdo implements
 		}
 		builder.append("]");
 		return builder.build();
+	}
+
+	@Override
+	public ElementFactory getElementFactory(ApplicationContext context) {
+		return context.getComponentContainer().getComponent(ObstacleElementFactory.class);
 	}
 
 }

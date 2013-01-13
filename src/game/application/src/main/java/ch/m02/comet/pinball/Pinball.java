@@ -19,6 +19,12 @@ import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
 import ch.m02.comet.pinball.game.ApplicationProvider;
 import ch.m02.comet.pinball.game.PinballGame;
+import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreManager;
+import ch.m02.comet.pinball.logic.persistence.SimulationStoreManager;
+import ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreManagerImpl;
+import ch.m02.comet.pinball.logic.persistence.internal.SimulationStoreManagerImpl;
+import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicPlayFieldImpl;
 import ch.m02.comet.pinball.presentation.PinballScreenManager;
 
 import com.badlogic.gdx.Game;
@@ -50,10 +56,13 @@ public class Pinball {
 		singletonContainer.addAdapter(new ProviderAdapter(new ApplicationProvider(application)));
 		singletonContainer.addComponent(Game.class, PinballGame.class);
 		singletonContainer.addComponent(Configuration.class, ConfigurationImpl.class);
+		singletonContainer.addComponent(PlayFieldStoreManager.class, PlayFieldStoreManagerImpl.class);
+		singletonContainer.addComponent(SimulationStoreManager.class, SimulationStoreManagerImpl.class);
 		singletonContainer.addComponent(ApplicationContext.class, ApplicationContextImpl.class, 
 				new ConstantParameter(container));
 
 		singletonContainer.addComponent(PinballScreenManager.class);
+		singletonContainer.addComponent(PhysicPlayField.class, PhysicPlayFieldImpl.class);
 	}
 	
 	private void registerPrototypes() {

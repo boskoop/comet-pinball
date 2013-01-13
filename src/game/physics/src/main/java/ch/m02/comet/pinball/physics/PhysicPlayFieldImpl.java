@@ -8,7 +8,7 @@ import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
 import ch.m02.comet.pinball.physics.element.FlipperElement;
 import ch.m02.comet.pinball.physics.element.PlungerTubeElement;
-import ch.m02.comet.pinball.physics.element.SlingshotElement;
+import ch.m02.comet.pinball.physics.placable.SlingshotElement;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -18,30 +18,28 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Playfield implements InteractivePhysicsObject {
+public class PhysicPlayFieldImpl implements PhysicPlayField {
 
 	private List<PhysicsObject> physicsObjects = new ArrayList<PhysicsObject>();
 	private List<InteractivePhysicsObject> interactiveObjects = new ArrayList<InteractivePhysicsObject>();
 	private List<ContactListener> contactListeners = new ArrayList<ContactListener>();
 
-	private Bumper leftTopBumper, rightTopBumper;
+//	private Bumper leftTopBumper, rightTopBumper;
 	private SlingshotElement leftSlingshotElement, rightSlingshotElement;
 
-	public Playfield() {
+	public PhysicPlayFieldImpl() {
 		physicsObjects.add(new FieldBoundsElement());
 		physicsObjects.add(new FieldTopCornerElement());
 		physicsObjects.add(new FieldBottomCornerElement());
 		physicsObjects.add(new PlungerTubeElement());
 		interactiveObjects.add(new FlipperElement());
 
-		leftTopBumper = new Bumper(new Vector2(
-				0.25f * PhysicsDefinition.METER_SCALE_FACTOR,
-				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-		rightTopBumper = new Bumper(new Vector2(
-				0.5f * PhysicsDefinition.METER_SCALE_FACTOR,
-				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-
-		
+//		leftTopBumper = new Bumper(new Vector2(
+//				0.25f * PhysicsDefinition.METER_SCALE_FACTOR,
+//				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
+//		rightTopBumper = new Bumper(new Vector2(
+//				0.5f * PhysicsDefinition.METER_SCALE_FACTOR,
+//				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
 
 		Vector2 vectorToCornerAleftSlingshot = new Vector2(
 				0.075f * PhysicsDefinition.METER_SCALE_FACTOR,
@@ -68,15 +66,22 @@ public class Playfield implements InteractivePhysicsObject {
 				0.4f * PhysicsDefinition.METER_SCALE_FACTOR), vectorToCornerArightSlingshot, // 0.4
 				vectorToCornerBrightSlingshot);
 
-		
-		
-		// add bumpers
-		physicsObjects.add(rightTopBumper);
-		physicsObjects.add(leftTopBumper);
-
 		// add slingshots
 		physicsObjects.add(leftSlingshotElement);
 		physicsObjects.add(rightSlingshotElement);
+		
+	}
+	
+	@Override
+	public void placePhysicsObject(PlacablePhysicsObject object) {
+		physicsObjects.add(object);
+		contactListeners.add(object.getContactListener());
+		
+	}
+
+	@Override
+	public void clearField() {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -92,8 +97,6 @@ public class Playfield implements InteractivePhysicsObject {
 		ContactListener contactListener = createCollectionContactListener();
 		world.setContactListener(contactListener);
 
-		contactListeners.add(leftTopBumper.getContactListener());
-		contactListeners.add(rightTopBumper.getContactListener());
 		contactListeners.add(leftSlingshotElement.getContactListener());
 		contactListeners.add(rightSlingshotElement.getContactListener());
 	}
