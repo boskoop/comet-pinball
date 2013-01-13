@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldSlingshotElement;
 import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -19,10 +20,13 @@ public class SlingshotElementFactoryImpl implements SlingshotElementFactory {
 	public void createAndPlacePlayFieldElement() {
 		Vector2 cornerPosition = new Vector2(element.getPosition().getX(), element
 				.getPosition().getY());
+		cornerPosition.mul(PhysicsDefinition.METER_SCALE_FACTOR);
 		Vector2 cornerAVector = new Vector2(element.getCornerAVector().getX(), element
 				.getCornerAVector().getY());
+		cornerAVector.mul(PhysicsDefinition.METER_SCALE_FACTOR);
 		Vector2 cornerBVector = new Vector2(element.getCornerBVector().getX(), element
 				.getCornerBVector().getY());
+		cornerBVector.mul(PhysicsDefinition.METER_SCALE_FACTOR);
 		Slingshot slingshot = new Slingshot(cornerPosition, cornerAVector, cornerBVector);
 		playField.placePhysicsObject(slingshot);
 	}

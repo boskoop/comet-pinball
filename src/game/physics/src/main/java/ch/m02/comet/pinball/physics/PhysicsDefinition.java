@@ -44,7 +44,7 @@ public interface PhysicsDefinition {
 	
 	// Slingshot
 	//public static final float SLINGSHOT_SIZE = 0.05f * METER_SCALE_FACTOR;
-	public static final float SLINGSHOT_FORCE = 20f * METER_SCALE_FACTOR;
+	public static final float SLINGSHOT_FORCE = 30f * METER_SCALE_FACTOR;
 	public static final float SLINGSHOT_RESTITUTION = STEEL_RESTITUTION;
 	public static final float SLINGSHOT_DENSITY = STEEL_DENSITY;
 	public static final float SLINGSHOT_CORNER_SIZE = 0.005f * METER_SCALE_FACTOR;

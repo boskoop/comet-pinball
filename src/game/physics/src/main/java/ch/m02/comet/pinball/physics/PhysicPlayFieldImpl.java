@@ -8,9 +8,7 @@ import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
 import ch.m02.comet.pinball.physics.element.FlipperElement;
 import ch.m02.comet.pinball.physics.element.PlungerTubeElement;
-import ch.m02.comet.pinball.physics.placable.Slingshot;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -25,9 +23,6 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 	private List<ContactListener> contactListeners = new ArrayList<ContactListener>();
 	
 	private List<PlacablePhysicsObject> placedObjects = new ArrayList<PlacablePhysicsObject>();
-
-//	private Bumper leftTopBumper, rightTopBumper;
-	private Slingshot leftSlingshotElement, rightSlingshotElement;
 	
 	private World world;
 
@@ -37,43 +32,6 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 		physicsObjects.add(new FieldBottomCornerElement());
 		physicsObjects.add(new PlungerTubeElement());
 		interactiveObjects.add(new FlipperElement());
-
-//		leftTopBumper = new Bumper(new Vector2(
-//				0.25f * PhysicsDefinition.METER_SCALE_FACTOR,
-//				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-//		rightTopBumper = new Bumper(new Vector2(
-//				0.5f * PhysicsDefinition.METER_SCALE_FACTOR,
-//				1.1f * PhysicsDefinition.METER_SCALE_FACTOR));
-
-		Vector2 vectorToCornerAleftSlingshot = new Vector2(
-				0.075f * PhysicsDefinition.METER_SCALE_FACTOR,
-				0.00f * PhysicsDefinition.METER_SCALE_FACTOR);
-		Vector2 vectorToCornerBleftSlingshot = new Vector2(
-				0.00f * PhysicsDefinition.METER_SCALE_FACTOR,
-				0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
-
-		leftSlingshotElement = new Slingshot(new Vector2(
-				0.12f * PhysicsDefinition.METER_SCALE_FACTOR, // 0.25
-				0.4f * PhysicsDefinition.METER_SCALE_FACTOR), vectorToCornerAleftSlingshot, // 0.4
-				vectorToCornerBleftSlingshot);
-		
-		Vector2 vectorToCornerBrightSlingshot = new Vector2(
-				-0.075f * PhysicsDefinition.METER_SCALE_FACTOR,
-				0.00f * PhysicsDefinition.METER_SCALE_FACTOR);
-		Vector2 vectorToCornerArightSlingshot = new Vector2(
-				0.00f * PhysicsDefinition.METER_SCALE_FACTOR,
-				0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
-		
-		
-		rightSlingshotElement = new Slingshot(new Vector2(
-				0.6f * PhysicsDefinition.METER_SCALE_FACTOR, // 0.25
-				0.4f * PhysicsDefinition.METER_SCALE_FACTOR), vectorToCornerArightSlingshot, // 0.4
-				vectorToCornerBrightSlingshot);
-
-		// add slingshots
-		physicsObjects.add(leftSlingshotElement);
-		physicsObjects.add(rightSlingshotElement);
-		
 	}
 	
 	@Override
@@ -87,6 +45,7 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 	@Override
 	public void clearField() {
 		for (PlacablePhysicsObject o : placedObjects) {
+			contactListeners.remove(o.getContactListener());
 			physicsObjects.remove(o);
 			world.destroyBody(o.getBody());
 			// TODO: is there any more to dispose?
@@ -106,9 +65,6 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 
 		ContactListener contactListener = createCollectionContactListener();
 		world.setContactListener(contactListener);
-
-		contactListeners.add(leftSlingshotElement.getContactListener());
-		contactListeners.add(rightSlingshotElement.getContactListener());
 	}
 
 	@Override
