@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.simulation.Score;
 import ch.m02.comet.pinball.core.presentation.screen.HighscoreScreen;
+import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -32,6 +33,9 @@ public class HighscoreScreenImpl extends ManagedScreen implements HighscoreScree
 	
 	@Inject
 	private ApplicationContext context;
+	
+	@Inject
+	private GraphicsDisplay display;
 
 	private static final String DRAWABLE_BUTTON = "buttonnormal";
 	private static final String DRAWABLE_BUTTON_PRESSED = "buttonpressed";
@@ -58,7 +62,7 @@ public class HighscoreScreenImpl extends ManagedScreen implements HighscoreScree
 				Gdx.files.internal("data/menu/nueva_white.fnt"), false);
 		stage = new Stage();
 		
-	
+		display.registerHighscoreScreen(this);
 	}
 
 	public void setHighscores(List<? extends Score> highscores){

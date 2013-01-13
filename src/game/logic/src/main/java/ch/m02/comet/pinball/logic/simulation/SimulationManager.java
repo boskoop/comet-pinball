@@ -9,6 +9,7 @@ import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldElementPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldPdo;
 import ch.m02.comet.pinball.logic.model.simulation.PlayFieldIdPdo;
+import ch.m02.comet.pinball.logic.model.simulation.PlayerPdo;
 import ch.m02.comet.pinball.logic.model.simulation.ScorePdo;
 import ch.m02.comet.pinball.logic.model.simulation.SimulationPdo;
 import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreDao;
@@ -76,7 +77,11 @@ public class SimulationManager {
 
 	public void endSimulation() {
 		// TODO get player name
-//		simulation.setPlayer(player)
+		PlayerPdo player = new PlayerPdo();
+		player.setName("bobo");
+		simulation.setPlayer(player);
+		
+		simulationDao.addSimulation(simulation);
 	}
 
 	public RuleEngine getRuleEngine() {
