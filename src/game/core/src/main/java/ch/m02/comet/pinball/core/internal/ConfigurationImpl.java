@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.m02.comet.pinball.core.Configuration;
+import ch.m02.comet.pinball.core.config.Configuration;
 
 public class ConfigurationImpl implements Configuration {
 

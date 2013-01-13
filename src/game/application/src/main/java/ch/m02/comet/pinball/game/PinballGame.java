@@ -3,8 +3,8 @@ package ch.m02.comet.pinball.game;
 import javax.inject.Inject;
 
 import ch.m02.comet.pinball.MainApplication;
-import ch.m02.comet.pinball.core.BooleanProperties;
-import ch.m02.comet.pinball.core.Configuration;
+import ch.m02.comet.pinball.core.config.BooleanProperties;
+import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.presentation.PinballScreenManager;
 import ch.m02.comet.pinball.presentation.ScreenPresenter;
 
