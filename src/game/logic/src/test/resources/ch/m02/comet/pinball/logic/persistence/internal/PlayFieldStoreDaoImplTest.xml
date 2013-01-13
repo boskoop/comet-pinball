@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:configuration xmlns:ns2="ch.m02.comet.pinball.model">
+<configuration xmlns="http://comet.m02.ch/pinball/playfield">
     <playfields>
         <playfield>
             <name>testfield</name>
             <elements>
-                <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="playFieldBumperElementPdo">
+                <bumper>
                     <id>1</id>
                     <position>
                         <x>50.0</x>
                         <y>40.0</y>
                     </position>
                     <radius>5.0</radius>
-                </element>
-                <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="playFieldSlingshotElementPdo">
+                </bumper>
+                <slingshot>
                     <id>2</id>
                     <position>
                         <x>20.0</x>
                         <y>15.0</y>
                     </position>
-                    <a>
+                    <corner.a>
                         <x>2.0</x>
                         <y>0.0</y>
-                    </a>
-                    <b>
+                    </corner.a>
+                    <corner.b>
                         <x>0.0</x>
                         <y>2.0</y>
-                    </b>
-                </element>
-                <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="playFieldObstacleElementPdo">
+                    </corner.b>
+                </slingshot>
+                <obstacle>
                     <id>3</id>
                     <position>
                         <x>60.0</x>
@@ -51,17 +51,17 @@
                             <y>-1.0</y>
                         </vertice>
                     </vertices>
-                </element>
+                </obstacle>
             </elements>
             <rules>
                 <rule>
-                    <class>ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreManagerImplTest$Rule1</class>
+                    <class>ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreDaoImplTest$Rule1</class>
                     <parameters>
                         <parameter>5</parameter>
                     </parameters>
                 </rule>
                 <rule>
-                    <class>ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreManagerImplTest$Rule2</class>
+                    <class>ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreDaoImplTest$Rule2</class>
                     <parameters>
                         <parameter>7</parameter>
                     </parameters>
@@ -69,4 +69,4 @@
             </rules>
         </playfield>
     </playfields>
-</ns2:configuration>
+</configuration>

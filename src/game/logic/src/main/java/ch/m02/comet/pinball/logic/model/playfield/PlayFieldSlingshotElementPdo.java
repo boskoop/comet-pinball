@@ -3,7 +3,7 @@ package ch.m02.comet.pinball.logic.model.playfield;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -12,14 +12,14 @@ import ch.m02.comet.pinball.core.model.playfield.PlayFieldSlingshotElement;
 import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "element")
+@XmlType(name = "slingshot")
 public class PlayFieldSlingshotElementPdo extends PlayFieldElementPdo implements
 		PlayFieldSlingshotElement {
 	
-	@XmlElement(name = "a", required = true)
+	@XmlElement(name = "corner.a", required = true)
 	private VectorPdo cornerA;
 
-	@XmlElement(name = "b", required = true)
+	@XmlElement(name = "corner.b", required = true)
 	private VectorPdo cornerB;
 	
 	@Override

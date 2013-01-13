@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldPdo;
-import ch.m02.comet.pinball.logic.persistence.PlayFieldStore;
+import ch.m02.comet.pinball.logic.model.playfield.PlayFieldStore;
 import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreDao;
 
 public class PlayFieldStoreDaoImpl implements PlayFieldStoreDao {

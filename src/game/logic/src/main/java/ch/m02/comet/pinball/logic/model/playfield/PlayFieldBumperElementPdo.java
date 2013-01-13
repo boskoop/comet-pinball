@@ -3,7 +3,7 @@ package ch.m02.comet.pinball.logic.model.playfield;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -12,7 +12,7 @@ import ch.m02.comet.pinball.core.model.playfield.PlayFieldBumperElement;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "element")
+@XmlType(name = "bumper")
 public class PlayFieldBumperElementPdo extends PlayFieldElementPdo implements
 		PlayFieldBumperElement {
 

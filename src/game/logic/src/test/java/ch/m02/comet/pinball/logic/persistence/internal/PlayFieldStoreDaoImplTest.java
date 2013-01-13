@@ -2,13 +2,18 @@ package ch.m02.comet.pinball.logic.persistence.internal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
 
 import org.junit.Test;
 
@@ -19,8 +24,8 @@ import ch.m02.comet.pinball.logic.model.playfield.PlayFieldObstacleElementPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldPdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldRulePdo;
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldSlingshotElementPdo;
+import ch.m02.comet.pinball.logic.model.playfield.PlayFieldStore;
 import ch.m02.comet.pinball.logic.model.playfield.VectorPdo;
-import ch.m02.comet.pinball.logic.persistence.PlayFieldStore;
 
 public class PlayFieldStoreDaoImplTest {
 
@@ -102,16 +107,17 @@ public class PlayFieldStoreDaoImplTest {
 	    // Write to System.out
 	    m.marshal(store, System.out);
 	    
-//	    SchemaOutputResolver sor = new SchemaOutputResolver() {
-//	    	@Override
-//	    	public Result createOutput(String namespaceURI, String suggestedFileName)
-//	    			throws IOException {
-//	    		File file = new File(suggestedFileName);
-//	            StreamResult result = new StreamResult(file);
-//	            result.setSystemId(file.toURI().toURL().toString());
-//	            return result;
-//	    	}
-//	    };
+	    @SuppressWarnings("unused")
+		SchemaOutputResolver sor = new SchemaOutputResolver() {
+	    	@Override
+	    	public Result createOutput(String namespaceURI, String suggestedFileName)
+	    			throws IOException {
+	    		File file = new File(suggestedFileName);
+	            StreamResult result = new StreamResult(file);
+	            result.setSystemId(file.toURI().toURL().toString());
+	            return result;
+	    	}
+	    };
 //	    context.generateSchema(sor);
 	}
 

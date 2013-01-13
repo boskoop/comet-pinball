@@ -3,15 +3,14 @@ package ch.m02.comet.pinball.logic.model.playfield;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlSeeAlso({ PlayFieldBumperElementPdo.class,
-		PlayFieldObstacleElementPdo.class, PlayFieldSlingshotElementPdo.class })
+@XmlType(name = "element")
 public abstract class PlayFieldElementPdo implements PlayFieldElement {
 
 	@XmlElement(name = "id", required = true)
