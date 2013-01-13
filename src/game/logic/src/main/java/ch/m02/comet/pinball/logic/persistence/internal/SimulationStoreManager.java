@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,26 +41,12 @@ class SimulationStoreManager {
 		try {
 			in = new ObjectInputStream(new FileInputStream(
 					PERSISTENT_FILE_NAME));
-			try {
 				store = (SimulationStore) in.readObject();
-			} finally {
-				in.close();
-			}
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			log.error("Could not load simulation store!", e);
-		} catch (ClassCastException e) {
-			log.error("Could not load simulation store!", e);
-		} catch (IOException e) {
-			log.error("Could not load simulation store!", e);
+			throw new RuntimeException("Could not load simulation store!", e);
 		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					log.error("Could not close stream while loading simulation store!",
-							e);
-				}
-			}
+			IOUtils.closeQuietly(in);
 		}
 		log.info("Loaded simulation store");
 	}
@@ -69,22 +56,12 @@ class SimulationStoreManager {
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(
 					PERSISTENT_FILE_NAME));
-			try {
-				out.writeObject(store);
-			} finally {
-				out.close();
-			}
+			out.writeObject(store);
 		} catch (IOException e) {
 			log.error("Could not save simulation store!", e);
+			throw new RuntimeException("Could not save simulation store!", e);
 		} finally {
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-					log.error("Could not close stream while saving simulation store!",
-							e);
-				}
-			}
+			IOUtils.closeQuietly(out);
 		}
 		log.info("Saved simulation store");
 	}
