@@ -13,21 +13,21 @@ import org.junit.Test;
 import ch.m02.comet.pinball.logic.model.simulation.SimulationPdo;
 import ch.m02.comet.pinball.logic.persistence.SimulationStore;
 
-public class SimulationStoreManagerImplTest {
+public class SimulationStoreManagerTest {
 
-	private SimulationStoreManagerImpl em;
+	private SimulationStoreManager em;
 
 	@Before
 	public void clean() {
 		cleanStore();
-		em = new SimulationStoreManagerImpl();
+		em = new SimulationStoreManager();
 		em.initializePersistence();
 	}
 
 	@AfterClass
 	public static void cleanStore() {
 		File persistentFile = new File(
-				SimulationStoreManagerImpl.PERSISTENT_FILE_NAME);
+				SimulationStoreManager.PERSISTENT_FILE_NAME);
 		if (persistentFile.exists()) {
 			assertTrue(persistentFile.delete());
 		}
@@ -57,7 +57,7 @@ public class SimulationStoreManagerImplTest {
 		store.addSimulation(new SimulationPdo());
 		em.saveSimulationStore(store);
 
-		SimulationStoreManagerImpl em2 = new SimulationStoreManagerImpl();
+		SimulationStoreManager em2 = new SimulationStoreManager();
 		em2.initializePersistence();
 		
 		SimulationStore managerStore = em2.getSimulationStore();

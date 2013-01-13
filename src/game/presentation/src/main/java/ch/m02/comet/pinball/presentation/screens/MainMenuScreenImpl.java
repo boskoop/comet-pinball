@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
-import ch.m02.comet.pinball.core.logic.command.NewGameCommand;
+import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
 import ch.m02.comet.pinball.core.presentation.screen.MainMenuScreen;
 
 import com.badlogic.gdx.Gdx;
@@ -101,7 +101,7 @@ public class MainMenuScreenImpl extends ManagedScreen implements MainMenuScreen 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 				log.info("'New game' button pressed");
-				NewGameCommand command = context.getComponentContainer().getComponent(NewGameCommand.class);
+				NewSimulationCommand command = context.getComponentContainer().getComponent(NewSimulationCommand.class);
 				command.execute();
 			}
 		});

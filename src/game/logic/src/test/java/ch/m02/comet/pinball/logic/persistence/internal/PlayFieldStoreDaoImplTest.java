@@ -22,7 +22,7 @@ import ch.m02.comet.pinball.logic.model.playfield.PlayFieldSlingshotElementPdo;
 import ch.m02.comet.pinball.logic.model.playfield.VectorPdo;
 import ch.m02.comet.pinball.logic.persistence.PlayFieldStore;
 
-public class PlayFieldStoreManagerImplTest {
+public class PlayFieldStoreDaoImplTest {
 
 	private static class Rule1 implements Rule { }
 	private static class Rule2 implements Rule { }

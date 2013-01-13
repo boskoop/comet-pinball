@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldBumperElement;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
 
 public class BumperElementFactoryImpl implements BumperElementFactory {
 	
@@ -19,7 +20,9 @@ public class BumperElementFactoryImpl implements BumperElementFactory {
 	public void createAndPlacePlayFieldElement() {
 		Vector2 position = new Vector2(element.getPosition().getX(), element
 				.getPosition().getY());
-		Bumper bumper = new Bumper(position, element.getRadius());
+		position.mul(PhysicsDefinition.METER_SCALE_FACTOR);
+		Bumper bumper = new Bumper(position, element.getRadius()
+				* PhysicsDefinition.METER_SCALE_FACTOR);
 		playField.placePhysicsObject(bumper);
 	}
 

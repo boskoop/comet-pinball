@@ -10,6 +10,7 @@ import org.picocontainer.PicoContainer;
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.BooleanProperties;
 import ch.m02.comet.pinball.core.config.Configuration;
+import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.core.presentation.screen.MainMenuScreen;
 import ch.m02.comet.pinball.core.presentation.screen.PinballScreen;
@@ -39,7 +40,7 @@ public class PinballScreenManager implements ScreenManager {
 
 		if (configuration
 				.getBooleanProperty(BooleanProperties.SKIP_SPLASHSCREEN)) {
-			changeScreenTo(MainMenuScreen.class);
+			context.getComponentContainer().getComponent(SplashFinishedCommand.class).execute();
 		} else {
 			changeScreenTo(SplashScreen.class);
 		}

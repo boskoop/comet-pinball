@@ -7,24 +7,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.m02.comet.pinball.logic.persistence.SimulationStoreManager;
 import ch.m02.comet.pinball.logic.persistence.SimulationStore;
 
-public class SimulationStoreManagerImpl implements SimulationStoreManager {
+class SimulationStoreManager {
 
 	private static final Logger log = LoggerFactory
-			.getLogger(SimulationStoreManagerImpl.class);
+			.getLogger(SimulationStoreDaoImpl.class);
 
 	static final String PERSISTENT_FILE_NAME = "data.ser";
 	
 	private SimulationStore store;
 
-	@PostConstruct
 	public void initializePersistence() {
 		File persistentFile = new File(PERSISTENT_FILE_NAME);
 		if (!persistentFile.exists()) {
@@ -93,15 +89,13 @@ public class SimulationStoreManagerImpl implements SimulationStoreManager {
 		log.info("Saved simulation store");
 	}
 
-	@Override
 	public SimulationStore getSimulationStore() {
 		return store;
 	}
 	
-	@Override
 	public void saveSimulationStore(SimulationStore store) {
 		this.store = store;
 		save();
 	}
-
+	
 }

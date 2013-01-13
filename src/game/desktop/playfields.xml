@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:configuration xmlns:ns2="ch.m02.comet.pinball.model">
+    <playfields>
+        <playfield>
+            <name>default</name>
+            <elements>
+                <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="playFieldBumperElementPdo">
+                    <id>1</id>
+                    <position>
+                        <x>0.25</x>
+                        <y>1.1</y>
+                    </position>
+                    <radius>0.03</radius>
+                </element>
+                <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="playFieldBumperElementPdo">
+                    <id>2</id>
+                    <position>
+                        <x>0.45</x>
+                        <y>1.1</y>
+                    </position>
+                    <radius>0.03</radius>
+                </element>
+                <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="playFieldBumperElementPdo">
+                    <id>3</id>
+                    <position>
+                        <x>0.35</x>
+                        <y>1.05</y>
+                    </position>
+                    <radius>0.03</radius>
+                </element>
+            </elements>
+            <rules>
+            </rules>
+        </playfield>
+    </playfields>
+</ns2:configuration>

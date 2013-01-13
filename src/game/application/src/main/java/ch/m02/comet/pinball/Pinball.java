@@ -17,7 +17,8 @@ import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
-import ch.m02.comet.pinball.core.logic.command.NewGameCommand;
+import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
+import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
@@ -25,12 +26,18 @@ import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 import ch.m02.comet.pinball.game.ApplicationProvider;
 import ch.m02.comet.pinball.game.PinballGame;
 import ch.m02.comet.pinball.logic.LogicManager;
-import ch.m02.comet.pinball.logic.command.NewGameCommandImpl;
 import ch.m02.comet.pinball.logic.internal.PinballLogicManager;
-import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreManager;
-import ch.m02.comet.pinball.logic.persistence.SimulationStoreManager;
-import ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreManagerImpl;
-import ch.m02.comet.pinball.logic.persistence.internal.SimulationStoreManagerImpl;
+import ch.m02.comet.pinball.logic.internal.command.NewSimulationCommandImpl;
+import ch.m02.comet.pinball.logic.internal.command.SplashFinishedCommandImpl;
+import ch.m02.comet.pinball.logic.internal.state.MainMenuState;
+import ch.m02.comet.pinball.logic.internal.state.SimulationState;
+import ch.m02.comet.pinball.logic.internal.state.SplashState;
+import ch.m02.comet.pinball.logic.internal.state.StateContext;
+import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreDao;
+import ch.m02.comet.pinball.logic.persistence.SimulationStoreDao;
+import ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreDaoImpl;
+import ch.m02.comet.pinball.logic.persistence.internal.SimulationStoreDaoImpl;
+import ch.m02.comet.pinball.logic.simulation.SimulationManager;
 import ch.m02.comet.pinball.physics.PhysicPlayField;
 import ch.m02.comet.pinball.physics.PhysicPlayFieldImpl;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
@@ -74,15 +81,19 @@ public class Pinball {
 		singletonContainer.addAdapter(new ProviderAdapter(new ApplicationProvider(application)));
 		singletonContainer.addComponent(Game.class, PinballGame.class);
 		singletonContainer.addComponent(Configuration.class, ConfigurationImpl.class);
-		singletonContainer.addComponent(PlayFieldStoreManager.class, PlayFieldStoreManagerImpl.class);
-		singletonContainer.addComponent(SimulationStoreManager.class, SimulationStoreManagerImpl.class);
 		singletonContainer.addComponent(ApplicationContext.class, ApplicationContextImpl.class, 
 				new ConstantParameter(container));
 
+		// Presentation
 		singletonContainer.addComponent(ScreenManager.class, PinballScreenManager.class);
 		singletonContainer.addComponent(PhysicPlayField.class, PhysicPlayFieldImpl.class);
 		singletonContainer.addComponent(PresentationManager.class, PinballPresentationManager.class);
+		
+		// Logic
 		singletonContainer.addComponent(LogicManager.class, PinballLogicManager.class);
+		singletonContainer.addComponent(PlayFieldStoreDao.class, PlayFieldStoreDaoImpl.class);
+		singletonContainer.addComponent(SimulationStoreDao.class, SimulationStoreDaoImpl.class);
+		singletonContainer.addComponent(StateContext.class);
 	}
 	
 	private void registerPrototypes() {
@@ -101,7 +112,16 @@ public class Pinball {
 		container.addComponent(GameScreenImpl.class);
 
 		// Commands
-		container.addComponent(NewGameCommand.class, NewGameCommandImpl.class);
+		container.addComponent(NewSimulationCommand.class, NewSimulationCommandImpl.class);
+		container.addComponent(SplashFinishedCommand.class, SplashFinishedCommandImpl.class);
+		
+		// State
+		container.addComponent(MainMenuState.class);
+		container.addComponent(SplashState.class);
+		container.addComponent(SimulationState.class);
+		
+		// Simulation
+		container.addComponent(SimulationManager.class);
 	}
 
 	public Game getGame() {

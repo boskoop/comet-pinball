@@ -4,8 +4,8 @@ import java.util.List;
 
 import ch.m02.comet.pinball.logic.model.playfield.PlayFieldPdo;
 
-public interface PlayFieldStoreManager {
+public interface PlayFieldStoreDao {
 
-	public List<PlayFieldPdo> loadPlayFields();
+	public List<PlayFieldPdo> findPlayFields();
 	
 }
