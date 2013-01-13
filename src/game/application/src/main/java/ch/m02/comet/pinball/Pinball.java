@@ -71,7 +71,6 @@ public class Pinball {
 				.build();
 		registerSingletons();
 		registerPrototypes();
-		container.start();
 	}
 
 	private void registerSingletons() {
@@ -122,6 +121,10 @@ public class Pinball {
 		
 		// Simulation
 		container.addComponent(SimulationManager.class);
+	}
+	
+	public void start() {
+		container.start();
 	}
 
 	public Game getGame() {
