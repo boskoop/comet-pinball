@@ -15,5 +15,7 @@ public abstract class ManagedScreen implements Screen {
 	protected void fireChangeScreen(Class<? extends ManagedScreen> screen) {
 		manager.changeScreenTo(screen);
 	}
+	
+	public abstract void init();
 
 }

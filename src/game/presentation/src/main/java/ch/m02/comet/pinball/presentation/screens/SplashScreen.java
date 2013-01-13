@@ -21,6 +21,7 @@ public class SplashScreen extends ManagedScreen {
 	SpriteBatch batch;
 	TweenManager tweenManager;
 	
+	@Override
 	public void init() {
 		splashTexture = new Texture("data/splash.png");
 		splashTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);

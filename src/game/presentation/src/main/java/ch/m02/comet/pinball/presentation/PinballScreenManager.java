@@ -53,10 +53,10 @@ public class PinballScreenManager implements ScreenManager {
 		screens.put(SplashScreen.class, splashScreen);
 		screens.put(MainMenuScreen.class, menuScreen);
 		screens.put(GameScreen.class, gameScreen);
-
-		gameScreen.init();
-		splashScreen.init();
-		menuScreen.init();
+		
+		for (ManagedScreen screen : screens.values()) {
+			screen.init();
+		}
 	}
 
 	@Override

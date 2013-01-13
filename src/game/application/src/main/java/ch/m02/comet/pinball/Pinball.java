@@ -55,7 +55,7 @@ public class Pinball {
 	public Pinball(MainApplication application) {
 		this.application = application;
 		container = new PicoBuilder()
-				.withMonitor(new Slf4jComponentMonitor())
+				.withMonitor(new Slf4jComponentMonitor()) // Monitor container events in log
 				.withBehaviors(new OptInCaching()) // Enable singletons
 				.withLocking() // Enable locking
 				.withComponentFactory(new AnnotatedFieldInjection(Inject.class)) // use JSR-330
@@ -87,6 +87,9 @@ public class Pinball {
 	
 	private void registerPrototypes() {
 		log.debug("Registering pico component prototypes");
+		// IMPORTANT NOTICE:
+		// Lifecycle works only for singletons! Ensure that there are no prototypes which use @PostConstruct!
+		
 		// Element factories
 		container.addComponent(BumperElementFactory.class, BumperElementFactoryImpl.class);
 		container.addComponent(SlingshotElementFactory.class, SlingshotElementFactoryImpl.class);

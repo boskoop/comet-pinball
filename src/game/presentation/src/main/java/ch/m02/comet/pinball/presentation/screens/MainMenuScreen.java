@@ -37,16 +37,17 @@ public class MainMenuScreen extends ManagedScreen {
 	private SpriteBatch batch;
 	private TextButton button;
 	private Label gameNameLabel;
-	
-	public void init(){
+
+	@Override
+	public void init() {
 		batch = new SpriteBatch();
 		atlas = new TextureAtlas("data/menu/button.pack");
 		skin = new Skin();
 		skin.addRegions(atlas);
-		blackFont = new BitmapFont(Gdx.files.internal("data/menu/nueva_black.fnt"),
-				false);
-		whiteFont = new BitmapFont(Gdx.files.internal("data/menu/nueva_white.fnt"),
-				false);
+		blackFont = new BitmapFont(
+				Gdx.files.internal("data/menu/nueva_black.fnt"), false);
+		whiteFont = new BitmapFont(
+				Gdx.files.internal("data/menu/nueva_white.fnt"), false);
 		stage = new Stage();
 	}
 

@@ -2,7 +2,6 @@ package ch.m02.comet.pinball.presentation.screens;
 
 import javax.inject.Inject;
 
-import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.physics.Ball;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicPlayField;
@@ -21,9 +20,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class GameScreen extends ManagedScreen {
-	
+
 	@Inject
-	private ApplicationContext context;
+	private PhysicPlayField playfield;
 
 	private OrthographicCamera camera;
 
@@ -55,8 +54,7 @@ public class GameScreen extends ManagedScreen {
 
 	private GraphicsObject ballGraphicsObject, scoreDisplayGraphicsObject;
 
-	private InteractivePhysicsObject playfield;
-
+	@Override
 	public void init() {
 		final Vector2 gravity = new Vector2(0, PhysicsDefinition.RAMP_GRAVITY);
 		final boolean dontSimulateInactiveBodies = true;
@@ -69,7 +67,6 @@ public class GameScreen extends ManagedScreen {
 		camera.setToOrtho(yPointsDown, PhysicsDefinition.FIELD_WIDTH,
 				PhysicsDefinition.FIELD_HEIGHT);
 
-		playfield = context.getComponentContainer().getComponent(PhysicPlayField.class);
 		playfield.init(world);
 		
 		// TODO placement of elements
