@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
-import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
 import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
 import ch.m02.comet.pinball.core.model.simulation.Score;
 import ch.m02.comet.pinball.core.presentation.screen.HighscoreScreen;
@@ -83,7 +82,6 @@ public class HighscoreScreenImpl extends ManagedScreen implements
 
 		batch.begin();
 		stage.draw();
-		// drawHighscores(batch);
 		batch.end();
 	}
 
@@ -165,7 +163,6 @@ public class HighscoreScreenImpl extends ManagedScreen implements
 					/ 2;
 			y = (8f - i) * Gdx.graphics.getHeight() / 10f
 					- whiteFont.getBounds(text).height / 2;
-			// whiteFont.draw(spriteBatch,text,x,y);
 
 			Label highscore = new Label(text, highscoreLabelStyle);
 			highscore.setPosition(x, y);
