@@ -33,6 +33,7 @@ public class PinballDisplay implements GraphicsDisplay {
 		this.highscoreScreen = highscoreScreen;
 	}
 	
+	@Override
 	public void setHighscores(List<? extends Score> highscores) {
 		if (highscoreScreen != null){
 			highscoreScreen.setHighscores(highscores);
