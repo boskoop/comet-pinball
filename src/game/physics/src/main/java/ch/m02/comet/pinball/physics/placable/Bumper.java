@@ -91,10 +91,6 @@ public class Bumper implements PlacablePhysicsObject {
 		return fixtureDef;
 	}
 
-	public void setPosition(Vector2 position) {
-		this.position.set(position);
-	}
-
 	@Override
 	public ContactListener getContactListener() {
 		return contactListener;
