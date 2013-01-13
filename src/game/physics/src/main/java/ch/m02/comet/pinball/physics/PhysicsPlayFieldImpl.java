@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class PhysicPlayFieldImpl implements PhysicPlayField {
+public class PhysicsPlayFieldImpl implements PhysicsPlayField {
 
 	private List<PhysicsObject> physicsObjects = new ArrayList<PhysicsObject>();
 	private List<InteractivePhysicsObject> interactiveObjects = new ArrayList<InteractivePhysicsObject>();
@@ -26,7 +26,7 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 	
 	private World world;
 
-	public PhysicPlayFieldImpl() {
+	public PhysicsPlayFieldImpl() {
 		physicsObjects.add(new FieldBoundsElement());
 		physicsObjects.add(new FieldTopCornerElement());
 		physicsObjects.add(new FieldBottomCornerElement());
@@ -47,7 +47,7 @@ public class PhysicPlayFieldImpl implements PhysicPlayField {
 		for (PlacablePhysicsObject o : placedObjects) {
 			contactListeners.remove(o.getContactListener());
 			physicsObjects.remove(o);
-			world.destroyBody(o.getBody());
+			o.dispose();
 			// TODO: is there any more to dispose?
 		}
 		placedObjects.clear();

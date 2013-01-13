@@ -4,12 +4,12 @@ import javax.inject.Inject;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldObstacleElement;
 import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
-import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicsPlayField;
 
 public class ObstacleElementFactoryImpl implements ObstacleElementFactory {
 	
 	@Inject
-	private PhysicPlayField playField;
+	private PhysicsPlayField playField;
 	
 	private PlayFieldObstacleElement element;
 

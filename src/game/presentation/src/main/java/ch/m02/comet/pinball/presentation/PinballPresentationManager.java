@@ -10,7 +10,7 @@ import ch.m02.comet.pinball.core.model.playfield.PlayFieldElement;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.playfield.ElementFactory;
 import ch.m02.comet.pinball.core.presentation.screen.PinballScreen;
-import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicsPlayField;
 
 public class PinballPresentationManager implements PresentationManager {
 
@@ -18,7 +18,7 @@ public class PinballPresentationManager implements PresentationManager {
 	private ScreenManager screenManager;
 	
 	@Inject
-	private PhysicPlayField playField;
+	private PhysicsPlayField playField;
 	
 	@Inject
 	private ApplicationContext context;

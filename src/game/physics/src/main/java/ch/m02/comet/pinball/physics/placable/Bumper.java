@@ -100,4 +100,10 @@ public class Bumper implements PlacablePhysicsObject {
 		return contactListener;
 	}
 
+	@Override
+	public void dispose() {
+		World world = body.getWorld();
+		world.destroyBody(body);
+	}
+
 }

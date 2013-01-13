@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldSlingshotElement;
 import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
-import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 public class SlingshotElementFactoryImpl implements SlingshotElementFactory {
 	
 	@Inject
-	private PhysicPlayField playField;
+	private PhysicsPlayField playField;
 	
 	private PlayFieldSlingshotElement element;
 

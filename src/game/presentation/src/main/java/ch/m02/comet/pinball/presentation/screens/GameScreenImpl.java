@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.physics.Ball;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
-import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.presentation.graphics.BallGraphics;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsObject;
@@ -23,7 +23,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	@Inject
-	private PhysicPlayField playfield;
+	private PhysicsPlayField playfield;
 
 	private OrthographicCamera camera;
 

@@ -189,4 +189,11 @@ public class Slingshot implements PlacablePhysicsObject {
 	public ContactListener getContactListener(){
 		return contactListener;
 	}
+
+	@Override
+	public void dispose() {
+		World world = slingshotBody.getWorld();
+		world.destroyBody(slingshotBody);
+		world.destroyBody(reactiveSlingshotBody);
+	}
 }

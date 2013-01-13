@@ -1,7 +1,7 @@
 package ch.m02.comet.pinball.physics;
 
 
-public interface PhysicPlayField extends InteractivePhysicsObject {
+public interface PhysicsPlayField extends InteractivePhysicsObject {
 
 	public void placePhysicsObject(PlacablePhysicsObject object);
 	

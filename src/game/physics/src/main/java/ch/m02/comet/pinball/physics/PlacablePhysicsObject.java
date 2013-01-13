@@ -6,4 +6,6 @@ public interface PlacablePhysicsObject extends PhysicsObject {
 
 	public ContactListener getContactListener();
 	
+	public void dispose();
+	
 }

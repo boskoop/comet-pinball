@@ -38,8 +38,8 @@ import ch.m02.comet.pinball.logic.persistence.SimulationStoreDao;
 import ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreDaoImpl;
 import ch.m02.comet.pinball.logic.persistence.internal.SimulationStoreDaoImpl;
 import ch.m02.comet.pinball.logic.simulation.SimulationManager;
-import ch.m02.comet.pinball.physics.PhysicPlayField;
-import ch.m02.comet.pinball.physics.PhysicPlayFieldImpl;
+import ch.m02.comet.pinball.physics.PhysicsPlayField;
+import ch.m02.comet.pinball.physics.PhysicsPlayFieldImpl;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.SlingshotElementFactoryImpl;
@@ -85,7 +85,7 @@ public class Pinball {
 
 		// Presentation
 		singletonContainer.addComponent(ScreenManager.class, PinballScreenManager.class);
-		singletonContainer.addComponent(PhysicPlayField.class, PhysicPlayFieldImpl.class);
+		singletonContainer.addComponent(PhysicsPlayField.class, PhysicsPlayFieldImpl.class);
 		singletonContainer.addComponent(PresentationManager.class, PinballPresentationManager.class);
 		
 		// Logic

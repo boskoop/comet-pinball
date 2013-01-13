@@ -6,13 +6,13 @@ import com.badlogic.gdx.math.Vector2;
 
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldBumperElement;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
-import ch.m02.comet.pinball.physics.PhysicPlayField;
+import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 
 public class BumperElementFactoryImpl implements BumperElementFactory {
 	
 	@Inject
-	private PhysicPlayField playField;
+	private PhysicsPlayField playField;
 	
 	private PlayFieldBumperElement element;
 
