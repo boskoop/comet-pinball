@@ -23,14 +23,7 @@ public class BallGraphics implements GraphicsObject {
 	@Override
 	public void init(PhysicsObject physicsObject) {
 		this.physicsObject = physicsObject;
-		// sprite.setSize(PhysicsDefinition.PINBALL_RADIUS,PhysicsDefinition.PINBALL_RADIUS);
-
 		sprite = new Sprite(texture);
-//		sprite.setSize(PhysicsDefinition.PINBALL_RADIUS
-//				* PhysicsDefinition.BOX2D_TO_WORLD * 2,
-//				PhysicsDefinition.PINBALL_RADIUS
-//						* PhysicsDefinition.BOX2D_TO_WORLD * 2);
-//		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 	}
 
 	@Override
@@ -39,38 +32,27 @@ public class BallGraphics implements GraphicsObject {
 			// uninitialized!!
 			// TODO handle uninitialized physics object!
 		}
-		Vector3 ballCoordinates = new Vector3(physicsObject.getBody()
-				.getPosition().x * PhysicsDefinition.BOX2D_TO_WORLD - PhysicsDefinition.PINBALL_RADIUS * PhysicsDefinition.BOX2D_TO_WORLD,
-				physicsObject.getBody().getPosition().y * PhysicsDefinition.BOX2D_TO_WORLD
-						- PhysicsDefinition.PINBALL_RADIUS * PhysicsDefinition.BOX2D_TO_WORLD, 0);
-		camera.project(ballCoordinates, 0, 0, camera.viewportWidth, camera.viewportHeight);
+		Vector3 ballCoordinates = new Vector3(physicsObject.getBody().getPosition().x 
+				* PhysicsDefinition.BOX2D_TO_WORLD
+				- PhysicsDefinition.PINBALL_RADIUS * PhysicsDefinition.BOX2D_TO_WORLD, 
+				physicsObject.getBody().getPosition().y
+				* PhysicsDefinition.BOX2D_TO_WORLD
+				- PhysicsDefinition.PINBALL_RADIUS* PhysicsDefinition.BOX2D_TO_WORLD, 0);
+		camera.project(ballCoordinates, 0, 0, camera.viewportWidth,
+				camera.viewportHeight);
 
 		Vector3 ballSize = new Vector3(PhysicsDefinition.PINBALL_RADIUS * 2 * PhysicsDefinition.BOX2D_TO_WORLD,
 				PhysicsDefinition.PINBALL_RADIUS * 2 * PhysicsDefinition.BOX2D_TO_WORLD, 0);
-		camera.project(ballSize, 0, 0, camera.viewportWidth, camera.viewportHeight);
+		camera.project(ballSize, 0, 0, camera.viewportWidth,
+				camera.viewportHeight);
 
-		final float rotation = physicsObject.getBody().getAngle() * 180
-				/ MathUtils.PI;
+		final float rotation = physicsObject.getBody().getAngle() * 180 / MathUtils.PI;
 		
-		
-
 		sprite.setPosition(ballCoordinates.x, ballCoordinates.y);
-		System.out.println(ballSize.x + " " +ballSize.y);
 		sprite.setSize(ballSize.x, ballSize.y);
 		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		sprite.setRotation(rotation);
 		sprite.draw(spriteBatch);
-
-		/*
-		 * sprite.setPosition(physicsObject.getBody().getPosition().x *
-		 * PhysicsDefinition.BOX2D_TO_WORLD - PhysicsDefinition.PINBALL_RADIUS *
-		 * PhysicsDefinition.BOX2D_TO_WORLD,
-		 * physicsObject.getBody().getPosition().y *
-		 * PhysicsDefinition.BOX2D_TO_WORLD - PhysicsDefinition.PINBALL_RADIUS *
-		 * PhysicsDefinition.BOX2D_TO_WORLD); final float rotation =
-		 * physicsObject.getBody().getAngle() * 180 / MathUtils.PI;
-		 * sprite.setRotation(rotation); sprite.draw(spriteBatch);
-		 */
 	}
 
 	@Override
