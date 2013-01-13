@@ -79,6 +79,48 @@
 						</vertice>
 					</vertices>
 				</obstacle>
+				<obstacle>
+					<id>7</id>
+					<position>
+						<x>0.07</x>
+						<y>1.0</y>
+					</position>
+					<vertices>
+						<vertice>
+							<x>0.0</x>
+							<y>0.0</y>
+						</vertice>
+						<vertice>
+							<x>0.12</x>
+							<y>-0.09</y>
+						</vertice>
+						<vertice>
+							<x>0.0</x>
+							<y>0.15</y>
+						</vertice>
+					</vertices>
+				</obstacle>
+				<obstacle>
+					<id>8</id>
+					<position>
+						<x>0.35</x>
+						<y>0.5</y>
+					</position>
+					<vertices>
+						<vertice>
+							<x>0.08</x>
+							<y>0.04</y>
+						</vertice>
+						<vertice>
+							<x>-0.08</x>
+							<y>0.04</y>
+						</vertice>
+						<vertice>
+							<x>-0.00</x>
+							<y>-0.04</y>
+						</vertice>
+					</vertices>
+				</obstacle>
 			</elements>
 			<rules>
 			</rules>
