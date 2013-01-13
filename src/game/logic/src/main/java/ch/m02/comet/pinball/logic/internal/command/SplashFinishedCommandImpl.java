@@ -6,7 +6,7 @@ public class SplashFinishedCommandImpl extends AbstractCommand implements Splash
 
 	@Override
 	public void execute() {
-		getReceiver().getCurrentState().splashFinished();
+		getReceiver().getCurrentState().showMainMenu();
 	}
 
 }

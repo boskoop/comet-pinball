@@ -26,4 +26,9 @@ public class HighscoreState extends AbstractState implements State{
 		presentation.showScreen(HighscoreScreen.class);
 	}
 	
+	@Override
+	public void showMainMenu() {
+		stateContext.setState(createNewState(MainMenuState.class));
+	}
+	
 }

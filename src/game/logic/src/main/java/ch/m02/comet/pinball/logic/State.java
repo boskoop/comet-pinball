@@ -4,7 +4,7 @@ public interface State {
 
 	public void startNewSimulation();
 	
-	public void splashFinished();
+	public void showMainMenu();
 	
 	public void gameOver();
 

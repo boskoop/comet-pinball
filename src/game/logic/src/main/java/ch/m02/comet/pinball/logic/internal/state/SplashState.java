@@ -11,7 +11,7 @@ public class SplashState extends AbstractState {
 	private PresentationManager presentation;
 
 	@Override
-	public void splashFinished() {
+	public void showMainMenu() {
 		stateContext.setState(createNewState(MainMenuState.class));
 	}
 }

@@ -28,7 +28,7 @@ abstract class AbstractState implements State {
 	}
 	
 	@Override
-	public void splashFinished() {
+	public void showMainMenu() {
 	}
 	
 	@Override

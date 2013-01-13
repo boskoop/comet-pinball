@@ -85,15 +85,16 @@ public class SimulationStoreDaoImpl implements SimulationStoreDao {
 		List<SimulationPdo> simulations = storeManager.getSimulationStore().getSimulations();
 		List<ScorePdo> scores = new ArrayList<ScorePdo>();
 		for (SimulationPdo sim : simulations) {
-			scores.add(sim.getScore());
+			if(sim.getScore() != null)
+				scores.add(sim.getScore());
 		}
 		Collections.sort(scores, new Comparator<ScorePdo>() {
 			@Override
 			public int compare(ScorePdo score1, ScorePdo score2) {
 				if (score1.getScoreValue() > score2.getScoreValue()) {
-					return 1;
-				} else if (score1.getScoreValue() > score2.getScoreValue()) {
 					return -1;
+				} else if (score1.getScoreValue() < score2.getScoreValue()) {
+					return 1;
 				}
 				return 0;
 			}
