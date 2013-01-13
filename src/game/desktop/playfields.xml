@@ -121,6 +121,36 @@
 						</vertice>
 					</vertices>
 				</obstacle>
+				<slingshot>
+					<id>9</id>
+					<position>
+						<x>0.35</x>
+						<y>0.54</y>
+					</position>
+					<corner.b>
+						<x>-0.08</x>
+						<y>0.00</y>
+					</corner.b>
+					<corner.a>
+						<x>0.0</x>
+						<y>0.08</y>
+					</corner.a>
+				</slingshot>
+				<slingshot>
+					<id>10</id>
+					<position>
+						<x>0.35</x>
+						<y>0.54</y>
+					</position>
+					<corner.a>
+						<x>0.08</x>
+						<y>0.00</y>
+					</corner.a>
+					<corner.b>
+						<x>0.0</x>
+						<y>0.08</y>
+					</corner.b>
+				</slingshot>
 			</elements>
 			<rules>
 				<rule>
