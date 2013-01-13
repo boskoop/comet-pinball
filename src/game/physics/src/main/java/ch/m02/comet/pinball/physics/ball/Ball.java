@@ -1,18 +1,20 @@
 package ch.m02.comet.pinball.physics.ball;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
+import ch.m02.comet.pinball.core.config.KeyProperties;
 import ch.m02.comet.pinball.core.logic.command.PlungeCommand;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
+import ch.m02.comet.pinball.physics.box2d.keys.KeyMap;
 import ch.m02.comet.pinball.physics.util.DisposeUtil;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -27,6 +29,9 @@ public class Ball implements InteractivePhysicsObject {
 	
 	@Inject
 	private ApplicationContext context;
+	
+	@Inject
+	private KeyMap keyMap;
 	
 	private static final float DEFAULT_BALL_RESET_X = PhysicsDefinition.FIELD_WIDTH - (0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
 	private static final float DEFAULT_BALL_RESET_Y = (0.02f * PhysicsDefinition.METER_SCALE_FACTOR) + PhysicsDefinition.PINBALL_RADIUS;
@@ -50,9 +55,24 @@ public class Ball implements InteractivePhysicsObject {
 	private static final long MIN_PLUNGE_INTERVAL_NANOS = MIN_PLUNGE_INTERVAL * MILLISECONDS_TO_NANOSECONDS;
 	
 	private final Vector2 ballResetPosition;
+
+	private int upKey;
+	private int leftKey;
+	private int rightKey;
+	private int resetKey;
+	private int plungeKey;
 	
 	public Ball() {
 		ballResetPosition = new Vector2(DEFAULT_BALL_RESET_X, DEFAULT_BALL_RESET_Y);
+	}
+	
+	@PostConstruct
+	public void loadKey() {
+		upKey = keyMap.getKey(KeyProperties.BALL_UP);
+		leftKey = keyMap.getKey(KeyProperties.BALL_LEFT);
+		rightKey = keyMap.getKey(KeyProperties.BALL_RIGHT);
+		resetKey = keyMap.getKey(KeyProperties.BALL_RESET);
+		plungeKey = keyMap.getKey(KeyProperties.PLUNGE);
 	}
 
 	@Override
@@ -93,23 +113,23 @@ public class Ball implements InteractivePhysicsObject {
 
 	@Override
 	public void handlePhysicsEvents() {
-		if (Gdx.input.isKeyPressed(Keys.UP)) {
+		if (Gdx.input.isKeyPressed(upKey)) {
 			final float force = Math.abs(ball.getMass() * 2 * PhysicsDefinition.RAMP_GRAVITY);
 			ball.applyForceToCenter(0, force);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+		if (Gdx.input.isKeyPressed(leftKey)) {
 			final float force = Math.abs(ball.getMass() * PhysicsDefinition.RAMP_GRAVITY);
 			ball.applyForceToCenter(-force, 0);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+		if (Gdx.input.isKeyPressed(rightKey)) {
 			final float force = Math.abs(ball.getMass() * PhysicsDefinition.RAMP_GRAVITY);
 			ball.applyForceToCenter(force, 0);
 		}
 
 		long currentTime = System.nanoTime();
-		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+		if (Gdx.input.isKeyPressed(plungeKey)) {
 			if (currentTime > (lastPlunge + MIN_PLUNGE_INTERVAL_NANOS)
 					&& isInPlungerRegion()) {
 				Gdx.app.log(Ball.class.getCanonicalName(),
@@ -125,7 +145,7 @@ public class Ball implements InteractivePhysicsObject {
 		}
 		
 		// Should be the last handled event since it overrides the others
-		if (Gdx.input.isKeyPressed(Keys.R)) {
+		if (Gdx.input.isKeyPressed(resetKey)) {
 			resetBall();
 		}
 	}

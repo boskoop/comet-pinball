@@ -8,9 +8,8 @@ import ch.m02.comet.pinball.core.presentation.screen.HighscoreScreen;
 import ch.m02.comet.pinball.logic.State;
 import ch.m02.comet.pinball.logic.persistence.SimulationStoreDao;
 
-public class HighscoreState extends AbstractState implements State{
+public class HighscoreState extends AbstractState implements State {
 
-	
 	@Inject
 	private PresentationManager presentation;
 	

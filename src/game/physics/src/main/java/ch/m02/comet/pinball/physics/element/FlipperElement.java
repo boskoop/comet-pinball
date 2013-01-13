@@ -1,11 +1,12 @@
 package ch.m02.comet.pinball.physics.element;
 
+import ch.m02.comet.pinball.core.config.KeyProperties;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
+import ch.m02.comet.pinball.physics.box2d.keys.KeyMap;
 import ch.m02.comet.pinball.physics.util.DisposeUtil;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -31,6 +32,14 @@ public class FlipperElement implements InteractivePhysicsObject {
 	
 	private Body leftFlipper;
 	private Body rightFlipper;
+	
+	private int leftFlipperKey;
+	private int rightFlipperKey;
+	
+	public FlipperElement(KeyMap keyMap) {
+		leftFlipperKey = keyMap.getKey(KeyProperties.LEFT_FLIPPER);
+		rightFlipperKey = keyMap.getKey(KeyProperties.RIGHT_FLIPPER);
+	}
 
 	@Override
 	public void init(World world) {
@@ -111,12 +120,12 @@ public class FlipperElement implements InteractivePhysicsObject {
 
 	@Override
 	public void handlePhysicsEvents() {
-		if (Gdx.input.isKeyPressed(Keys.TAB)) {
+		if (Gdx.input.isKeyPressed(leftFlipperKey)) {
 			leftFlipper.setAngularVelocity(50f);
 		} else {	
 			leftFlipper.setAngularVelocity(-15f);
 		}
-		if (Gdx.input.isKeyPressed(Keys.ENTER)) {
+		if (Gdx.input.isKeyPressed(rightFlipperKey)) {
 			rightFlipper.setAngularVelocity(-50f);
 		} else {
 			rightFlipper.setAngularVelocity(15f);
@@ -125,7 +134,6 @@ public class FlipperElement implements InteractivePhysicsObject {
 	
 	@Override
 	public Body getBody() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -88,4 +88,8 @@ public class SimulationManager {
 		return ruleEngine;
 	}
 	
+	public SimulationPdo getSimulation() {
+		return simulation;
+	}
+	
 }

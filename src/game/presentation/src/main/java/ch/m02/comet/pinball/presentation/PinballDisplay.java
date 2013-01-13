@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.model.simulation.Score;
+import ch.m02.comet.pinball.core.presentation.screen.PlayerNameScreen;
 import ch.m02.comet.pinball.presentation.graphics.DisplayObject;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 import ch.m02.comet.pinball.presentation.screens.HighscoreScreenImpl;
@@ -17,6 +18,7 @@ public class PinballDisplay implements GraphicsDisplay {
 	private DisplayObject scoreDisplay;
 	private DisplayObject messageDisplay;
 	private HighscoreScreenImpl highscoreScreen;
+	private PlayerNameScreen playerNameScreen;
 
 	@Override
 	public void registerScoreDisplay(DisplayObject scoreDisplay) {
@@ -31,6 +33,11 @@ public class PinballDisplay implements GraphicsDisplay {
 	@Override
 	public void registerHighscoreScreen(HighscoreScreenImpl highscoreScreen) {
 		this.highscoreScreen = highscoreScreen;
+	}
+	
+	@Override
+	public void registerPlayerNameScreen(PlayerNameScreen playerNameScreen) {
+		this.playerNameScreen = playerNameScreen;
 	}
 	
 	@Override
@@ -58,6 +65,11 @@ public class PinballDisplay implements GraphicsDisplay {
 		} else {
 			log.warn("No message display registered, ignoring!");
 		}
+	}
+
+	@Override
+	public void setHighscore(int scoreValue) {
+//		playerNameScreen.foooo
 	}
 
 }

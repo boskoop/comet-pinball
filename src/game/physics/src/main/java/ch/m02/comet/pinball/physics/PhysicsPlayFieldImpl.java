@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.m02.comet.pinball.core.logic.event.EventHandler;
+import ch.m02.comet.pinball.physics.box2d.keys.KeyMap;
 import ch.m02.comet.pinball.physics.element.FieldBottomCornerElement;
 import ch.m02.comet.pinball.physics.element.FieldBoundsElement;
 import ch.m02.comet.pinball.physics.element.FieldTopCornerElement;
@@ -23,6 +24,9 @@ public class PhysicsPlayFieldImpl implements PhysicsPlayField {
 	
 	@Inject
 	private EventHandler handler;
+	
+	@Inject
+	private KeyMap keyMap;
 
 	private List<PhysicsObject> physicsObjects = new ArrayList<PhysicsObject>();
 	private List<InteractivePhysicsObject> interactiveObjects = new ArrayList<InteractivePhysicsObject>();
@@ -37,7 +41,6 @@ public class PhysicsPlayFieldImpl implements PhysicsPlayField {
 		physicsObjects.add(new FieldTopCornerElement());
 		physicsObjects.add(new FieldBottomCornerElement());
 		physicsObjects.add(new PlungerTubeElement());
-		interactiveObjects.add(new FlipperElement());
 	}
 	
 	@Override
@@ -61,6 +64,8 @@ public class PhysicsPlayFieldImpl implements PhysicsPlayField {
 
 	@Override
 	public void init(World world) {
+		interactiveObjects.add(new FlipperElement(keyMap));
+		
 		this.world = world;
 		for (PhysicsObject object : physicsObjects) {
 			object.init(world);

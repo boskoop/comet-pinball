@@ -12,5 +12,7 @@ public interface Display {
 	public void dispayMessage(String message);
 	
 	public void setHighscores(List<? extends Score> list);
+
+	public void setHighscore(int scoreValue);
 	
 }
