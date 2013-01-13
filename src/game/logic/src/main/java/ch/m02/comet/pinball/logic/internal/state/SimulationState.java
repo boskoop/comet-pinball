@@ -7,6 +7,8 @@ public class SimulationState extends AbstractState {
 	private SimulationManager simulationManager;
 	
 	private int gamesPlayed = 0;
+	
+	private boolean ballPlunged = false;
 
 	@Override
 	protected void enterState() {
@@ -27,9 +29,17 @@ public class SimulationState extends AbstractState {
 	
 	@Override
 	public void gameOver() {
-		gamesPlayed++;
+		if (ballPlunged) {
+			gamesPlayed++;
+		}
+		ballPlunged = false;
 		if (gamesPlayed >= 3) {
 			stateContext.setState(createNewState(MainMenuState.class));
 		}
+	}
+	
+	@Override
+	public void ballPlunged() {
+		ballPlunged = true;
 	}
 }

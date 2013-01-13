@@ -3,10 +3,9 @@ package ch.m02.comet.pinball.presentation.screens;
 import javax.inject.Inject;
 
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
-import ch.m02.comet.pinball.physics.Ball;
-import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
+import ch.m02.comet.pinball.physics.ball.Ball;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 import ch.m02.comet.pinball.presentation.graphics.objects.BallGraphics;
 import ch.m02.comet.pinball.presentation.graphics.objects.GraphicsObject;
@@ -25,6 +24,9 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	@Inject
 	private PhysicsPlayField playfield;
+	
+	@Inject
+	private Ball ball;
 	
 	@Inject
 	private GraphicsDisplay display;
@@ -55,8 +57,6 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	private SpriteBatch spriteBatch;
 
-	private InteractivePhysicsObject ball;
-
 	private GraphicsObject ballGraphicsObject;
 	private ScoreDisplay scoreDisplayGraphicsObject;
 
@@ -74,9 +74,6 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 				PhysicsDefinition.FIELD_HEIGHT);
 
 		playfield.init(world);
-		
-		// TODO placement of elements
-		ball = new Ball();
 		ball.init(world);
 
 		ballGraphicsObject = new BallGraphics();
@@ -127,22 +124,18 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 	}
 
 	private void updateCamera() {
-		 // update camera
-		//GL10 gl = Gdx.graphics.getGL10();
+		// update camera
 		
         // set viewport to correct aspect failures
         Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
                           (int) viewport.width, (int) viewport.height);
 		
 		camera.update();
-//		camera.apply(gl);
 	}
 
 	private void clearScreen() {
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-		//Gdx.gl.glClearColor(0, 0, 0, 1);
-		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	}
 
 	@Override
@@ -153,24 +146,21 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
         float scale = 1f;
         Vector2 crop = new Vector2(0f, 0f);
         
-        if(aspectRatio > ASPECT_RATIO)
-        {
-            scale = (float)height/(float)VIRTUAL_WINDOW_HEIGHT;
-            crop.x = (width - VIRTUAL_WINDOW_WIDTH*scale)/2f;
+        if(aspectRatio > ASPECT_RATIO) {
+            scale = (float) height / (float) VIRTUAL_WINDOW_HEIGHT;
+            crop.x = (width - VIRTUAL_WINDOW_WIDTH * scale) / 2f;
         }
-        else if(aspectRatio < ASPECT_RATIO)
-        {
-            scale = (float)width/(float)VIRTUAL_WINDOW_WIDTH;
-            crop.y = (height - VIRTUAL_WINDOW_HEIGHT*scale)/2f;
+        else if (aspectRatio < ASPECT_RATIO) {
+            scale = (float) width / (float) VIRTUAL_WINDOW_WIDTH;
+            crop.y = (height - VIRTUAL_WINDOW_HEIGHT * scale) / 2f;
         }
-        else
-        {
-            scale = (float)width/(float)VIRTUAL_WINDOW_WIDTH;
+        else {
+            scale = (float) width / (float) VIRTUAL_WINDOW_WIDTH;
         }
 
 
-        float w = (float)VIRTUAL_WINDOW_WIDTH*scale;
-        float h = (float)VIRTUAL_WINDOW_HEIGHT*scale;
+        float w = (float) VIRTUAL_WINDOW_WIDTH * scale;
+        float h = (float) VIRTUAL_WINDOW_HEIGHT * scale;
         viewport = new Rectangle(crop.x, crop.y, w, h);
 	}
 

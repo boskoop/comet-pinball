@@ -118,4 +118,9 @@ public class PhysicsPlayFieldImpl implements PhysicsPlayField {
 		};
 	}
 
+	@Override
+	public void registerContactListener(ContactListener listener) {
+		contactListeners.add(listener);
+	}
+
 }

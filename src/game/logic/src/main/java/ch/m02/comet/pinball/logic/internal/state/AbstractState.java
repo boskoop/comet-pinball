@@ -42,4 +42,8 @@ abstract class AbstractState implements State {
 	@Override
 	public void showHighscores() {
 	}
+	
+	@Override
+	public void ballPlunged() {
+	}
 }

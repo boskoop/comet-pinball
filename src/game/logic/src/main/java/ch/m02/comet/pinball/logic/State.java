@@ -12,4 +12,6 @@ public interface State {
 	
 	public void showHighscores();
 	
+	public void ballPlunged();
+	
 }

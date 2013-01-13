@@ -1,5 +1,14 @@
-package ch.m02.comet.pinball.physics;
+package ch.m02.comet.pinball.physics.ball;
 
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import ch.m02.comet.pinball.core.ApplicationContext;
+import ch.m02.comet.pinball.core.logic.command.PlungeCommand;
+import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.util.DisposeUtil;
 
 import com.badlogic.gdx.Gdx;
@@ -14,6 +23,11 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Ball implements InteractivePhysicsObject {
 	
+	private static final Logger log = LoggerFactory.getLogger(Ball.class);
+	
+	@Inject
+	private ApplicationContext context;
+	
 	private static final float DEFAULT_BALL_RESET_X = PhysicsDefinition.FIELD_WIDTH - (0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
 	private static final float DEFAULT_BALL_RESET_Y = (0.02f * PhysicsDefinition.METER_SCALE_FACTOR) + PhysicsDefinition.PINBALL_RADIUS;
 
@@ -24,7 +38,6 @@ public class Ball implements InteractivePhysicsObject {
 	private static final float BALL_RESTITUTION = 0f;
 
 	private Body ball;
-	
 	
 	private long lastPlunge = 0L;
 	// min plunge interval in units of milliseconds
@@ -57,6 +70,9 @@ public class Ball implements InteractivePhysicsObject {
 			DisposeUtil.safelyDispose(circle);
 		}
 		ball.setBullet(true);
+		
+		GroundSensorElement groundSensor = context.getComponentContainer().getComponent(GroundSensorElement.class);
+		groundSensor.init(world);
 	}
 
 	private FixtureDef defineBallFixture(CircleShape circle) {
@@ -94,10 +110,15 @@ public class Ball implements InteractivePhysicsObject {
 
 		long currentTime = System.nanoTime();
 		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-			if (currentTime > (lastPlunge + MIN_PLUNGE_INTERVAL_NANOS)) {
+			if (currentTime > (lastPlunge + MIN_PLUNGE_INTERVAL_NANOS)
+					&& isInPlungerRegion()) {
 				Gdx.app.log(Ball.class.getCanonicalName(),
 						"plunged ball, lastPlunge=" + lastPlunge
 						+ ", currentTime=" + currentTime);
+				log.info("Ball plunged, lastPlunge='{}', currentTime='{}'", lastPlunge, currentTime);
+				PlungeCommand command = context.getComponentContainer()
+						.getComponent(PlungeCommand.class);
+				command.execute();
 				lastPlunge = currentTime;
 				plungeBall();
 			}
@@ -105,13 +126,26 @@ public class Ball implements InteractivePhysicsObject {
 		
 		// Should be the last handled event since it overrides the others
 		if (Gdx.input.isKeyPressed(Keys.R)) {
-			ball.setLinearVelocity(Vector2.Zero);
-			ball.setAngularVelocity(0f);
-			ball.setTransform(ballResetPosition, 0);
-			ball.setAwake(true);
+			resetBall();
 		}
 	}
+
+	public void resetBall() {
+		ball.setLinearVelocity(Vector2.Zero);
+		ball.setAngularVelocity(0f);
+		ball.setTransform(ballResetPosition, 0);
+		ball.setAwake(true);
+	}
 	
+	private boolean isInPlungerRegion() {
+		Vector2 position = this.ball.getPosition();
+		if (position.x > (0.7f * PhysicsDefinition.METER_SCALE_FACTOR)
+				&& position.y < (PhysicsDefinition.PINBALL_RADIUS * 2)) {
+			return true;
+		}
+		return false;
+	}
+
 	private void plungeBall() {
 		final Vector2 ballWorldCenter = ball.getWorldCenter();
 		final Vector2 impulse = new Vector2();

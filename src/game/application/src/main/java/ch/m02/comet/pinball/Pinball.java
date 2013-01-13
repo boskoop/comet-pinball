@@ -18,7 +18,9 @@ import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
+import ch.m02.comet.pinball.core.logic.command.BallDownCommand;
 import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
+import ch.m02.comet.pinball.core.logic.command.PlungeCommand;
 import ch.m02.comet.pinball.core.logic.command.ShowHighscoresCommand;
 import ch.m02.comet.pinball.core.logic.command.SplashFinishedCommand;
 import ch.m02.comet.pinball.core.logic.event.EventHandler;
@@ -30,7 +32,9 @@ import ch.m02.comet.pinball.game.ApplicationProvider;
 import ch.m02.comet.pinball.game.PinballGame;
 import ch.m02.comet.pinball.logic.LogicManager;
 import ch.m02.comet.pinball.logic.internal.PinballLogicManager;
+import ch.m02.comet.pinball.logic.internal.command.BallDownCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.NewSimulationCommandImpl;
+import ch.m02.comet.pinball.logic.internal.command.PlungeCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.ShowHighscoresCommandImpl;
 import ch.m02.comet.pinball.logic.internal.command.SplashFinishedCommandImpl;
 import ch.m02.comet.pinball.logic.internal.event.EventHandlerImpl;
@@ -48,6 +52,8 @@ import ch.m02.comet.pinball.logic.simulation.rule.RuleEngine;
 import ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsPlayFieldImpl;
+import ch.m02.comet.pinball.physics.ball.Ball;
+import ch.m02.comet.pinball.physics.ball.GroundSensorElement;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.EventCreator;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
@@ -97,10 +103,14 @@ public class Pinball {
 
 		// Presentation
 		singletonContainer.addComponent(ScreenManager.class, PinballScreenManager.class);
-		singletonContainer.addComponent(PhysicsPlayField.class, PhysicsPlayFieldImpl.class);
 		singletonContainer.addComponent(PresentationManager.class, PinballPresentationManager.class);
 		singletonContainer.addComponent(GraphicsDisplay.class, PinballDisplay.class);
 		singletonContainer.addAdapter(new PinballDisplayAdapter());
+		
+		// Physics
+		singletonContainer.addComponent(Ball.class);
+		singletonContainer.addComponent(PhysicsPlayField.class, PhysicsPlayFieldImpl.class);
+		singletonContainer.addComponent(GroundSensorElement.class);
 		
 		// Logic
 		singletonContainer.addComponent(LogicManager.class, PinballLogicManager.class);
@@ -134,6 +144,8 @@ public class Pinball {
 		container.addComponent(NewSimulationCommand.class, NewSimulationCommandImpl.class);
 		container.addComponent(SplashFinishedCommand.class, SplashFinishedCommandImpl.class);
 		container.addComponent(ShowHighscoresCommand.class, ShowHighscoresCommandImpl.class);
+		container.addComponent(BallDownCommand.class, BallDownCommandImpl.class);
+		container.addComponent(PlungeCommand.class, PlungeCommandImpl.class);
 		
 		// State
 		container.addComponent(MainMenuState.class);

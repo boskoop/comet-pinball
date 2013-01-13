@@ -11,6 +11,7 @@ import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.playfield.ElementFactory;
 import ch.m02.comet.pinball.core.presentation.screen.PinballScreen;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
+import ch.m02.comet.pinball.physics.ball.Ball;
 
 public class PinballPresentationManager implements PresentationManager {
 	
@@ -24,6 +25,8 @@ public class PinballPresentationManager implements PresentationManager {
 		PhysicsPlayField playField = context.getComponentContainer().getComponent(PhysicsPlayField.class);
 		playField.clearField();
 		placedElements.clear();
+		Ball ball = context.getComponentContainer().getComponent(Ball.class);
+		ball.resetBall();
 	}
 
 	@Override
