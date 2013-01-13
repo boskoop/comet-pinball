@@ -28,9 +28,4 @@ public class BumperElementFactoryImpl implements BumperElementFactory {
 		this.element = element;
 	}
 
-	@Override
-	public int getElementId() {
-		return element.getId();
-	}
-
 }

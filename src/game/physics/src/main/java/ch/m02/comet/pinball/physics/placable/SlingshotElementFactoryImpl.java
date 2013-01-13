@@ -32,9 +32,4 @@ public class SlingshotElementFactoryImpl implements SlingshotElementFactory {
 		this.element = element;
 	}
 
-	@Override
-	public int getElementId() {
-		return element.getId();
-	}
-
 }

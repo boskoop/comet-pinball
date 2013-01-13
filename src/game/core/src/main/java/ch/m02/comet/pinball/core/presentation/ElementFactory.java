@@ -6,8 +6,6 @@ public interface ElementFactory<T extends PlayFieldElement> {
 
 	public void createAndPlacePlayFieldElement();
 	
-	public int getElementId();
-	
 	public void setPlayFieldElement(T element);
 	
 }

@@ -27,9 +27,4 @@ public class ObstacleElementFactoryImpl implements ObstacleElementFactory {
 		this.element = element;
 	}
 
-	@Override
-	public int getElementId() {
-		return element.getId();
-	}
-
 }
