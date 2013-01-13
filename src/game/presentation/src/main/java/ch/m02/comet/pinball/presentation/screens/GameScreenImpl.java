@@ -5,11 +5,12 @@ import javax.inject.Inject;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.physics.Ball;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
-import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
-import ch.m02.comet.pinball.presentation.graphics.BallGraphics;
-import ch.m02.comet.pinball.presentation.graphics.GraphicsObject;
-import ch.m02.comet.pinball.presentation.graphics.ScoreDisplay;
+import ch.m02.comet.pinball.physics.PhysicsPlayField;
+import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
+import ch.m02.comet.pinball.presentation.graphics.objects.BallGraphics;
+import ch.m02.comet.pinball.presentation.graphics.objects.GraphicsObject;
+import ch.m02.comet.pinball.presentation.graphics.objects.ScoreDisplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -24,6 +25,9 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	@Inject
 	private PhysicsPlayField playfield;
+	
+	@Inject
+	private GraphicsDisplay display;
 
 	private OrthographicCamera camera;
 
@@ -53,7 +57,8 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	private InteractivePhysicsObject ball;
 
-	private GraphicsObject ballGraphicsObject, scoreDisplayGraphicsObject;
+	private GraphicsObject ballGraphicsObject;
+	private ScoreDisplay scoreDisplayGraphicsObject;
 
 	@Override
 	public void init() {
@@ -79,6 +84,7 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 		
 		scoreDisplayGraphicsObject = new ScoreDisplay(new Vector2(100,100));
 		scoreDisplayGraphicsObject.init(null);
+		display.registerScoreDisplay(scoreDisplayGraphicsObject);
 
 		// This debugger is useful for testing purposes
 		final boolean drawBodies = true;

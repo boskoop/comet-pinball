@@ -1,4 +1,4 @@
-package ch.m02.comet.pinball.presentation.graphics;
+package ch.m02.comet.pinball.presentation.graphics.objects;
 
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.PhysicsObject;
