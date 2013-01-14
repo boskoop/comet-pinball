@@ -9,13 +9,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class ScoreDisplay implements GraphicsObject, DisplayObject {
+public class PlayFieldMessageDisplay implements GraphicsObject, DisplayObject {
 	
 	private BitmapFont font;
 	private Vector2 position;
 	private String text;
 	
-	public ScoreDisplay(Vector2 position) {
+	public PlayFieldMessageDisplay(Vector2 position) {
 		this.position = position;
 		this.text = "Score!!!!";
 	}

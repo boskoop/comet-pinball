@@ -9,7 +9,7 @@ import ch.m02.comet.pinball.physics.ball.Ball;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 import ch.m02.comet.pinball.presentation.graphics.objects.BallGraphics;
 import ch.m02.comet.pinball.presentation.graphics.objects.GraphicsObject;
-import ch.m02.comet.pinball.presentation.graphics.objects.ScoreDisplay;
+import ch.m02.comet.pinball.presentation.graphics.objects.PlayFieldMessageDisplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -58,7 +58,8 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 	private SpriteBatch spriteBatch;
 
 	private GraphicsObject ballGraphicsObject;
-	private ScoreDisplay scoreDisplayGraphicsObject;
+	private PlayFieldMessageDisplay scoreDisplayGraphicsObject;
+	private PlayFieldMessageDisplay messageDisplayGraphicsObject;
 
 	@Override
 	public void init() {
@@ -79,9 +80,13 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 		ballGraphicsObject = new BallGraphics();
 		ballGraphicsObject.init(ball);
 		
-		scoreDisplayGraphicsObject = new ScoreDisplay(new Vector2(100,100));
+		scoreDisplayGraphicsObject = new PlayFieldMessageDisplay(new Vector2(100,100));
 		scoreDisplayGraphicsObject.init(null);
 		display.registerScoreDisplay(scoreDisplayGraphicsObject);
+		
+		messageDisplayGraphicsObject = new PlayFieldMessageDisplay(new Vector2(420,100));
+		messageDisplayGraphicsObject.init(null);
+		display.registerMessageDisplay(messageDisplayGraphicsObject);
 
 		// This debugger is useful for testing purposes
 		final boolean drawBodies = true;
@@ -116,6 +121,7 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 		spriteBatch.begin();
 		ballGraphicsObject.draw(camera, spriteBatch);
 		scoreDisplayGraphicsObject.draw(camera, spriteBatch);
+		messageDisplayGraphicsObject.draw(camera, spriteBatch);
 		
 		spriteBatch.end();
 

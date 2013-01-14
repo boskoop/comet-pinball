@@ -1,8 +1,14 @@
 package ch.m02.comet.pinball.logic.internal.state;
 
+import javax.inject.Inject;
+
+import ch.m02.comet.pinball.core.presentation.Display;
 import ch.m02.comet.pinball.logic.simulation.SimulationManager;
 
 public class SimulationState extends AbstractState {
+	
+	@Inject
+	private Display display;
 
 	private SimulationManager simulationManager;
 	
@@ -13,6 +19,7 @@ public class SimulationState extends AbstractState {
 	@Override
 	protected void enterState() {
 		simulationManager = applicationContext.getComponentContainer().getComponent(SimulationManager.class);
+		display.dispayMessage("Ball 1");
 		simulationManager.startNewSimulation();
 	}
 	
@@ -31,6 +38,7 @@ public class SimulationState extends AbstractState {
 	public void gameOver() {
 		if (ballPlunged) {
 			gamesPlayed++;
+			display.dispayMessage("Ball " + (gamesPlayed + 1));
 		}
 		ballPlunged = false;
 		if (gamesPlayed >= 3) {
