@@ -32,17 +32,18 @@ public class BallGraphics implements GraphicsObject {
 			// uninitialized!!
 			// TODO handle uninitialized physics object!
 		}
+		final float pinballRadius = PhysicsDefinition.INSTANCE.getPinballRadius();
 		Vector3 ballCoordinates = new Vector3(physicsObject.getBody().getPosition().x 
 				* PhysicsDefinition.BOX2D_TO_WORLD
-				- PhysicsDefinition.PINBALL_RADIUS * PhysicsDefinition.BOX2D_TO_WORLD, 
+				- pinballRadius * PhysicsDefinition.BOX2D_TO_WORLD, 
 				physicsObject.getBody().getPosition().y
 				* PhysicsDefinition.BOX2D_TO_WORLD
-				- PhysicsDefinition.PINBALL_RADIUS* PhysicsDefinition.BOX2D_TO_WORLD, 0);
+				- pinballRadius * PhysicsDefinition.BOX2D_TO_WORLD, 0);
 		camera.project(ballCoordinates, 0, 0, camera.viewportWidth,
 				camera.viewportHeight);
 
-		Vector3 ballSize = new Vector3(PhysicsDefinition.PINBALL_RADIUS * 2 * PhysicsDefinition.BOX2D_TO_WORLD,
-				PhysicsDefinition.PINBALL_RADIUS * 2 * PhysicsDefinition.BOX2D_TO_WORLD, 0);
+		Vector3 ballSize = new Vector3(pinballRadius * 2 * PhysicsDefinition.BOX2D_TO_WORLD,
+				pinballRadius * 2 * PhysicsDefinition.BOX2D_TO_WORLD, 0);
 		camera.project(ballSize, 0, 0, camera.viewportWidth,
 				camera.viewportHeight);
 

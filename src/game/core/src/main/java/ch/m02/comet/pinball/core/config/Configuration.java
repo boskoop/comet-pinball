@@ -22,8 +22,8 @@ public interface Configuration {
 
 	/**
 	 * @param keyPropertyKey
-	 *            {@link KeyProperties}
+	 *            {@link PropertiesEnum}
 	 */
-	public String getKeyProperty(KeyProperties keyPropertyKey);
+	public String getProperty(PropertiesEnum keyPropertyKey);
 
 }

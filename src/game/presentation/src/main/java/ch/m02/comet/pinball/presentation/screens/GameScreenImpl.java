@@ -63,7 +63,7 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	@Override
 	public void init() {
-		final Vector2 gravity = new Vector2(0, PhysicsDefinition.RAMP_GRAVITY);
+		final Vector2 gravity = new Vector2(0, PhysicsDefinition.INSTANCE.getRampGravity());
 		final boolean dontSimulateInactiveBodies = true;
 		world = new World(gravity, dontSimulateInactiveBodies);
 		spriteBatch = new SpriteBatch();

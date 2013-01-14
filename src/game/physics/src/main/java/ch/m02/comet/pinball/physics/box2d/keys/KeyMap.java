@@ -21,7 +21,7 @@ public class KeyMap {
 	private Configuration config;
 	
 	public int getKey(KeyProperties key) {
-		String value = config.getKeyProperty(key);
+		String value = config.getProperty(key);
 		if (value == null) {
 			log.error("Key '{}' not set in properties!", key.toString());
 			throw new RuntimeException("Could not load key for property " + key.toString());
