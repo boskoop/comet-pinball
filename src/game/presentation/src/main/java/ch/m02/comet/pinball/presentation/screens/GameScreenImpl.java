@@ -42,7 +42,7 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 	private static final float ASPECT_RATIO =
 			PhysicsDefinition.FIELD_WIDTH / PhysicsDefinition.FIELD_HEIGHT;
 	
-	private static Rectangle viewport;
+	private Rectangle viewport;
 	
 	private World world;
 
