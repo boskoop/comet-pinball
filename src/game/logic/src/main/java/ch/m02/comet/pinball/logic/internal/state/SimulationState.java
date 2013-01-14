@@ -19,7 +19,7 @@ public class SimulationState extends AbstractState {
 	@Override
 	protected void enterState() {
 		simulationManager = applicationContext.getComponentContainer().getComponent(SimulationManager.class);
-		display.dispayMessage("Ball 1");
+		display.displayMessage("Ball 1");
 		simulationManager.startNewSimulation();
 	}
 	
@@ -32,7 +32,7 @@ public class SimulationState extends AbstractState {
 	public void gameOver() {
 		if (ballPlunged) {
 			gamesPlayed++;
-			display.dispayMessage("Ball " + (gamesPlayed + 1));
+			display.displayMessage("Ball " + (gamesPlayed + 1));
 		}
 		ballPlunged = false;
 		if (gamesPlayed >= 3) {

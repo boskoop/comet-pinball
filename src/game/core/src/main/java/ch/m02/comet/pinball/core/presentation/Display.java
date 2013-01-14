@@ -9,7 +9,7 @@ public interface Display {
 
 	public void displayScore(int score);
 	
-	public void dispayMessage(String message);
+	public void displayMessage(String message);
 	
 	public void setHighscores(List<? extends Score> list);
 

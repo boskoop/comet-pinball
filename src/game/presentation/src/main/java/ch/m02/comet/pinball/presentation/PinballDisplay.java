@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.model.simulation.Score;
-import ch.m02.comet.pinball.core.presentation.screen.PlayerNameScreen;
 import ch.m02.comet.pinball.presentation.graphics.DisplayObject;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 import ch.m02.comet.pinball.presentation.screens.HighscoreScreenImpl;
+import ch.m02.comet.pinball.presentation.screens.PlayerNameScreenImpl;
 
 public class PinballDisplay implements GraphicsDisplay {
 	
@@ -18,7 +18,7 @@ public class PinballDisplay implements GraphicsDisplay {
 	private DisplayObject scoreDisplay;
 	private DisplayObject messageDisplay;
 	private HighscoreScreenImpl highscoreScreen;
-	private PlayerNameScreen playerNameScreen;
+	private PlayerNameScreenImpl playerNameScreen;
 
 	@Override
 	public void registerScoreDisplay(DisplayObject scoreDisplay) {
@@ -36,13 +36,13 @@ public class PinballDisplay implements GraphicsDisplay {
 	}
 	
 	@Override
-	public void registerPlayerNameScreen(PlayerNameScreen playerNameScreen) {
+	public void registerPlayerNameScreen(PlayerNameScreenImpl playerNameScreen) {
 		this.playerNameScreen = playerNameScreen;
 	}
 	
 	@Override
 	public void setHighscores(List<? extends Score> highscores) {
-		if (highscoreScreen != null){
+		if (highscoreScreen != null) {
 			highscoreScreen.setHighscores(highscores);
 			} else {
 				log.warn("No highscore screen registered, ignoring!");
@@ -51,7 +51,7 @@ public class PinballDisplay implements GraphicsDisplay {
 	
 	@Override
 	public void displayScore(int score) {
-		if (scoreDisplay != null){
+		if (scoreDisplay != null) {
 		scoreDisplay.displayValue(Integer.toString(score));
 		} else {
 			log.warn("No score display registered, ignoring!");
@@ -59,8 +59,8 @@ public class PinballDisplay implements GraphicsDisplay {
 	}
 
 	@Override
-	public void dispayMessage(String message) {
-		if (messageDisplay != null){
+	public void displayMessage(String message) {
+		if (messageDisplay != null) {
 			messageDisplay.displayValue(message);
 		} else {
 			log.warn("No message display registered, ignoring!");
@@ -69,7 +69,11 @@ public class PinballDisplay implements GraphicsDisplay {
 
 	@Override
 	public void setHighscore(int scoreValue) {
-//		playerNameScreen.foooo
+		if (playerNameScreen != null){
+			playerNameScreen.setHighscore(scoreValue);
+		} else {
+			log.warn("No player name screen registered, ignoring!");
+		}
 	}
 
 }

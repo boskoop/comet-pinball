@@ -1,7 +1,5 @@
 package ch.m02.comet.pinball.presentation.screens;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -9,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.logic.command.SavePlayerNameCommand;
-import ch.m02.comet.pinball.core.model.simulation.Score;
 import ch.m02.comet.pinball.core.presentation.screen.PlayerNameScreen;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
 
@@ -54,9 +51,10 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 	private SpriteBatch batch;
 	private TextButton saveButton;
 	private Label gameNameLabel;
-	private List<? extends Score> highscores;
 
 	private TextField playernameTextField;
+
+	private int scoreValue;
 
 	@Override
 	public void init() {
@@ -71,21 +69,17 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 		stage = new Stage();
 
 		display.registerPlayerNameScreen(this);
-		
+
 		BitmapFont font = new BitmapFont();
 		font.setColor(Color.YELLOW);
-		//Drawable playernameTextFieldBackground = new BaseDrawable();
-		
+		// Drawable playernameTextFieldBackground = new BaseDrawable();
+
 		TextFieldStyle playernameTextFieldStyle = new TextFieldStyle();
 		playernameTextFieldStyle.font = font;
 		playernameTextFieldStyle.fontColor = Color.YELLOW;
-		
-		
-		playernameTextField = new TextField("your name", playernameTextFieldStyle);
-	}
 
-	public void setHighscores(List<? extends Score> highscores) {
-		this.highscores = highscores;
+		playernameTextField = new TextField("your name",
+				playernameTextFieldStyle);
 	}
 
 	@Override
@@ -118,10 +112,10 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 		saveButton = new TextButton(text, style);
 		saveButton.setWidth(blackFont.getBounds(text).width + width / 20);
 		saveButton.setHeight(blackFont.getBounds(text).height + height / 20);
-		
+
 		saveButton.setX(width / 2f - saveButton.getWidth() / 2f);
 		saveButton.setY(2 * height / 10f - saveButton.getHeight() / 2f);
-		
+
 		saveButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -134,78 +128,44 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 					int pointer, int button) {
 				log.info("'Save' button pressed");
 				String playerName = playernameTextField.getText();
-				SavePlayerNameCommand command = context.getComponentContainer().getComponent(SavePlayerNameCommand.class);
+				SavePlayerNameCommand command = context.getComponentContainer()
+						.getComponent(SavePlayerNameCommand.class);
 				command.setPlayerName(playerName);
 				command.execute();
 			}
 		});
 		LabelStyle ls = new LabelStyle(whiteFont, Color.WHITE);
-		gameNameLabel = new Label("Playername", ls);
+		gameNameLabel = new Label("Enter playername", ls);
 		gameNameLabel.setX(0f);
 		gameNameLabel.setY(9 * height / 10);
 		gameNameLabel.setWidth(width);
 		gameNameLabel.setAlignment(Align.center);
 
-		
-		
-		
-		
-		
-		playernameTextField.setPosition(width/2 -playernameTextField.getWidth()/2, 4 * height / 10-playernameTextField.getHeight()/2);
-		
+		playernameTextField.setPosition(
+				width / 2 - playernameTextField.getWidth() / 2, 4 * height / 10
+						- playernameTextField.getHeight() / 2);
+
 		stage.addActor(playernameTextField);
 		stage.addActor(saveButton);
 		stage.addActor(gameNameLabel);
-		
+		drawHighscore(stage);
 	}
 
-	public void drawHighscores(Stage stage) {
-		String text;
+	public void drawHighscore(Stage stage) {
 		float x;
 		float y;
+		String text = "Your score is: " + Integer.toString(scoreValue);
 		LabelStyle highscoreLabelStyle = new LabelStyle(whiteFont, Color.WHITE);
-		for (int i = 0; i < 5; i++) {
-			if (highscores != null && highscores.size() > i) {
-				text = fillString(highscores.get(i).getSimulation().getPlayer()
-						.getName(), ' ', 10, false)
-						+ "\t - \t"
-						+ fillString(Integer.toString(highscores.get(i)
-								.getScoreValue()), ' ', 10, true);
-			} else {
-				text = fillString("-", ' ', 10, false) + "   -   "
-						+ fillString("-", ' ', 10, true);
-			}
-			x = Gdx.graphics.getWidth() / 2f - whiteFont.getBounds(text).width
-					/ 2;
-			y = (8f - i) * Gdx.graphics.getHeight() / 10f
-					- whiteFont.getBounds(text).height / 2;
-			// whiteFont.draw(spriteBatch,text,x,y);
 
-			Label highscore = new Label(text, highscoreLabelStyle);
-			highscore.setPosition(x, y);
-			stage.addActor(highscore);
+		x = Gdx.graphics.getWidth() / 2f
+				- whiteFont.getBounds(text).width / 2;
+		y = 5 * Gdx.graphics.getHeight() / 10f
+				- whiteFont.getBounds(text).height / 2;
 
-			log.debug("highscoretext: " + text + " Position:" + x + " " + y);
-		}
+		Label highscore = new Label(text, highscoreLabelStyle);
+		highscore.setPosition(x, y);
 
-	}
-
-	private String fillString(String string, char fill, int size,
-			boolean leftfill) {
-		if (string.length() > size) {
-			return string.substring(0, size);
-		} else if (string.length() == size) {
-			return string;
-		} else {
-			while (string.length() < size) {
-				if (leftfill) {
-					string = fill + string;
-				} else {
-					string = string + fill;
-				}
-			}
-			return string;
-		}
+		stage.addActor(highscore);
 	}
 
 	@Override
@@ -231,6 +191,10 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 		atlas.dispose();
 		blackFont.dispose();
 		stage.dispose();
+	}
+
+	public void setHighscore(int scoreValue) {
+		this.scoreValue = scoreValue;
 	}
 
 }
