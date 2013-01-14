@@ -28,13 +28,14 @@ public class PlayerNameState extends AbstractState implements State {
 		presentation.showScreen(PlayerNameScreen.class);
 	}
 	
-	@Override
-	public void showHighscores() {
-		stateContext.setState(createNewState(HighscoreState.class));
-	}
-	
 	public void setSimulation(SimulationManager simulation) {
 		this.simulationManager = simulation;
+	}
+	
+	@Override
+	public void savePlayerName(String playerName) {
+		this.simulationManager.endSimulation(playerName);
+		stateContext.setState(createNewState(HighscoreState.class));
 	}
 	
 }

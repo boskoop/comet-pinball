@@ -75,10 +75,9 @@ public class SimulationManager {
 		presentation.showScreen(GameScreen.class);
 	}
 
-	public void endSimulation() {
-		// TODO get player name
+	public void endSimulation(String playerName) {
 		PlayerPdo player = new PlayerPdo();
-		player.setName("bobo");
+		player.setName(playerName);
 		simulation.setPlayer(player);
 		
 		simulationDao.addSimulation(simulation);

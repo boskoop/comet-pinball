@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
+import ch.m02.comet.pinball.core.logic.command.SavePlayerNameCommand;
 import ch.m02.comet.pinball.core.model.simulation.Score;
 import ch.m02.comet.pinball.core.presentation.screen.PlayerNameScreen;
 import ch.m02.comet.pinball.presentation.graphics.GraphicsDisplay;
@@ -55,6 +56,8 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 	private Label gameNameLabel;
 	private List<? extends Score> highscores;
 
+	private TextField playernameTextField;
+
 	@Override
 	public void init() {
 		batch = new SpriteBatch();
@@ -68,6 +71,17 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 		stage = new Stage();
 
 		display.registerPlayerNameScreen(this);
+		
+		BitmapFont font = new BitmapFont();
+		font.setColor(Color.YELLOW);
+		//Drawable playernameTextFieldBackground = new BaseDrawable();
+		
+		TextFieldStyle playernameTextFieldStyle = new TextFieldStyle();
+		playernameTextFieldStyle.font = font;
+		playernameTextFieldStyle.fontColor = Color.YELLOW;
+		
+		
+		playernameTextField = new TextField("your name", playernameTextFieldStyle);
 	}
 
 	public void setHighscores(List<? extends Score> highscores) {
@@ -119,9 +133,10 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 				log.info("'Save' button pressed");
-				//ShowMainMenuCommand command = context.getComponentContainer().getComponent(ShowMainMenuCommand.class);
-				//command.execute();
-				
+				String playerName = playernameTextField.getText();
+				SavePlayerNameCommand command = context.getComponentContainer().getComponent(SavePlayerNameCommand.class);
+				command.setPlayerName(playerName);
+				command.execute();
 			}
 		});
 		LabelStyle ls = new LabelStyle(whiteFont, Color.WHITE);
@@ -132,15 +147,11 @@ public class PlayerNameScreenImpl extends ManagedScreen implements
 		gameNameLabel.setAlignment(Align.center);
 
 		
-		TextFieldStyle playernameTextFieldStyle = new TextFieldStyle();
-		playernameTextFieldStyle.font = blackFont;
-		playernameTextFieldStyle.fontColor = Color.YELLOW;
-		//playernameTextFieldStyle.background
 		
-		TextField playernameTextField = new TextField("your name", playernameTextFieldStyle);
-		playernameTextField.setPosition(0, 4 * height / 10);
 		
-	//	playernameTextField.
+		
+		
+		playernameTextField.setPosition(width/2 -playernameTextField.getWidth()/2, 4 * height / 10-playernameTextField.getHeight()/2);
 		
 		stage.addActor(playernameTextField);
 		stage.addActor(saveButton);

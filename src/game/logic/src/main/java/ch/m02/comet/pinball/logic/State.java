@@ -13,5 +13,7 @@ public interface State {
 	public void showHighscores();
 	
 	public void ballPlunged();
+
+	public void savePlayerName(String playerName);
 	
 }

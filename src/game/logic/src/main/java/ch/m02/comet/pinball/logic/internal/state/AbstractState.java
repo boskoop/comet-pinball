@@ -46,4 +46,8 @@ abstract class AbstractState implements State {
 	@Override
 	public void ballPlunged() {
 	}
+	
+	@Override
+	public void savePlayerName(String playerName) {
+	}
 }

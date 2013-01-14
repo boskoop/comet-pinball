@@ -24,12 +24,6 @@ public class SimulationState extends AbstractState {
 	}
 	
 	@Override
-	protected
-	void exitState() {
-		simulationManager.endSimulation();
-	}
-	
-	@Override
 	public void handleBallHitsId(int id) {
 		simulationManager.getRuleEngine().handleBallHitsId(id);
 	}
