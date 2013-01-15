@@ -17,6 +17,7 @@ public enum KeyProperties implements PropertiesEnum {
 		this.propertyName = propertyName;
 	}
 	
+	@Override
 	public String getPropertyName() {
 		return propertyName;
 	}
