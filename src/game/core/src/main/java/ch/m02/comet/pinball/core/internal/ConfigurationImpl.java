@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.config.Configuration;
-import ch.m02.comet.pinball.core.config.KeyProperties;
+import ch.m02.comet.pinball.core.config.PropertiesEnum;
 
 public class ConfigurationImpl implements Configuration {
 
@@ -80,7 +80,7 @@ public class ConfigurationImpl implements Configuration {
 	}
 	
 	@Override
-	public String getKeyProperty(KeyProperties keyPropertyKey) {
-		return getStringProperty(keyPropertyKey.getPropertyName());
+	public String getProperty(PropertiesEnum propertyKey) {
+		return getStringProperty(propertyKey.getPropertyName());
 	}
 }
