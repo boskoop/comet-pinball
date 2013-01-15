@@ -42,7 +42,7 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 	private static final float ASPECT_RATIO =
 			PhysicsDefinition.FIELD_WIDTH / PhysicsDefinition.FIELD_HEIGHT;
 	
-	private static Rectangle viewport;
+	private Rectangle viewport;
 	
 	private World world;
 
@@ -63,7 +63,7 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 
 	@Override
 	public void init() {
-		final Vector2 gravity = new Vector2(0, PhysicsDefinition.RAMP_GRAVITY);
+		final Vector2 gravity = new Vector2(0, PhysicsDefinition.INSTANCE.getRampGravity());
 		final boolean dontSimulateInactiveBodies = true;
 		world = new World(gravity, dontSimulateInactiveBodies);
 		spriteBatch = new SpriteBatch();

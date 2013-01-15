@@ -53,11 +53,13 @@ import ch.m02.comet.pinball.logic.persistence.internal.SimulationStoreDaoImpl;
 import ch.m02.comet.pinball.logic.simulation.SimulationManager;
 import ch.m02.comet.pinball.logic.simulation.rule.RuleEngine;
 import ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule;
+import ch.m02.comet.pinball.physics.PhysicsDefinition;
 import ch.m02.comet.pinball.physics.PhysicsPlayField;
 import ch.m02.comet.pinball.physics.PhysicsPlayFieldImpl;
 import ch.m02.comet.pinball.physics.ball.Ball;
 import ch.m02.comet.pinball.physics.ball.GroundSensorElement;
 import ch.m02.comet.pinball.physics.box2d.keys.KeyMap;
+import ch.m02.comet.pinball.physics.internal.PhysicsDefinitionLoader;
 import ch.m02.comet.pinball.physics.placable.BumperElementFactoryImpl;
 import ch.m02.comet.pinball.physics.placable.EventCreator;
 import ch.m02.comet.pinball.physics.placable.ObstacleElementFactoryImpl;
@@ -127,6 +129,9 @@ public class Pinball {
 		
 		// Rule engine
 		singletonContainer.addComponent(RuleEngine.class);
+		
+		// Properties
+		singletonContainer.addComponent(PhysicsDefinitionLoader.class);
 	}
 	
 	private void registerPrototypes() {
@@ -171,6 +176,8 @@ public class Pinball {
 	
 	public void start() {
 		container.start();
+		PhysicsDefinitionLoader loader = container.getComponent(PhysicsDefinitionLoader.class);
+		PhysicsDefinition.INSTANCE.initialize(loader);
 	}
 
 	public Game getGame() {

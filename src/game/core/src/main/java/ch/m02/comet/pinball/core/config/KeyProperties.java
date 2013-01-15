@@ -1,6 +1,6 @@
 package ch.m02.comet.pinball.core.config;
 
-public enum KeyProperties {
+public enum KeyProperties implements PropertiesEnum {
 
 	EXIT_GAME("key.game.exit"),
 	BALL_UP("key.ball.up"),
@@ -17,6 +17,7 @@ public enum KeyProperties {
 		this.propertyName = propertyName;
 	}
 	
+	@Override
 	public String getPropertyName() {
 		return propertyName;
 	}

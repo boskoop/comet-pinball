@@ -1,10 +1,14 @@
 package ch.m02.comet.pinball.presentation.screens;
 
+import javax.inject.Inject;
+
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
+import ch.m02.comet.pinball.core.ApplicationContext;
+import ch.m02.comet.pinball.core.logic.command.ShowMainMenuCommand;
 import ch.m02.comet.pinball.core.presentation.screen.SplashScreen;
 import ch.m02.comet.pinball.presentation.tween.SpriteTween;
 
@@ -16,6 +20,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SplashScreenImpl extends ManagedScreen implements SplashScreen {
+	
+	@Inject
+	private ApplicationContext context;
 
 	Texture splashTexture;
 	Sprite splashSprite;
@@ -68,7 +75,8 @@ public class SplashScreenImpl extends ManagedScreen implements SplashScreen {
 	}
 
 	private void tweenCompleted() {
-		fireChangeScreen(MainMenuScreenImpl.class);
+		ShowMainMenuCommand command = context.getComponentContainer().getComponent(ShowMainMenuCommand.class);
+		command.execute();
 	}
 
 	@Override

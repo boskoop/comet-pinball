@@ -33,10 +33,7 @@ public class Ball implements InteractivePhysicsObject {
 	@Inject
 	private KeyMap keyMap;
 	
-	private static final float DEFAULT_BALL_RESET_X = PhysicsDefinition.FIELD_WIDTH - (0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
-	private static final float DEFAULT_BALL_RESET_Y = (0.02f * PhysicsDefinition.METER_SCALE_FACTOR) + PhysicsDefinition.PINBALL_RADIUS;
-
-	// Steel on stell friction coefficient
+	// Steel on steel friction coefficient
 	private static final float BALL_FRICTION = 0.4f;
 
 	// Bouncing shoud be dependent on ground (tends to bigger value)
@@ -47,24 +44,20 @@ public class Ball implements InteractivePhysicsObject {
 	private long lastPlunge = 0L;
 	// min plunge interval in units of milliseconds
 	private static final long MIN_PLUNGE_INTERVAL = 1000L;
-	// plunge force in cm/s^2
-	private static final float PLUNGE_FORCE = Math.abs(PhysicsDefinition.EARTH_GRAVITY) * 2.0f;
+	// plunge force in m/s^2
+	private float plungeForce;
 	// plunge duration in seconds
 	private static final float PLUNGE_DURATION = 0.1f;
 	private static final long MILLISECONDS_TO_NANOSECONDS = 1000000L;
 	private static final long MIN_PLUNGE_INTERVAL_NANOS = MIN_PLUNGE_INTERVAL * MILLISECONDS_TO_NANOSECONDS;
 	
-	private final Vector2 ballResetPosition;
+	private Vector2 ballResetPosition;
 
 	private int upKey;
 	private int leftKey;
 	private int rightKey;
 	private int resetKey;
 	private int plungeKey;
-	
-	public Ball() {
-		ballResetPosition = new Vector2(DEFAULT_BALL_RESET_X, DEFAULT_BALL_RESET_Y);
-	}
 	
 	@PostConstruct
 	public void loadKey() {
@@ -77,13 +70,20 @@ public class Ball implements InteractivePhysicsObject {
 
 	@Override
 	public void init(World world) {
+		float defaultBallResetX = PhysicsDefinition.FIELD_WIDTH
+				- (0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
+		float defaultBallResetY = (0.02f * PhysicsDefinition.METER_SCALE_FACTOR)
+				+ PhysicsDefinition.INSTANCE.getPinballRadius();
+		ballResetPosition = new Vector2(defaultBallResetX, defaultBallResetY);
+		plungeForce = Math.abs(PhysicsDefinition.INSTANCE.getEarthGravity()) * 2.0f;
+		
 		BodyDef ballDefinition = defineBallBody();
 		ball = world.createBody(ballDefinition);
 
 		CircleShape circle = null;
 		try {
 			circle = new CircleShape();
-			circle.setRadius(PhysicsDefinition.PINBALL_RADIUS);
+			circle.setRadius(PhysicsDefinition.INSTANCE.getPinballRadius());
 			FixtureDef ballfixtureDefinition = defineBallFixture(circle);
 			ball.createFixture(ballfixtureDefinition);
 		} finally {
@@ -114,17 +114,17 @@ public class Ball implements InteractivePhysicsObject {
 	@Override
 	public void handlePhysicsEvents() {
 		if (Gdx.input.isKeyPressed(upKey)) {
-			final float force = Math.abs(ball.getMass() * 2 * PhysicsDefinition.RAMP_GRAVITY);
+			final float force = Math.abs(ball.getMass() * 2 * PhysicsDefinition.INSTANCE.getRampGravity());
 			ball.applyForceToCenter(0, force);
 		}
 
 		if (Gdx.input.isKeyPressed(leftKey)) {
-			final float force = Math.abs(ball.getMass() * PhysicsDefinition.RAMP_GRAVITY);
+			final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
 			ball.applyForceToCenter(-force, 0);
 		}
 
 		if (Gdx.input.isKeyPressed(rightKey)) {
-			final float force = Math.abs(ball.getMass() * PhysicsDefinition.RAMP_GRAVITY);
+			final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
 			ball.applyForceToCenter(force, 0);
 		}
 
@@ -160,7 +160,7 @@ public class Ball implements InteractivePhysicsObject {
 	private boolean isInPlungerRegion() {
 		Vector2 position = this.ball.getPosition();
 		if (position.x > (0.7f * PhysicsDefinition.METER_SCALE_FACTOR)
-				&& position.y < (PhysicsDefinition.PINBALL_RADIUS * 2)) {
+				&& position.y < (PhysicsDefinition.INSTANCE.getPinballRadius() * 2)) {
 			return true;
 		}
 		return false;
@@ -170,7 +170,7 @@ public class Ball implements InteractivePhysicsObject {
 		final Vector2 ballWorldCenter = ball.getWorldCenter();
 		final Vector2 impulse = new Vector2();
 		// unit is kg * m / s
-		impulse.y = ball.getMass() * PLUNGE_FORCE * PLUNGE_DURATION;
+		impulse.y = ball.getMass() * plungeForce * PLUNGE_DURATION;
 		Gdx.app.log(Ball.class.getCanonicalName(),
 				"force: " + impulse.y + "Ns");
 		ball.applyLinearImpulse(impulse, ballWorldCenter);
