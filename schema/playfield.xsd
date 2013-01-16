@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://comet.m02.ch/pinball/playfield" elementFormDefault="qualified" targetNamespace="http://comet.m02.ch/pinball/playfield">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://comet.m02.ch/pinball/playfield" xmlns:tns="http://comet.m02.ch/pinball/playfield" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="configuration" type="configuration"/>
-
-  <xs:element name="playfield" type="playfield"/>
-
-  <xs:element name="rule" type="rule"/>
-
-  <xs:element name="vector" type="vector"/>
+  <xs:element name="configuration" type="tns:configuration"/>
 
   <xs:complexType name="configuration">
     <xs:sequence>
-      <xs:element name="playfields">
+      <xs:element name="playfields" form="qualified">
         <xs:complexType>
           <xs:sequence>
-            <xs:element ref="playfield" maxOccurs="unbounded"/>
+            <xs:element name="playfield" type="tns:playfield" form="qualified" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -23,22 +17,22 @@
 
   <xs:complexType name="playfield">
     <xs:sequence>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="elements">
+      <xs:element name="name" type="xs:string" form="qualified"/>
+      <xs:element name="elements" form="qualified">
         <xs:complexType>
           <xs:sequence>
-            <xs:choice maxOccurs="unbounded">
-              <xs:element name="bumper" type="bumper"/>
-              <xs:element name="slingshot" type="slingshot"/>
-              <xs:element name="obstacle" type="obstacle"/>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="bumper" type="tns:bumper" form="qualified"/>
+              <xs:element name="slingshot" type="tns:slingshot" form="qualified"/>
+              <xs:element name="obstacle" type="tns:obstacle" form="qualified"/>
             </xs:choice>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="rules">
+      <xs:element name="rules" form="qualified">
         <xs:complexType>
           <xs:sequence>
-            <xs:element ref="rule" maxOccurs="unbounded"/>
+            <xs:element name="rule" type="tns:rule" form="qualified" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -47,9 +41,9 @@
 
   <xs:complexType name="bumper">
     <xs:complexContent>
-      <xs:extension base="element">
+      <xs:extension base="tns:element">
         <xs:sequence>
-          <xs:element name="radius" type="xs:float"/>
+          <xs:element name="radius" type="xs:float" form="qualified"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -57,24 +51,24 @@
 
   <xs:complexType name="element" abstract="true">
     <xs:sequence>
-      <xs:element name="id" type="xs:int"/>
-      <xs:element name="position" type="vector"/>
+      <xs:element name="id" type="xs:int" form="qualified"/>
+      <xs:element name="position" type="tns:vector" form="qualified"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="vector">
     <xs:sequence>
-      <xs:element name="x" type="xs:float"/>
-      <xs:element name="y" type="xs:float"/>
+      <xs:element name="x" type="xs:float" form="qualified"/>
+      <xs:element name="y" type="xs:float" form="qualified"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="slingshot">
     <xs:complexContent>
-      <xs:extension base="element">
+      <xs:extension base="tns:element">
         <xs:sequence>
-          <xs:element name="corner.a" type="vector"/>
-          <xs:element name="corner.b" type="vector"/>
+          <xs:element name="corner.a" type="tns:vector" form="qualified"/>
+          <xs:element name="corner.b" type="tns:vector" form="qualified"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -82,12 +76,12 @@
 
   <xs:complexType name="obstacle">
     <xs:complexContent>
-      <xs:extension base="element">
+      <xs:extension base="tns:element">
         <xs:sequence>
-          <xs:element name="vertices">
+          <xs:element name="vertices" form="qualified">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="vertice" type="vector" maxOccurs="unbounded"/>
+                <xs:element name="vertice" type="tns:vector" form="qualified" maxOccurs="unbounded"/>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -98,14 +92,15 @@
 
   <xs:complexType name="rule">
     <xs:sequence>
-      <xs:element name="class" type="xs:string"/>
-      <xs:element name="parameters">
+      <xs:element name="class" type="xs:string" form="qualified"/>
+      <xs:element name="parameters" form="qualified">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="parameter" type="xs:int" maxOccurs="unbounded"/>
+            <xs:element name="parameter" type="xs:int" form="qualified" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>
+
