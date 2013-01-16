@@ -32,7 +32,7 @@ abstract class AbstractState implements State {
 	}
 	
 	@Override
-	public void gameOver() {
+	public void ballDown() {
 	}
 	
 	@Override

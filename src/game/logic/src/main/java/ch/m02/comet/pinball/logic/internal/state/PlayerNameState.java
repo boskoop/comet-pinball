@@ -5,20 +5,15 @@ import javax.inject.Inject;
 import ch.m02.comet.pinball.core.presentation.Display;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.screen.PlayerNameScreen;
-import ch.m02.comet.pinball.logic.State;
-import ch.m02.comet.pinball.logic.persistence.SimulationStoreDao;
 import ch.m02.comet.pinball.logic.simulation.SimulationManager;
 
-public class PlayerNameState extends AbstractState implements State {
+public class PlayerNameState extends AbstractState {
 
 	@Inject
 	private PresentationManager presentation;
 	
 	@Inject
 	private Display display;
-	
-	@Inject
-	private SimulationStoreDao simulationStoreDao;
 	
 	private SimulationManager simulationManager;
 	

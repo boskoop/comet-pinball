@@ -6,7 +6,7 @@ public class BallDownCommandImpl extends AbstractCommand implements BallDownComm
 	
 	@Override
 	public void execute() {
-		getReceiver().getCurrentState().gameOver();
+		getReceiver().getCurrentState().ballDown();
 	}
 
 }

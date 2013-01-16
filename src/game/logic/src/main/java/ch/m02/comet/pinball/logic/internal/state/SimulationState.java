@@ -29,7 +29,7 @@ public class SimulationState extends AbstractState {
 	}
 	
 	@Override
-	public void gameOver() {
+	public void ballDown() {
 		if (ballPlunged) {
 			gamesPlayed++;
 			display.displayMessage("Ball " + (gamesPlayed + 1));
