@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import ch.m02.comet.pinball.core.ApplicationContext;
 import ch.m02.comet.pinball.core.model.playfield.Rule;
 import ch.m02.comet.pinball.core.presentation.Display;
-import ch.m02.comet.pinball.logic.model.playfield.PlayFieldRulePdo;
-import ch.m02.comet.pinball.logic.model.simulation.ScorePdo;
+import ch.m02.comet.pinball.persistence.model.playfield.PlayFieldRulePdo;
+import ch.m02.comet.pinball.persistence.model.simulation.ScorePdo;
 
 public class RuleEngine {
 	

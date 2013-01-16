@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>core</module>
+		<module>persistence</module>
 		<module>logic</module>
 		<module>physics</module>
 		<module>presentation</module>

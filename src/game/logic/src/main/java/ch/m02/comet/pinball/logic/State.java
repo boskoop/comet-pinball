@@ -6,7 +6,7 @@ public interface State {
 	
 	public void showMainMenu();
 	
-	public void gameOver();
+	public void ballDown();
 
 	public void handleBallHitsId(int id);
 	
