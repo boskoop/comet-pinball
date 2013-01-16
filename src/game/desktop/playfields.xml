@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://comet.m02.ch/pinball/playfield" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://comet.m02.ch/pinball/playfield http://raw.github.com/boskoop/comet-pinball/master/schema/playfield.xsd">
+		xsi:schemaLocation="http://comet.m02.ch/pinball/playfield https://raw.github.com/boskoop/comet-pinball/master/schema/playfield.xsd">
 	<playfields>
 		<playfield>
 			<name>default</name>
