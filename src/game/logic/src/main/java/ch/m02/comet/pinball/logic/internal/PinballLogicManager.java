@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import ch.m02.comet.pinball.logic.LogicManager;
 import ch.m02.comet.pinball.logic.State;
-import ch.m02.comet.pinball.logic.internal.state.StateContext;
+import ch.m02.comet.pinball.logic.state.StateContext;
 
 public class PinballLogicManager implements LogicManager {
 	

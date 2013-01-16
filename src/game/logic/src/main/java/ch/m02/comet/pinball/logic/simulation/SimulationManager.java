@@ -6,15 +6,15 @@ import javax.inject.Inject;
 
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
-import ch.m02.comet.pinball.logic.model.playfield.PlayFieldElementPdo;
-import ch.m02.comet.pinball.logic.model.playfield.PlayFieldPdo;
-import ch.m02.comet.pinball.logic.model.simulation.PlayFieldIdPdo;
-import ch.m02.comet.pinball.logic.model.simulation.PlayerPdo;
-import ch.m02.comet.pinball.logic.model.simulation.ScorePdo;
-import ch.m02.comet.pinball.logic.model.simulation.SimulationPdo;
-import ch.m02.comet.pinball.logic.persistence.PlayFieldStoreDao;
-import ch.m02.comet.pinball.logic.persistence.SimulationStoreDao;
 import ch.m02.comet.pinball.logic.simulation.rule.RuleEngine;
+import ch.m02.comet.pinball.persistence.PlayFieldStoreDao;
+import ch.m02.comet.pinball.persistence.SimulationStoreDao;
+import ch.m02.comet.pinball.persistence.model.playfield.PlayFieldElementPdo;
+import ch.m02.comet.pinball.persistence.model.playfield.PlayFieldPdo;
+import ch.m02.comet.pinball.persistence.model.simulation.PlayFieldIdPdo;
+import ch.m02.comet.pinball.persistence.model.simulation.PlayerPdo;
+import ch.m02.comet.pinball.persistence.model.simulation.ScorePdo;
+import ch.m02.comet.pinball.persistence.model.simulation.SimulationPdo;
 
 public class SimulationManager {
 	
