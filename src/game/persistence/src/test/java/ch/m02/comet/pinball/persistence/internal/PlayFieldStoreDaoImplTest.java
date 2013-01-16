@@ -2,18 +2,13 @@ package ch.m02.comet.pinball.persistence.internal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.Result;
-import javax.xml.transform.stream.StreamResult;
 
 import org.junit.Test;
 
@@ -28,6 +23,8 @@ import ch.m02.comet.pinball.persistence.model.playfield.PlayFieldStore;
 import ch.m02.comet.pinball.persistence.model.playfield.VectorPdo;
 
 public class PlayFieldStoreDaoImplTest {
+	
+	private static final String SCHEMA_LOCATION = "http://comet.m02.ch/pinball/playfield http://raw.github.com/boskoop/comet-pinball/master/schema/playfield.xsd";
 
 	private static class Rule1 implements Rule {
 
@@ -122,21 +119,22 @@ public class PlayFieldStoreDaoImplTest {
 		JAXBContext context = JAXBContext.newInstance(PlayFieldStore.class);
 	    Marshaller m = context.createMarshaller();
 	    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+	    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, SCHEMA_LOCATION);
 
 	    // Write to System.out
 	    m.marshal(store, System.out);
 	    
-	    @SuppressWarnings("unused")
-		SchemaOutputResolver sor = new SchemaOutputResolver() {
-	    	@Override
-	    	public Result createOutput(String namespaceURI, String suggestedFileName)
-	    			throws IOException {
-	    		File file = new File(suggestedFileName);
-	            StreamResult result = new StreamResult(file);
-	            result.setSystemId(file.toURI().toURL().toString());
-	            return result;
-	    	}
-	    };
+//		SchemaOutputResolver sor = new SchemaOutputResolver() {
+//	    	@Override
+//	    	public Result createOutput(String namespaceURI, String suggestedFileName)
+//	    			throws IOException {
+//	    		File file = new File(suggestedFileName);
+//	    		System.out.println("Writing to file: " + suggestedFileName);
+//	            StreamResult result = new StreamResult(file);
+//	            result.setSystemId(file.toURI().toURL().toString());
+//	            return result;
+//	    	}
+//	    };
 //	    context.generateSchema(sor);
 	}
 

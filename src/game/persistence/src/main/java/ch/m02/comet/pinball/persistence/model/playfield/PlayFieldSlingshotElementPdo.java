@@ -12,14 +12,14 @@ import ch.m02.comet.pinball.core.model.playfield.PlayFieldSlingshotElement;
 import ch.m02.comet.pinball.core.presentation.playfield.SlingshotElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "slingshot")
+@XmlType(namespace = "http://comet.m02.ch/pinball/playfield", name = "slingshot")
 public class PlayFieldSlingshotElementPdo extends PlayFieldElementPdo implements
 		PlayFieldSlingshotElement {
 	
-	@XmlElement(name = "corner.a", required = true)
+	@XmlElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "corner.a", required = true)
 	private VectorPdo cornerA;
 
-	@XmlElement(name = "corner.b", required = true)
+	@XmlElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "corner.b", required = true)
 	private VectorPdo cornerB;
 	
 	@Override

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<configuration xmlns="http://comet.m02.ch/pinball/playfield">
+<configuration xmlns="http://comet.m02.ch/pinball/playfield" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://comet.m02.ch/pinball/playfield http://raw.github.com/boskoop/comet-pinball/master/schema/playfield.xsd">
     <playfields>
         <playfield>
             <name>testfield</name>
@@ -55,13 +57,13 @@
             </elements>
             <rules>
                 <rule>
-                    <class>ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreDaoImplTest$Rule1</class>
+                    <class>ch.m02.comet.pinball.persistence.internal.PlayFieldStoreDaoImplTest$Rule1</class>
                     <parameters>
                         <parameter>5</parameter>
                     </parameters>
                 </rule>
                 <rule>
-                    <class>ch.m02.comet.pinball.logic.persistence.internal.PlayFieldStoreDaoImplTest$Rule2</class>
+                    <class>ch.m02.comet.pinball.persistence.internal.PlayFieldStoreDaoImplTest$Rule2</class>
                     <parameters>
                         <parameter>7</parameter>
                     </parameters>

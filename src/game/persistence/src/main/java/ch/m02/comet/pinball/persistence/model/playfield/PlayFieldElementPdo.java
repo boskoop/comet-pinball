@@ -10,13 +10,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import ch.m02.comet.pinball.core.model.playfield.PlayFieldElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "element")
+@XmlType(namespace = "http://comet.m02.ch/pinball/playfield", name = "element")
 public abstract class PlayFieldElementPdo implements PlayFieldElement {
 
-	@XmlElement(name = "id", required = true)
+	@XmlElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "id", required = true)
 	private int id;
 
-	@XmlElement(name = "position", required = true)
+	@XmlElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "position", required = true)
 	private VectorPdo position;
 
 	@Override

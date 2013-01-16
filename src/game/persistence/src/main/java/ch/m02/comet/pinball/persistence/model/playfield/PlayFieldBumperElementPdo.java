@@ -12,11 +12,11 @@ import ch.m02.comet.pinball.core.model.playfield.PlayFieldBumperElement;
 import ch.m02.comet.pinball.core.presentation.playfield.BumperElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "bumper")
+@XmlType(namespace = "http://comet.m02.ch/pinball/playfield", name = "bumper")
 public class PlayFieldBumperElementPdo extends PlayFieldElementPdo implements
 		PlayFieldBumperElement {
 
-	@XmlElement(name = "radius", required = true)
+	@XmlElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "radius", required = true)
 	private float radius;
 	
 	@Override

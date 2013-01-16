@@ -11,12 +11,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "configuration")
-@XmlType(name = "configuration")
+@XmlRootElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "configuration")
+@XmlType(namespace = "http://comet.m02.ch/pinball/playfield", name = "configuration")
 public class PlayFieldStore {
 	
-	@XmlElementWrapper(name = "playfields", required = true)
-	@XmlElement(name = "playfield", required = true)
+	@XmlElementWrapper(namespace = "http://comet.m02.ch/pinball/playfield", name = "playfields", required = true)
+	@XmlElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "playfield", required = true)
 	private List<PlayFieldPdo> playfields;
 	
 	public List<PlayFieldPdo> getPlayFields() {

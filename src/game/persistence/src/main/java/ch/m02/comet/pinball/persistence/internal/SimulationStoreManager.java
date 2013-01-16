@@ -18,7 +18,7 @@ class SimulationStoreManager {
 	private static final Logger log = LoggerFactory
 			.getLogger(SimulationStoreDaoImpl.class);
 
-	static final String PERSISTENT_FILE_NAME = "data.ser";
+	static final String PERSISTENT_FILE_NAME = "pinball.ser";
 	
 	private SimulationStorePdo store;
 

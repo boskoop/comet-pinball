@@ -15,12 +15,12 @@ import ch.m02.comet.pinball.core.model.playfield.PlayFieldObstacleElement;
 import ch.m02.comet.pinball.core.presentation.playfield.ObstacleElementFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "obstacle")
+@XmlType(namespace = "http://comet.m02.ch/pinball/playfield", name = "obstacle")
 public class PlayFieldObstacleElementPdo extends PlayFieldElementPdo implements
 		PlayFieldObstacleElement {
 	
-	@XmlElementWrapper(name = "vertices", required = true)
-	@XmlElement(name = "vertice", required = true)
+	@XmlElementWrapper(namespace = "http://comet.m02.ch/pinball/playfield", name = "vertices", required = true)
+	@XmlElement(namespace = "http://comet.m02.ch/pinball/playfield", name = "vertice", required = true)
 	private List<VectorPdo> vertices;
 	
 	@Override
