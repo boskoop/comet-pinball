@@ -7,6 +7,8 @@ public interface State {
 	public void showMainMenu();
 	
 	public void ballDown();
+	
+	public void ballReset();
 
 	public void handleBallHitsId(int id);
 	

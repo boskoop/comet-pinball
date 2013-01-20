@@ -7,7 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.m02.comet.pinball.core.ApplicationContext;
+import ch.m02.comet.pinball.core.config.BooleanProperties;
+import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.config.KeyProperties;
+import ch.m02.comet.pinball.core.logic.command.BallResetCommand;
+import ch.m02.comet.pinball.core.logic.command.Command;
 import ch.m02.comet.pinball.core.logic.command.PlungeCommand;
 import ch.m02.comet.pinball.physics.InteractivePhysicsObject;
 import ch.m02.comet.pinball.physics.PhysicsDefinition;
@@ -29,6 +33,9 @@ public class Ball implements InteractivePhysicsObject {
 	
 	@Inject
 	private ApplicationContext context;
+	
+	@Inject
+	private Configuration configuration;
 	
 	@Inject
 	private KeyMap keyMap;
@@ -59,6 +66,8 @@ public class Ball implements InteractivePhysicsObject {
 	private int resetKey;
 	private int plungeKey;
 	
+	private boolean debugMode;
+	
 	@PostConstruct
 	public void loadKey() {
 		upKey = keyMap.getKey(KeyProperties.BALL_UP);
@@ -70,6 +79,7 @@ public class Ball implements InteractivePhysicsObject {
 
 	@Override
 	public void init(World world) {
+		debugMode = configuration.getBooleanProperty(BooleanProperties.DEBUG);
 		float defaultBallResetX = PhysicsDefinition.FIELD_WIDTH
 				- (0.025f * PhysicsDefinition.METER_SCALE_FACTOR);
 		float defaultBallResetY = (0.02f * PhysicsDefinition.METER_SCALE_FACTOR)
@@ -113,19 +123,21 @@ public class Ball implements InteractivePhysicsObject {
 
 	@Override
 	public void handlePhysicsEvents() {
-		if (Gdx.input.isKeyPressed(upKey)) {
-			final float force = Math.abs(ball.getMass() * 2 * PhysicsDefinition.INSTANCE.getRampGravity());
-			ball.applyForceToCenter(0, force);
-		}
-
-		if (Gdx.input.isKeyPressed(leftKey)) {
-			final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
-			ball.applyForceToCenter(-force, 0);
-		}
-
-		if (Gdx.input.isKeyPressed(rightKey)) {
-			final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
-			ball.applyForceToCenter(force, 0);
+		if (debugMode) {
+			if (Gdx.input.isKeyPressed(upKey)) {
+				final float force = Math.abs(ball.getMass() * 2 * PhysicsDefinition.INSTANCE.getRampGravity());
+				ball.applyForceToCenter(0, force);
+			}
+	
+			if (Gdx.input.isKeyPressed(leftKey)) {
+				final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
+				ball.applyForceToCenter(-force, 0);
+			}
+	
+			if (Gdx.input.isKeyPressed(rightKey)) {
+				final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
+				ball.applyForceToCenter(force, 0);
+			}
 		}
 
 		long currentTime = System.nanoTime();
@@ -146,7 +158,9 @@ public class Ball implements InteractivePhysicsObject {
 		
 		// Should be the last handled event since it overrides the others
 		if (Gdx.input.isKeyPressed(resetKey)) {
-			resetBall();
+			Command command = context.getComponentContainer()
+					.getComponent(BallResetCommand.class);
+			command.execute();
 		}
 	}
 

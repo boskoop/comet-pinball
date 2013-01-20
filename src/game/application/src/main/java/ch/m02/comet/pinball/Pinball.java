@@ -19,6 +19,7 @@ import ch.m02.comet.pinball.core.config.Configuration;
 import ch.m02.comet.pinball.core.internal.ApplicationContextImpl;
 import ch.m02.comet.pinball.core.internal.ConfigurationImpl;
 import ch.m02.comet.pinball.core.logic.command.BallDownCommand;
+import ch.m02.comet.pinball.core.logic.command.BallResetCommand;
 import ch.m02.comet.pinball.core.logic.command.NewSimulationCommand;
 import ch.m02.comet.pinball.core.logic.command.PlungeCommand;
 import ch.m02.comet.pinball.core.logic.command.SavePlayerNameCommand;
@@ -33,6 +34,7 @@ import ch.m02.comet.pinball.game.ApplicationProvider;
 import ch.m02.comet.pinball.game.PinballGame;
 import ch.m02.comet.pinball.logic.LogicManager;
 import ch.m02.comet.pinball.logic.command.BallDownCommandImpl;
+import ch.m02.comet.pinball.logic.command.BallResetCommandImpl;
 import ch.m02.comet.pinball.logic.command.NewSimulationCommandImpl;
 import ch.m02.comet.pinball.logic.command.PlungeCommandImpl;
 import ch.m02.comet.pinball.logic.command.SavePlayerNameCommandImpl;
@@ -159,6 +161,7 @@ public class Pinball {
 		container.addComponent(BallDownCommand.class, BallDownCommandImpl.class);
 		container.addComponent(PlungeCommand.class, PlungeCommandImpl.class);
 		container.addComponent(SavePlayerNameCommand.class, SavePlayerNameCommandImpl.class);
+		container.addComponent(BallResetCommand.class, BallResetCommandImpl.class);
 		
 		// State
 		container.addComponent(MainMenuState.class);

@@ -50,4 +50,9 @@ abstract class AbstractState implements State {
 	@Override
 	public void savePlayerName(String playerName) {
 	}
+	
+	@Override
+	public void ballReset() {
+	}
+	
 }

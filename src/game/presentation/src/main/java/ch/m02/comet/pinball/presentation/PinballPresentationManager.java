@@ -26,6 +26,11 @@ public class PinballPresentationManager implements PresentationManager {
 				.getComponent(PhysicsPlayField.class);
 		playField.clearField();
 		placedElements.clear();
+		resetBall();
+	}
+
+	@Override
+	public void resetBall() {
 		Ball ball = context.getComponentContainer().getComponent(Ball.class);
 		ball.resetBall();
 	}
@@ -49,4 +54,5 @@ public class PinballPresentationManager implements PresentationManager {
 				.getComponent(ScreenManager.class);
 		screenManager.changeScreenTo(screen);
 	}
+
 }
