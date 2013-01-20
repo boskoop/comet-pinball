@@ -174,6 +174,7 @@ After the game has ended, the player is asked to enter his name as seen on figur
 
 The playfield is configured through a file named \emph{playfields.xml} in the same folder as the game jar. If the file doesn't exist on first execution, it will be created with default content.
 
+\begin{minipage}[]{\linewidth}
 \begin{lstlisting}[language=xml,label=lst:default_playfield,caption={playfields.xml}]
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://comet.m02.ch/pinball/playfield" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -182,15 +183,16 @@ The playfield is configured through a file named \emph{playfields.xml} in the sa
 		<playfield>
 			<name>default</name>
 			<elements>
-				<!-- a number of elements -->
+				<!-- elements -->
 			</elements>
 			<rules>
-				<!-- a number of rules -->
+				<!-- rules -->
 			</rules>
 		</playfield>
 	</playfields>
 </configuration>
 \end{lstlisting}
+\end{minipage}
 
 The configuration file contains a tag \texttt{playfields}, in which any number of tags of type \texttt{playfield} can be placed. Thereby it would be possible to support multiple play field configurations. At the moment this is not implemented and game will always load the first play field in the file.
 
@@ -202,6 +204,7 @@ The elements will be placed using absolute coordinates of the play field (origin
 
 A bumper has an \texttt{id}, a \texttt{position} and a \texttt{radius}. The \texttt{id} should be unique amongst all elements, the \texttt{position} and \texttt{radius} are given in meters.
 
+\begin{minipage}[]{\linewidth}
 \begin{lstlisting}[language=xml,label=lst:bumper,caption={bumper}]
 <configuration>
 	<playfields>
@@ -226,10 +229,11 @@ A bumper has an \texttt{id}, a \texttt{position} and a \texttt{radius}. The \tex
 	</playfield>
 </configuration>
 \end{lstlisting}
+\end{minipage}
 
 \subsubsection{Slingshot}
 
-A slingshot has an \texttt{id}, a \texttt{position} and two corners, \texttt{corner.a} and \texttt{corner.b} The \texttt{id} should be unique amongst all elements. 
+A slingshot has an \texttt{id}, a \texttt{position} and two corners, \texttt{corner.a} and \texttt{corner.b}. The \texttt{id} should be unique amongst all elements. 
 
 \begin{figure}[h!]
 	\centering
@@ -238,11 +242,12 @@ A slingshot has an \texttt{id}, a \texttt{position} and two corners, \texttt{cor
 	\label{fig:slingshot_element}
 \end{figure}
 
-Figure~\ref{fig:playername} pictures how a slingshot is defined. The origin is given by the \texttt{position} of the element, \texttt{corner.a} and \texttt{corner.b} are defined using a vector (x/y) relative to the origin.
+Figure~\ref{fig:slingshot_element} pictures how a slingshot is defined. The origin is given by the \texttt{position} of the element, \texttt{corner.a} and \texttt{corner.b} are defined using a vector (x/y) relative to the origin.
 
 \textbf{\textsl{Important:}} The corners origin, a and b must always form a triangle in \textsl{anticlockwise} direction, or the element will not be simulated correctly!
 
-\begin{lstlisting}[language=xml,label=lst:bumper,caption={bumper}]
+\begin{minipage}[]{\linewidth}
+\begin{lstlisting}[language=xml,label=lst:slingshot,caption={slingshot}]
 <configuration>
 	<playfields>
 		<playfield>
@@ -273,6 +278,93 @@ Figure~\ref{fig:playername} pictures how a slingshot is defined. The origin is g
 	</playfield>
 </configuration>
 \end{lstlisting}
+\end{minipage}
+
+\subsubsection{Obstacle}
+
+An obstacle has an \texttt{id}, a \texttt{position} and a list of \texttt{vertices} The \texttt{id} should be unique amongst all elements. 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=8cm]{./img/manual/obstacle-element.png}
+	\caption[Obstacle element]{Obstacle element}
+	\label{fig:obstacle_element}
+\end{figure}
+
+Figure~\ref{fig:obstacle_element} pictures how an obstacle is defined. The \texttt{position} is given by absolute coordinates on the play field. Every \texttt{vertice} defines a point in relative coordinates to the \texttt{position} where a corner should be. The \texttt{position} itself can be a corner too, if there is a $(0/0)$ \texttt{vertice}.
+
+\textbf{\textsl{Important:}} The \texttt{vertices} must always form a \textsl{convex} polygon with corners in \textsl{anticlockwise} direction, or the element will not be simulated correctly! The number of vertices is limited to 8 per obstacle.
+
+\begin{minipage}[]{\linewidth}
+\begin{lstlisting}[language=xml,label=lst:obstacle,caption={obstacle}]
+<configuration>
+	<playfields>
+		<playfield>
+			<!-- name -->
+			
+			<elements>
+				<obstacle>
+					<id>6</id>
+					<position>
+						<x>0.65</x>
+						<y>1.0</y>
+					</position>
+					<vertices>
+						<vertice>
+							<x>0.0</x>
+							<y>0.0</y>
+						</vertice>
+						<vertice>
+							<x>0.0</x>
+							<y>0.15</y>
+						</vertice>
+						<vertice>
+							<x>-0.12</x>
+							<y>-0.09</y>
+						</vertice>
+					</vertices>
+				</obstacle>
+				
+				<!-- other elements -->
+			</elements>
+			
+			<!-- rules -->
+		</playfields>
+	</playfield>
+</configuration>
+\end{lstlisting}
+\end{minipage}
+
+\subsubsection{Rules}
+
+\texttt{Rules} define logic on a play field. A play field can have an arbitrary amount of \texttt{rules} defined. Every \texttt{rule} consists of a rule \texttt{class} and a list of \texttt{parameters}. The rule \texttt{class} must be defined using its fully qualified class name. The number of \texttt{parameters} is defined by the \texttt{rule} itself.
+
+At the moment there is only the \texttt{rule} \emph{HitScoreRule} implemented, which takes two parameters, an id of the affected element an the number of points the player gets, when the ball hits the element.
+
+\begin{minipage}[]{\linewidth}
+\begin{lstlisting}[language=xml,label=lst:rule,caption={rule}]
+<configuration>
+	<playfields>
+		<playfield>
+			<!-- name -->
+			<!-- elements -->
+			
+			<rules>
+				<rule>
+					<class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
+					<parameters>
+						<parameter>1</parameter>
+						<parameter>20</parameter>
+					</parameters>
+				</rule>
+				
+				<!-- other rules -->
+			</rules>
+		</playfields>
+	</playfield>
+</configuration>
+\end{lstlisting}
+\end{minipage}
 
 \subsection{Reset stats}
 
@@ -282,6 +374,7 @@ On first execution, the game will create a file named \emph{pinball.ser} which c
 
 In the root of the game jar, there is a configuration file \emph{pinball.properties} located. Using these properties, the pinball game can be configured.
 
+\begin{minipage}[]{\linewidth}
 \begin{lstlisting}[label=lst:properties,caption={pinball.properties}]
 pinball.debug=false
 pinball.skip.splashscreen=false
@@ -301,6 +394,7 @@ physics.pinball.radius=0.0135
 physics.earth.gravity=-9.81
 physics.ramp.angle.degrees=7.0
 \end{lstlisting}
+\end{minipage}
 
 \subsubsection{pinball.debug}
 
