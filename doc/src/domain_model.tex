@@ -32,17 +32,14 @@
 \section{Domain Model}
 
 % Diagram generated with astah
-\includegraphics[width=16cm]{./img/domain-model.png}
+\includegraphics[width=15.5cm]{./img/domain-model.png}
 
 \section{Description}
 
 \subsection{Classes}
 
-\subsubsection{Ball}
-Each \emph{Ball} has it's Position, which is used to store its position on the play field.
-
 \subsubsection{Game}
-Each \emph{Game} has exactly one \emph{PlayField} it plays on and belongs to one \emph{Simulation} while having multiple \emph{Ball}s. 
+Each \emph{Game} has exactly one \emph{PlayField} it plays on and belongs to one \emph{Simulation}. 
 
 \subsubsection{Obstacle}
 Each \emph{Obstacle} has a type, which identifies it as a Bumper, Slingshot or alike, and a position to store it's position on the play field.
@@ -53,32 +50,13 @@ The \emph{Player} is used to identify \emph{Simulation}s and \emph{Score}s in or
 \subsubsection{PlayField}
 The \emph{PlayField} contains information about the physical play field on which a simulation takes place.
 
+\subsubsection{Rule}
+Each \emph{PlayField} has a certain amount of \emph{Rule}s which describe how the \emph{Player} will get \emph{Score}s for hitting \emph{Obstacle}s.
+
 \subsubsection{Score}
 The \emph{Score} keeps tracks of the points the \emph{Player} scored.
 
 \subsubsection{Simulation}
 A \emph{Simulation} is a self-contained process and consists a fixed amount of \emph{Game}s in which the \emph{Player} can achieve a \emph{Score}. 
-
-
-\subsection{Relationships}
-
-\subsubsection{Player plays Simulation}
-
-\subsubsection{Score belongs to Player}
-
-\subsubsection{Score during Simulation}
-
-\subsubsection{Game belongs to Simulation}
-
-\subsubsection{Simulations plays on PlayField}
-
-\subsubsection{PlayField consists of Obstacle}
-
-\subsubsection{Game has Ball}
-
-%\subsubsection{Administrator administrates Doctor}
-
-%The \texttt{Administrator} can have zero to n \texttt{Doctor}s he administrates in the system. In the initial state of the system, there is no \texttt{Doctor}. As the system should be able to handle a big amount of \texttt{Doctor}s, they are all related to the \texttt{Administrator} they were created by.
-
 
 \end{document}
