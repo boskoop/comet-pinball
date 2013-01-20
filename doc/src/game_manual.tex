@@ -1,0 +1,159 @@
+%   Copyright 2012 Comet Engineering, Patrick Haring & Christian Bürgi
+%
+%   Licensed under the Apache License, Version 2.0 (the "License");
+%   you may not use this file except in compliance with the License.
+%   You may obtain a copy of the License at
+%
+%       http://www.apache.org/licenses/LICENSE-2.0
+%
+%   Unless required by applicable law or agreed to in writing, software
+%   distributed under the License is distributed on an "AS IS" BASIS,
+%   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%   See the License for the specific language governing permissions and
+%   limitations under the License.
+
+\documentclass[fontsize=12pt,
+               paper=a4,
+               twoside=false,
+               parskip=half,
+               ]{scrartcl}
+
+% Load the packages
+\input{./packages.tex}
+
+
+\begin{document}
+
+% Document title for title.tex
+\newcommand{\doctitle}{Game manual}
+\input{./title.tex}
+
+\tableofcontents
+
+\listoffigures
+
+\section{Aim of the game}
+
+Pinball is a classic arcade game in which points are scored by manipulating so-called flippers in order to hit targets on a play field with a steel ball and preventing it from leaving the field. A game consists out of 3 balls which the player in turn is able to plunge into play after the previous has left the field. The game is over if the last ball has left the field and therefore the player isn't able to score points anymore.
+
+The game consecutively adds all points up to a score. It is desirable to score as many points as possible in a game. The best games will be tracked in a high score table where the players can compare themselves with others.
+
+\section{Elements of the game}
+
+\subsection{Play field}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=15cm]{./img/manual/playfield.png}
+	\caption[The play field]{The pinball play field when starting a new game}
+	\label{fig:playfield}
+\end{figure}
+
+The play field is an inclined plane on which a ball will tend to roll downwards. An example play field can be seen in figure~\ref{fig:playfield}.
+
+The play field has on it's right side a tube which is called a plunger tube. When bringing a new ball into play, it will be placed at the lower end of the plunger tube and can be brought into play using the plunger.
+
+At the lower end of the field are two flippers which are used by the player to prevent the ball from passing between them into the so-called drain.
+
+On the left side of the drain the score is displayed, on the right side the current round (ball) of play.
+
+\subsubsection{Bumpers}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.225\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./img/manual/bumper.png}
+		\caption[Bumper]{Bumper}
+		\label{fig:bumper}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./img/manual/slingshot.png}
+		\caption[Slingshot]{Slingshot}
+		\label{fig:slingshot}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.203\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./img/manual/obstacle.png}
+		\caption[Obstacle]{Obstacle}
+		\label{fig:obstacle}
+	\end{subfigure}
+	\caption{Elements on a play field}\label{fig:elements}
+\end{figure}
+
+Bumpers are circular obstacles which react on a ball impact by applying force on the ball away from itself. Normally a player will get points for hitting a bumper as seen in figure~\ref{fig:bumper}.
+
+\subsubsection{Slingshots}
+
+Slingshots are obstacles with a reactive side. If the ball hits the reactive side, it is catapulted away from the slingshot. Normally a player will get points for hitting a slingshot as seen in figure~\ref{fig:slingshot}.
+
+
+\subsubsection{Obstacles}
+
+Obstacles are solid bodies on the play field which generally do not react on ball impact. The deflect the ball in its trajectory and make it harder for players to hit specific elements on the play field. An obstacle can be seen in figure~\ref{fig:obstacle}.
+
+\subsection{Flippers}
+
+\begin{figure}
+	\centering
+	\includegraphics[height=5cm]{./img/manual/flipper.png}
+	\caption[Flipper]{Flipper}
+	\label{fig:flipper}
+\end{figure}
+
+Flippers bat the ball up on the play field an prevent the ball from leaving through the drain. See figure~\ref{fig:flipper}.
+
+\section{Controls}
+
+The game comes with a default set of controls which can be customised (see section~\ref{sec:configuration}). The following controls are used:
+
+\begin{tabular}{ | l | l | }
+\hline
+\textbf{Control} & \textbf{Key} \\ \hline
+Plunge ball & \textsc{Spacebar}  \\ \hline
+Left flipper & \textsc{Tab}  \\ \hline
+Right flipper & \textsc{Enter}  \\ \hline
+Reset ball / End game & \textsc{R}  \\ \hline
+
+\end{tabular}
+
+\section{Menus}
+
+
+\section{Configuration}
+\label{sec:configuration}
+
+sdf
+
+% ====
+% SSDs
+% ====
+
+%\section{Doctor login}
+
+%\subsection{System sequence diagram}
+
+% Diagram generated with astah
+%\includegraphics[width=10cm]{./img/system-sequence-diagrams/doctor-login.png}
+
+%This diagram describes the communication between the client and the server during a login of a doctor. The client sends a login message containing the login information of the doctor. The server confirms and then the client follows protocol checking if the account doctor is activated and proceeds with activating the doctor.
+
+%\subsection{Sequence diagram}
+
+% Diagram generated with astah
+%\includegraphics[width=15cm]{./img/sequence-diagrams/doctor-login.png}
+
+%There is a login controller for all doctor login messages. It looks up the doctor using the entity manager and lets the doctor (if found) check the credentials. If this succeeds, a session controller is created, which is responsible for the current session of the client. For security reasons, there is also a proxy for the controller which is sent to the client instead of the controller itself. The client then checks activation and activates the login via the session controller.
+
+%\subsection{Design class diagram}
+
+% Diagram generated with astah
+%\includegraphics[width=15cm]{./img/design-class-diagrams/doctor-login.png}
+
+%Thesession controller gets access to the doctor using the entity manager. After creating the session controller, the doctor is referenced by the session controller.
+
+
+\end{document}
