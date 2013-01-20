@@ -97,7 +97,7 @@ Obstacles are solid bodies on the play field which generally do not react on bal
 
 \subsection{Flippers}
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[height=5cm]{./img/manual/flipper.png}
 	\caption[Flipper]{Flipper}
@@ -113,6 +113,7 @@ The game comes with a default set of controls which can be customised (see secti
 \begin{tabular}{ | l | l | }
 \hline
 \textbf{Control} & \textbf{Key} \\ \hline
+Exit game & \textsc{Esc}  \\ \hline
 Plunge ball & \textsc{Spacebar}  \\ \hline
 Left flipper & \textsc{Tab}  \\ \hline
 Right flipper & \textsc{Enter}  \\ \hline
@@ -120,40 +121,201 @@ Reset ball / End game & \textsc{R}  \\ \hline
 
 \end{tabular}
 
-\section{Menus}
+\section{Visuals}
 
+\subsection{Main menu}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=5cm]{./img/manual/main_menu.png}
+	\caption[Main menu]{Main menu}
+	\label{fig:mainmenu}
+\end{figure}
+
+When starting the game the player will find himself in the main menu (figure~\ref{fig:mainmenu}). From there a new game can be started by pressing the button \emph{Start Game} or the high score can be seen by clicking on \emph{Highscores}.
+
+\subsection{Highscores}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=8cm]{./img/manual/highscore.png}
+	\caption[Highscores]{Highscores}
+	\label{fig:highscore}
+\end{figure}
+
+On the high score screen (figure~\ref{fig:highscore}) the five best players are listed in descending order of their result. By clicking on \emph{Back} the player will get back to the main menu.
+
+\subsection{Game over}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=5cm]{./img/manual/game_over.png}
+	\caption[Game over]{Game over}
+	\label{fig:game_over}
+\end{figure}
+
+After all balls have left the field the player is \emph{game over}, which is indicated on the play field (figure~\ref{fig:game_over}). In order to get to the next screen, the player has to press \emph{End game} (default key: \textsc{R}).
+
+\subsection{Enter name}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=8cm]{./img/manual/playername.png}
+	\caption[Player name screen]{Player name screen}
+	\label{fig:playername}
+\end{figure}
+
+After the game has ended, the player is asked to enter his name as seen on figure~\ref{fig:playername}. After having entered his name, the player should press \emph{Save} in order to save his result and get to the high score screen.
 
 \section{Configuration}
 \label{sec:configuration}
 
-sdf
+\subsection{Play field}
 
-% ====
-% SSDs
-% ====
+The playfield is configured through a file named \emph{playfields.xml} in the same folder as the game jar. If the file doesn't exist on first execution, it will be created with default content.
 
-%\section{Doctor login}
+\begin{lstlisting}[language=xml,label=lst:default_playfield,caption={playfields.xml}]
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://comet.m02.ch/pinball/playfield" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://comet.m02.ch/pinball/playfield https://raw.github.com/boskoop/comet-pinball/master/schema/playfield.xsd">
+	<playfields>
+		<playfield>
+			<name>default</name>
+			<elements>
+				<!-- a number of elements -->
+			</elements>
+			<rules>
+				<!-- a number of rules -->
+			</rules>
+		</playfield>
+	</playfields>
+</configuration>
+\end{lstlisting}
 
-%\subsection{System sequence diagram}
+The configuration file contains a tag \texttt{playfields}, in which any number of tags of type \texttt{playfield} can be placed. Thereby it would be possible to support multiple play field configurations. At the moment this is not implemented and game will always load the first play field in the file.
 
-% Diagram generated with astah
-%\includegraphics[width=10cm]{./img/system-sequence-diagrams/doctor-login.png}
+A play field consists of three parts; the name, the elements and the rules. The name should be unique amongst all defined play fields in the file. The \texttt{elements} describe placable obstacles (\texttt{bumper}, \texttt{slingshot}, \texttt{obstacle}) and give them an id, which should be unique per play field. The rules assign game logic with play field elements. Using ids and a specific rule class they assign for example points for hitting an obstacle to a specific element.
 
-%This diagram describes the communication between the client and the server during a login of a doctor. The client sends a login message containing the login information of the doctor. The server confirms and then the client follows protocol checking if the account doctor is activated and proceeds with activating the doctor.
+The elements will be placed using absolute coordinates of the play field (origin is bottom-left, y points upwards, x to the right). The play field is 0.76 $m$ * 1.40 $m$ in size, all measures are given in meters.
 
-%\subsection{Sequence diagram}
+\subsubsection{Bumper}
 
-% Diagram generated with astah
-%\includegraphics[width=15cm]{./img/sequence-diagrams/doctor-login.png}
+A bumper has an \texttt{id}, a \texttt{position} and a \texttt{radius}. The \texttt{id} should be unique amongst all elements, the \texttt{position} and \texttt{radius} are given in meters.
 
-%There is a login controller for all doctor login messages. It looks up the doctor using the entity manager and lets the doctor (if found) check the credentials. If this succeeds, a session controller is created, which is responsible for the current session of the client. For security reasons, there is also a proxy for the controller which is sent to the client instead of the controller itself. The client then checks activation and activates the login via the session controller.
+\begin{lstlisting}[language=xml,label=lst:bumper,caption={bumper}]
+<configuration>
+	<playfields>
+		<playfield>
+			<!-- name -->
+			
+			<elements>
+				<bumper>
+					<id>1</id>
+					<position>
+						<x>0.25</x>
+						<y>1.1</y>
+					</position>
+					<radius>0.03</radius>
+				</bumper>
+				
+				<!-- other elements -->
+			</elements>
+			
+			<!-- rules -->
+		</playfields>
+	</playfield>
+</configuration>
+\end{lstlisting}
 
-%\subsection{Design class diagram}
+\subsubsection{Slingshot}
 
-% Diagram generated with astah
-%\includegraphics[width=15cm]{./img/design-class-diagrams/doctor-login.png}
+A slingshot has an \texttt{id}, a \texttt{position} and two corners, \texttt{corner.a} and \texttt{corner.b} The \texttt{id} should be unique amongst all elements. 
 
-%Thesession controller gets access to the doctor using the entity manager. After creating the session controller, the doctor is referenced by the session controller.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=8cm]{./img/manual/slingshot-element.png}
+	\caption[Slingshot element]{Slingshot element}
+	\label{fig:slingshot_element}
+\end{figure}
 
+Figure~\ref{fig:playername} pictures how a slingshot is defined. The origin is given by the \texttt{position} of the element, \texttt{corner.a} and \texttt{corner.b} are defined using a vector (x/y) relative to the origin.
+
+\textbf{\textsl{Important:}} The corners origin, a and b must always form a triangle in \textsl{anticlockwise} direction, or the element will not be simulated correctly!
+
+\begin{lstlisting}[language=xml,label=lst:bumper,caption={bumper}]
+<configuration>
+	<playfields>
+		<playfield>
+			<!-- name -->
+			
+			<elements>
+				<slingshot>
+					<id>5</id>
+					<position>
+						<x>0.65</x>
+						<y>0.355</y>
+					</position>
+					<corner.a>
+						<x>0.0</x>
+						<y>0.1</y>
+					</corner.a>
+					<corner.b>
+						<x>-0.12</x>
+						<y>-0.09</y>
+					</corner.b>
+				</slingshot>
+				
+				<!-- other elements -->
+			</elements>
+			
+			<!-- rules -->
+		</playfields>
+	</playfield>
+</configuration>
+\end{lstlisting}
+
+\subsection{Reset stats}
+
+On first execution, the game will create a file named \emph{pinball.ser} which contains persistent information about played games. In order to reset all statistics the file can be deleted.
+
+\subsection{Properties}
+
+In the root of the game jar, there is a configuration file \emph{pinball.properties} located. Using these properties, the pinball game can be configured.
+
+\begin{lstlisting}[label=lst:properties,caption={pinball.properties}]
+pinball.debug=false
+pinball.skip.splashscreen=false
+
+# Keys
+key.game.exit=ESCAPE
+key.ball.up=UP
+key.ball.left=LEFT
+key.ball.right=RIGHT
+key.ball.plunge=SPACE
+key.ball.reset=R
+key.flipper.left=TAB
+key.flipper.right=ENTER
+
+# Physics
+physics.pinball.radius=0.0135
+physics.earth.gravity=-9.81
+physics.ramp.angle.degrees=7.0
+\end{lstlisting}
+
+\subsubsection{pinball.debug}
+
+This property enables some more extensive logging and manipulation of the ball using the arrow keys.
+
+\subsubsection{pinball.skip.splashscreen}
+
+Enables/disables the splash screen.
+
+\subsubsection{key.*}
+
+Configures the keys for user interaction.
+
+\subsubsection{physics.*}
+
+Sets physics values, the units are in $m$, $m/s^{2}$ and degrees.
 
 \end{document}
