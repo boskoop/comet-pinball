@@ -30,33 +30,40 @@
 
 \tableofcontents
 
+\section{Communication between modules}
+\subsection{Command pattern}
+\includegraphics[width=15.5cm]{./img/command-pattern1.png}
 
-% ====
-% SSDs
-% ====
+\includegraphics[width=15.5cm]{./img/command-pattern2.png}
 
-%\section{Doctor login}
+\section{Dependency injection}
+\subsection{Why dependency injection?}
+\includegraphics[width=15.5cm]{./img/dependency-injection1.png}
 
-%\subsection{System sequence diagram}
+\includegraphics[width=15.5cm]{./img/dependency-injection2.png}
 
-% Diagram generated with astah
-%\includegraphics[width=10cm]{./img/system-sequence-diagrams/doctor-login.png}
+\subsection{Sequence diagram}
+\includegraphics[width=15.5cm]{./img/dependency-injection-sd.png}
 
-%This diagram describes the communication between the client and the server during a login of a doctor. The client sends a login message containing the login information of the doctor. The server confirms and then the client follows protocol checking if the account doctor is activated and proceeds with activating the doctor.
 
-%\subsection{Sequence diagram}
+\section{State machine}
+\includegraphics[width=15.5cm]{./img/state-machine.png}
 
-% Diagram generated with astah
-%\includegraphics[width=15cm]{./img/sequence-diagrams/doctor-login.png}
 
-%There is a login controller for all doctor login messages. It looks up the doctor using the entity manager and lets the doctor (if found) check the credentials. If this succeeds, a session controller is created, which is responsible for the current session of the client. For security reasons, there is also a proxy for the controller which is sent to the client instead of the controller itself. The client then checks activation and activates the login via the session controller.
+\section{Persistence}
 
-%\subsection{Design class diagram}
+\subsection{Play field}
+\includegraphics[width=15.5cm]{./img/persistence-playfield.png}
 
-% Diagram generated with astah
-%\includegraphics[width=15cm]{./img/design-class-diagrams/doctor-login.png}
+blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 
-%Thesession controller gets access to the doctor using the entity manager. After creating the session controller, the doctor is referenced by the session controller.
+\subsection{Simulation}
+
+\includegraphics[width=15.5cm]{./img/persistence-simulation.png}
+
+blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 
 
 \end{document}
