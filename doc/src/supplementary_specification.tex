@@ -100,5 +100,93 @@ The following libraries have been used in the project:
 
 \section{Development environment}
 
+In order to create a stable build process without integration problems, we use a Jenkins build server. The build is done using Apache Maven. The source is managed using git version control system. Figure~\ref{fig:build_environment} explains the setup we used for the process.
+
+\begin{figure}[h!]
+	\includegraphics[width=15.5cm]{./img/comet-build.png}
+	\caption[Comet build environment]{Comet build environment}
+	\label{fig:build_environment}
+\end{figure}
+
+The developer writes his code on his workstation and checks it into the local git repository. The code is committed and pushed into the remote Github repository, where it is made available to every developer in the team. The Jenkins build server pulls on his scheduled builds the current version of the codebase into his local repository and builds. Maven installs the artefact into its build-server-local repository and deploys it to the Artifactory. The developers update their local Maven repository by downloading the jars from Artifactory.
+
+\subsection{Github configuration}
+
+The source repository is hosted at the following location: \url{https://github.com/boskoop/comet-pinball/}, a standard git installation is required to access the source.
+
+\subsection{Maven configuration}
+
+The developers need the following Maven configuration file in order to connect their Maven installation to the Artifactory server.
+
+\begin{lstlisting}[language=xml,label=lst:settings_xml,caption={settings.xml}]
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<pluginGroups>
+	</pluginGroups>
+	<proxies>
+	</proxies>
+	<servers>
+		<server>
+			<username><!-- username --></username>
+			<password><!-- password --></password>
+			<id>comet-artifactory</id>
+		</server>
+	</servers>
+	<mirrors>
+		<mirror>
+			<mirrorOf>*</mirrorOf>
+			<name>repo</name>
+			<url>http://ci.m02.ch/artifactory/repo</url>
+			<id>repo</id>
+		</mirror>
+	</mirrors>
+	<profiles>
+		<profile>
+			<repositories>
+				<repository>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<id>central</id>
+					<name>libs-release</name>
+					<url>http://ci.m02.ch/artifactory/libs-release</url>
+				</repository>
+				<repository>
+					<snapshots />
+					<id>snapshots</id>
+					<name>libs-snapshot</name>
+					<url>http://ci.m02.ch/artifactory/libs-snapshot</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<id>central</id>
+					<name>plugins-release</name>
+					<url>http://ci.m02.ch/artifactory/plugins-release</url>
+				</pluginRepository>
+				<pluginRepository>
+					<snapshots />
+					<id>snapshots</id>
+					<name>plugins-snapshot</name>
+					<url>http://ci.m02.ch/artifactory/plugins-snapshot</url>
+				</pluginRepository>
+			</pluginRepositories>
+			<id>artifactory</id>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>artifactory</activeProfile>
+	</activeProfiles>
+</settings>
+\end{lstlisting}
+
+
+
+
 
 \end{document}
