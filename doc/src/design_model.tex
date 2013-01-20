@@ -26,7 +26,7 @@
 
 % Document title for title.tex
 \newcommand{\doctitle}{Design Model}
-\input{./title.tex}
+\input{./title.tex}	
 
 \tableofcontents
 
@@ -39,11 +39,16 @@
 \subsection{Play field}
 \includegraphics[width=15.5cm]{./img/persistence-playfield.png}
 
-blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
-blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+The \emph{Play field} is loaded from the XML file playfields.xml using JAXB.
 
-\subsection{XML Schema}
+\subsubsection{Load playfields via JAXB}
+\includegraphics[width=15.5cm]{./img/jaxb-load-playfield-sd.png}
 
+This sequence diagram shows how the \emph{playfields.xml} is loaded and the \texttt{PlayFieldPdos} are generated.
+We need to bind the \texttt{JAXBContext} to the class we want to unmarshal. Then we are able to create a new \texttt{Unmarshaller} which can unmarshal the \emph{playfields.xml} into an object of type \texttt{PlayFieldStore}. This object has a method getPlayfields which returns a List of \texttt{PlayFieldPdo}s.
+
+
+\subsubsection{XML Schema}
 
 \begin{lstlisting}[language=xml,label=lst:default_playfield,caption={schema for playfields.xml}]
 
@@ -154,7 +159,7 @@ blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 </xs:schema>
 \end{lstlisting}
 
-\subsection{playfields.xml}
+\subsubsection{playfields.xml}
 \begin{lstlisting}[language=xml,label=lst:default_playfield,caption={example of playfields.xml}]
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://comet.m02.ch/pinball/playfield" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -374,11 +379,9 @@ blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 \subsection{Command pattern}
 \includegraphics[width=15.5cm]{./img/command-pattern1.png}
 
-\includegraphics[width=15.5cm]{./img/command-pattern2.png}
-
-
 \section{State machine}
 \includegraphics[width=15.5cm]{./img/state-machine.png}
 
+\includegraphics[width=15.5cm]{./img/state-pattern.png}
 
 \end{document}
