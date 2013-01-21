@@ -76,7 +76,7 @@ This module's main responsibility is to handle access to persistent data, such a
 \subsection{Play field}
 \includegraphics[width=15.5cm]{./img/persistence-playfield.png}
 
-The \emph{Play field} is loaded from the XML file playfields.xml using JAXB.
+The \emph{Play field} is loaded from the XML file playfields.xml using JAXB. In the module \emph{pinball-game-core} are the interfaces used to discribe the entities which are crucial for the persistence of the data concerning a play field. A \emph{PlayField} can have multiple \emph{Rule}s and it can have multiple \emph{PlayFieldElement}s. A \emph{PlayFieldElement} is either a \emph{PlayFieldObstacleElement}, a \emph{PlayFieldBumperElement} or a \emph{PlayFieldSlingshotElement}. In the module \emph{pinball-game-persistence} are the concrete implementations of these interfaces which are XMLTypes and have JAXB annotations which helps JAXB to insert the data of the XML file at the right place.
 
 \subsubsection{Load playfields via JAXB}
 \includegraphics[width=15.5cm]{./img/jaxb-load-playfield-sd.png}
@@ -86,6 +86,8 @@ We need to bind the \texttt{JAXBContext} to the class we want to unmarshal. Then
 
 
 \subsubsection{XML Schema}
+
+The following XML schema describes the playfields.xml and is used to validate the XML file and intelligent XML editors may help the user with code completion if a XML schema is given. So the users is automatically warned if some inputs were incorrect.
 
 \begin{lstlisting}[language=xml,label=lst:default_playfield,caption={schema for playfields.xml}]
 
@@ -196,212 +198,12 @@ We need to bind the \texttt{JAXBContext} to the class we want to unmarshal. Then
 </xs:schema>
 \end{lstlisting}
 
-\subsubsection{playfields.xml}
-\begin{lstlisting}[language=xml,label=lst:default_playfield,caption={example of playfields.xml}]
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://comet.m02.ch/pinball/playfield" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://comet.m02.ch/pinball/playfield https://raw.github.com/boskoop/comet-pinball/master/schema/playfield.xsd">
-	<playfields>
-		<playfield>
-			<name>default</name>
-			<elements>
-				<bumper>
-					<id>1</id>
-					<position>
-						<x>0.25</x>
-						<y>1.1</y>
-					</position>
-					<radius>0.03</radius>
-				</bumper>
-				<bumper>
-					<id>2</id>
-					<position>
-						<x>0.45</x>
-						<y>1.1</y>
-					</position>
-					<radius>0.03</radius>
-				</bumper>
-				<bumper>
-					<id>3</id>
-					<position>
-						<x>0.35</x>
-						<y>1.05</y>
-					</position>
-					<radius>0.03</radius>
-				</bumper>
-				<slingshot>
-					<id>4</id>
-					<position>
-						<x>0.07</x>
-						<y>0.355</y>
-					</position>
-					<corner.a>
-						<x>0.12</x>
-						<y>-0.09</y>
-					</corner.a>
-					<corner.b>
-						<x>0.0</x>
-						<y>0.1</y>
-					</corner.b>
-				</slingshot>
-				<slingshot>
-					<id>5</id>
-					<position>
-						<x>0.65</x>
-						<y>0.355</y>
-					</position>
-					<corner.a>
-						<x>0.0</x>
-						<y>0.1</y>
-					</corner.a>
-					<corner.b>
-						<x>-0.12</x>
-						<y>-0.09</y>
-					</corner.b>
-				</slingshot>
-				<obstacle>
-					<id>6</id>
-					<position>
-						<x>0.65</x>
-						<y>1.0</y>
-					</position>
-					<vertices>
-						<vertice>
-							<x>0.0</x>
-							<y>0.0</y>
-						</vertice>
-						<vertice>
-							<x>0.0</x>
-							<y>0.15</y>
-						</vertice>
-						<vertice>
-							<x>-0.12</x>
-							<y>-0.09</y>
-						</vertice>
-					</vertices>
-				</obstacle>
-				<obstacle>
-					<id>7</id>
-					<position>
-						<x>0.07</x>
-						<y>1.0</y>
-					</position>
-					<vertices>
-						<vertice>
-							<x>0.0</x>
-							<y>0.0</y>
-						</vertice>
-						<vertice>
-							<x>0.12</x>
-							<y>-0.09</y>
-						</vertice>
-						<vertice>
-							<x>0.0</x>
-							<y>0.15</y>
-						</vertice>
-					</vertices>
-				</obstacle>
-				<obstacle>
-					<id>8</id>
-					<position>
-						<x>0.35</x>
-						<y>0.5</y>
-					</position>
-					<vertices>
-						<vertice>
-							<x>0.08</x>
-							<y>0.04</y>
-						</vertice>
-						<vertice>
-							<x>-0.08</x>
-							<y>0.04</y>
-						</vertice>
-						<vertice>
-							<x>-0.00</x>
-							<y>-0.04</y>
-						</vertice>
-					</vertices>
-				</obstacle>
-				<slingshot>
-					<id>9</id>
-					<position>
-						<x>0.35</x>
-						<y>0.54</y>
-					</position>
-					<corner.a>
-						<x>0.0</x>
-						<y>0.08</y>
-					</corner.a>
-					<corner.b>
-						<x>-0.08</x>
-						<y>0.00</y>
-					</corner.b>
-				</slingshot>
-				<slingshot>
-					<id>10</id>
-					<position>
-						<x>0.35</x>
-						<y>0.54</y>
-					</position>
-					<corner.a>
-						<x>0.08</x>
-						<y>0.00</y>
-					</corner.a>
-					<corner.b>
-						<x>0.0</x>
-						<y>0.08</y>
-					</corner.b>
-				</slingshot>
-			</elements>
-			<rules>
-				<rule>
-                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
-                    <parameters>
-                        <parameter>1</parameter>
-                        <parameter>20</parameter>
-                    </parameters>
-				</rule>
-				<rule>
-                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
-                    <parameters>
-                        <parameter>2</parameter>
-                        <parameter>20</parameter>
-                    </parameters>
-				</rule>
-				<rule>
-                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
-                    <parameters>
-                        <parameter>3</parameter>
-                        <parameter>20</parameter>
-                    </parameters>
-				</rule>
-				<rule>
-                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
-                    <parameters>
-                        <parameter>4</parameter>
-                        <parameter>5</parameter>
-                    </parameters>
-				</rule>
-				<rule>
-                    <class>ch.m02.comet.pinball.logic.simulation.rule.basic.HitScoreRule</class>
-                    <parameters>
-                        <parameter>5</parameter>
-                        <parameter>5</parameter>
-                    </parameters>
-				</rule>
-			</rules>
-		</playfield>
-	</playfields>
-</configuration>
-\end{lstlisting}
-
 
 \subsection{Simulation}
 
 \includegraphics[width=15.5cm]{./img/persistence-simulation.png}
 
-blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
-blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+
 
 \section{Dependency injection}
 \subsection{Why dependency injection?}
@@ -415,6 +217,9 @@ blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 \section{Communication between modules}
 \subsection{Command pattern}
 \includegraphics[width=15.5cm]{./img/command-pattern1.png}
+
+This diagram shows how the communication between the modules is implemented with a command pattern. If the physics wants to trigger an event in the game logic, it lets the \emph{pico container} to create a new implementation of the concerning command interface. The \emph{pico container} injects the \emph{LogicManager} so the only thing left to to in the physics module is calling the method execute.
+
 
 \section{State machine}
 \includegraphics[width=15.5cm]{./img/state-machine.png}
