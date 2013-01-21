@@ -34,7 +34,7 @@
 
 \section{Module overview}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/package-overview.png}
 	\caption[Module overview]{Module overview}
@@ -77,7 +77,7 @@ This module's main responsibility is to handle access to persistent data, such a
 
 \subsection{Play field}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/persistence-playfield.png}
 	\caption[Play field persistence]{Play field persistence}
@@ -92,7 +92,7 @@ In the module \emph{pinball-game-persistence} are the concrete implementations o
 
 \subsubsection{Load playfields via JAXB}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/jaxb-load-playfield-sd.png}
 	\caption[Load play field]{Load play field with JAXB}
@@ -221,7 +221,7 @@ The following XML schema describes the playfields.xml and is used to validate th
 \subsection{Simulation}
 
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/persistence-simulation.png}
 	\caption[Simulation persistence]{Simulation persistence}
@@ -235,26 +235,87 @@ Figure~\ref{fig:simulation_persistence} shows the data model of the data which i
 
 \subsection{Why dependency injection?}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/dependency-injection1.png}
 	\caption[System design]{System design using interfaces}
 	\label{fig:dependency_injection1}
 \end{figure}
 
+Figure~\ref{fig:dependency_injection1} shows how interfaces are used to reference dependencies between \emph{logic} and \emph{presentation} code. The problem here is the following: How to get a fully initialised instance of \texttt{SimulationManager}? Only code in the package \emph{pinball-game-application} can instantiate instances of both \texttt{SimulationManager} and \texttt{PinballPresentationManager}.
+
+\begin{minipage}[]{\linewidth}
+\begin{lstlisting}[language=Java,label=lst:no_dependency_injection,caption={no dependency injection}]
+public class Pinball {
+	// other code...
+
+	public void needsSimulationManager() {
+		PresentationManager presentation = new PinballPresentationManager();
+
+		SimulationManager simulation = new SimulationManager(presentation);
+
+		// do things with SimulationManager
+	}
+}
+\end{lstlisting}
+\end{minipage}
+
 \subsection{Component wiring}
 
-\begin{figure}[h!]
+In order to resolve this, we used the dependency injection framework \emph{PicoContainer}, which takes care of the lifecycle and instantiation of components in the application which have dependencies across modules.
+
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/dependency-injection2.png}
 	\caption[Component wiring]{Component wiring}
 	\label{fig:dependency_injection2}
 \end{figure}
 
+Figure~\ref{fig:dependency_injection2} shows how we wire \texttt{PresentationManager} and \texttt{PinballPresentationManager} together and register them in a \texttt{PicoContainer} instance. This is done using the following code snipped:
 
-\subsection{Sequence diagram}
+\begin{minipage}[]{\linewidth}
+\begin{lstlisting}[language=Java,label=lst:dependency_injection,caption={dependency injection}]
+public class Pinball {
+	private MutablePicoContainer container;
 
-\begin{figure}[h!]
+	public Pinball(MainApplication application) {
+		this.application = application;
+		container = new DefaultPicoContainer();
+		registerComponents();
+	}
+
+	private void registerComponents() {
+		log.debug("Registering pico components");
+		container.addComponent(PresentationManager.class, PinballPresentationManager.class);
+		container.addComponent(SimulationManager.class);
+		// and so on
+	}
+}
+\end{lstlisting}
+\end{minipage}
+
+Thereby it is afterwards possible to get an initialised instance of \texttt{SimulationManager} using the following code:
+
+\begin{minipage}[]{\linewidth}
+\begin{lstlisting}[language=Java,label=lst:get_initialised_component,caption={get initialised component}]
+public class AnyWhere {
+	
+	@Inject
+	PicoContainer context;
+
+	public void needsSimulationManager() {
+		// PicoContainer injects PresentationManager into SimulationManager
+		SimulationManager s = context.getComponent(SimulationManager.class);
+
+		// do things with SimulationManager
+	}
+}
+\end{lstlisting}
+\end{minipage}
+
+Figure~\ref{fig:dependency_injection3} shows what happens in a sequence diagram.
+
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/dependency-injection-sd.png}
 	\caption[Dependency injection]{Dependency injection}
@@ -262,9 +323,10 @@ Figure~\ref{fig:simulation_persistence} shows the data model of the data which i
 \end{figure}
 
 \section{Communication between modules}
+
 \subsection{Command pattern}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/command-pattern1.png}
 	\caption[Command pattern]{Command pattern}
@@ -276,7 +338,7 @@ This diagram shows how the communication between the modules is implemented with
 
 \section{State machine}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/state-machine.png}
 	\caption[Pinball state machine]{Pinball state machine}
@@ -285,7 +347,7 @@ This diagram shows how the communication between the modules is implemented with
 
 This diagram shows the states the game can be in and the transitions in between. 
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/state-pattern.png}
 	\caption[State pattern]{State pattern}
