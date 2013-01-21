@@ -30,9 +30,46 @@
 
 \tableofcontents
 
-\section{Packaging}
-\subsection{Package overview}
-\includegraphics[width=15.5cm]{./img/package-overview.png}
+\section{Module overview}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/package-overview.png}
+	\caption[Module overview]{Module overview}
+	\label{fig:moduel_overview}
+\end{figure}
+
+Figure~\ref{fig:playfield} shows the modules in the pinball application. For better understanding, it contains also the modules \emph{libgdx} and \emph{libgdx-natives}.
+
+The main modules are divided into a presentation- and a logic-branch.
+
+\subsection{pinball-game-desktop}
+
+This module contains the bootstrapping code (main method) for the desktop version of the application. The dependency to the \emph{libgdx-natives} includes the necessary native code in order to run on a desktop. The other parts of the application only depends on the \emph{libgdx} module, which is basically a java api for all the native code in \emph{libgdx-natives}.
+
+\subsection{pinball-game-application}
+
+This module contains the platform-independent implementation of the initialising and configuration of the application. It wires the presentation together with the logic in the dependency injection container.
+
+\subsection{pinball-game-core}
+
+This module is the base for all other modules. It defines the communication between the presentation and logic via interfaces.
+
+\subsection{pinball-game-presentation}
+
+This module's main responsibility is to render the screens in the OpenGL main loop.
+
+\subsection{pinball-game-physics}
+
+This module's main responsibility is to calculate the physics in the game.
+
+\subsection{pinball-game-logic}
+
+This module's main responsibility is to implement the game's logic an control the process.
+
+\subsection{pinball-game-persistence}
+
+This module's main responsibility is to handle access to persistent data, such as the play fields and saved simulations.
 
 \section{Persistence}
 
