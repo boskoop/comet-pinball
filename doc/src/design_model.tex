@@ -246,7 +246,6 @@ In the module \emph{pinball-game-core} are the interfaces of the concerned entit
 
 Figure~\ref{fig:dependency_injection1} shows how interfaces are used to reference dependencies between \emph{logic} and \emph{presentation} code. The problem here is the following: How to get a fully initialised instance of \texttt{SimulationManager}? Only code in the package \emph{pinball-game-application} can instantiate instances of both \texttt{SimulationManager} and \texttt{PinballPresentationManager}.
 
-\begin{minipage}[]{\linewidth}
 \begin{lstlisting}[language=Java,label=lst:no_dependency_injection,caption={no dependency injection}]
 public class Pinball {
 	// other code...
@@ -260,7 +259,6 @@ public class Pinball {
 	}
 }
 \end{lstlisting}
-\end{minipage}
 
 \subsection{Component wiring}
 
@@ -275,7 +273,6 @@ In order to resolve this, we used the dependency injection framework \emph{PicoC
 
 Figure~\ref{fig:dependency_injection2} shows how we wire \texttt{PresentationManager} and \texttt{PinballPresentationManager} together and register them in a \texttt{PicoContainer} instance. This is done using the following code snipped:
 
-\begin{minipage}[]{\linewidth}
 \begin{lstlisting}[language=Java,label=lst:dependency_injection,caption={dependency injection}]
 public class Pinball {
 	private MutablePicoContainer container;
@@ -294,11 +291,9 @@ public class Pinball {
 	}
 }
 \end{lstlisting}
-\end{minipage}
 
 Thereby it is afterwards possible to get an initialised instance of \texttt{SimulationManager} using the following code:
 
-\begin{minipage}[]{\linewidth}
 \begin{lstlisting}[language=Java,label=lst:get_initialised_component,caption={get initialised component}]
 public class AnyWhere {
 	
@@ -313,7 +308,6 @@ public class AnyWhere {
 	}
 }
 \end{lstlisting}
-\end{minipage}
 
 Figure~\ref{fig:dependency_injection3} shows what happens in a sequence diagram.
 
