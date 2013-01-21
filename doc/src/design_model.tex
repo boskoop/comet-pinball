@@ -84,7 +84,7 @@ This module's main responsibility is to handle access to persistent data, such a
 	\label{fig:playfield_persistence}
 \end{figure}
 
-The play field is loaded from the XML file playfields.xml using JAXB. In the module \emph{pinball-game-core} are the interfaces used to discribe the entities which are crucial for the persistence of the data concerning a play field.
+Figure~\ref{fig:playfield_persistence} shows the model for play fields. The play field is loaded from the XML file playfields.xml using JAXB. In the module \emph{pinball-game-core} are the interfaces used to describe the entities which are crucial for the persistence of the data concerning a play field.
 
 A \texttt{PlayField} can have multiple \texttt{Rule}s and it can have multiple \texttt{PlayFieldElement}s. A \texttt{PlayFieldElement} is either a \texttt{PlayFieldObstacleElement}, a \texttt{PlayFieldBumperElement} or a \texttt{PlayFieldSlingshotElement}.
 
@@ -99,7 +99,8 @@ In the module \emph{pinball-game-persistence} are the concrete implementations o
 	\label{fig:load_playfield}
 \end{figure}
 
-This sequence diagram shows how the \emph{playfields.xml} is loaded and the \texttt{PlayFieldPdos} are generated.
+Figure~\ref{fig:load_playfield} shows how the \emph{playfields.xml} is loaded and the \texttt{PlayFieldPdos} are generated.
+
 We need to bind the \texttt{JAXBContext} to the class we want to unmarshal. Then we are able to create a new \texttt{Unmarshaller} which can unmarshal the \emph{playfields.xml} into an object of type \texttt{PlayFieldStore}. This object has a method getPlayfields which returns a List of \texttt{PlayFieldPdo}s.
 
 
@@ -107,7 +108,7 @@ We need to bind the \texttt{JAXBContext} to the class we want to unmarshal. Then
 
 The following XML schema describes the playfields.xml and is used to validate the XML file and intelligent XML editors may help the user with code completion if a XML schema is given. So the users is automatically warned if some inputs were incorrect.
 
-\begin{lstlisting}[language=xml,label=lst:default_playfield,caption={schema for playfields.xml}]
+\begin{lstlisting}[language=xml,label=lst:playfield_xsd,caption={playfield.xsd}]
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" targetNamespace="http://comet.m02.ch/pinball/playfield" xmlns:tns="http://comet.m02.ch/pinball/playfield" xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -219,9 +220,15 @@ The following XML schema describes the playfields.xml and is used to validate th
 
 \subsection{Simulation}
 
-\includegraphics[width=15.5cm]{./img/persistence-simulation.png}
 
-This diagrams shows the data model of the data which is generated during a simulation. This data is stored in the easiest way java offers because it's not necessary that humans ever directly read the data from the generated file. In the module \emph{pinball-game-core} are the interfaces of the concerned entities. Each \emph{Simulation} can have a \emph{Player}, a \emph{Score} and a \emph{PlayFiedId}. The \emph{PlayFieldId} is used to reference the play field the simulation was situated on. The implementation of these interfaces are situated in the module \emph{pinball-game-persistence}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/persistence-simulation.png}
+	\caption[Simulation persistence]{Simulation persistence}
+	\label{fig:simulation_persistence}
+\end{figure}
+
+Figure~\ref{fig:simulation_persistence} shows the data model of the data which is generated during a simulation. This data is stored in the easiest way java offers because it's not necessary that humans ever directly read the data from the generated file. In the module \emph{pinball-game-core} are the interfaces of the concerned entities. Each \emph{Simulation} can have a \emph{Player}, a \emph{Score} and a \emph{PlayFiedId}. The \emph{PlayFieldId} is used to reference the play field the simulation was situated on. The implementation of these interfaces are situated in the module \emph{pinball-game-persistence}.
 
 
 \section{Dependency injection}
