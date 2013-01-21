@@ -36,10 +36,10 @@
 	\centering
 	\includegraphics[width=15.5cm]{./img/package-overview.png}
 	\caption[Module overview]{Module overview}
-	\label{fig:moduel_overview}
+	\label{fig:module_overview}
 \end{figure}
 
-Figure~\ref{fig:playfield} shows the modules in the pinball application. For better understanding, it contains also the modules \emph{libgdx} and \emph{libgdx-natives}.
+Figure~\ref{fig:module_overview} shows the modules in the pinball application. For better understanding, it contains also the modules \emph{libgdx} and \emph{libgdx-natives}.
 
 The main modules are divided into a presentation- and a logic-branch.
 
@@ -74,7 +74,13 @@ This module's main responsibility is to handle access to persistent data, such a
 \section{Persistence}
 
 \subsection{Play field}
-\includegraphics[width=15.5cm]{./img/persistence-playfield.png}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/persistence-playfield.png}
+	\caption[Play field persistence]{Play field persistence}
+	\label{fig:playfield_persistence}
+\end{figure}
 
 The play field is loaded from the XML file playfields.xml using JAXB. In the module \emph{pinball-game-core} are the interfaces used to discribe the entities which are crucial for the persistence of the data concerning a play field.
 
@@ -83,7 +89,13 @@ A \texttt{PlayField} can have multiple \texttt{Rule}s and it can have multiple \
 In the module \emph{pinball-game-persistence} are the concrete implementations of these interfaces which are XMLTypes and have JAXB annotations which helps JAXB to insert the data of the XML file at the right place.
 
 \subsubsection{Load playfields via JAXB}
-\includegraphics[width=15.5cm]{./img/jaxb-load-playfield-sd.png}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/jaxb-load-playfield-sd.png}
+	\caption[Load play field]{Load play field with JAXB}
+	\label{fig:load_playfield}
+\end{figure}
 
 This sequence diagram shows how the \emph{playfields.xml} is loaded and the \texttt{PlayFieldPdos} are generated.
 We need to bind the \texttt{JAXBContext} to the class we want to unmarshal. Then we are able to create a new \texttt{Unmarshaller} which can unmarshal the \emph{playfields.xml} into an object of type \texttt{PlayFieldStore}. This object has a method getPlayfields which returns a List of \texttt{PlayFieldPdo}s.
@@ -210,24 +222,63 @@ The following XML schema describes the playfields.xml and is used to validate th
 
 
 \section{Dependency injection}
-\subsection{Why dependency injection?}
-\includegraphics[width=15.5cm]{./img/dependency-injection1.png}
 
-\includegraphics[width=15.5cm]{./img/dependency-injection2.png}
+\subsection{Why dependency injection?}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/dependency-injection1.png}
+	\caption[System design]{System design using interfaces}
+	\label{fig:dependency_injection1}
+\end{figure}
+
+\subsection{Component wiring}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/dependency-injection2.png}
+	\caption[Component wiring]{Component wiring}
+	\label{fig:dependency_injection2}
+\end{figure}
+
 
 \subsection{Sequence diagram}
-\includegraphics[width=15.5cm]{./img/dependency-injection-sd.png}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/dependency-injection-sd.png}
+	\caption[Dependency injection]{Dependency injection}
+	\label{fig:dependency_injection3}
+\end{figure}
 
 \section{Communication between modules}
 \subsection{Command pattern}
-\includegraphics[width=15.5cm]{./img/command-pattern1.png}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/command-pattern1.png}
+	\caption[Command pattern]{Command pattern}
+	\label{fig:command_pattern}
+\end{figure}
 
 This diagram shows how the communication between the modules is implemented with a command pattern. If the physics wants to trigger an event in the game logic, it lets the \emph{pico container} to create a new implementation of the concerning command interface. The \emph{pico container} injects the \emph{LogicManager} so the only thing left to to in the physics module is calling the method execute.
 
 
 \section{State machine}
-\includegraphics[width=15.5cm]{./img/state-machine.png}
 
-\includegraphics[width=15.5cm]{./img/state-pattern.png}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/state-machine.png}
+	\caption[Pinball state machine]{Pinball state machine}
+	\label{fig:command_pattern}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=15.5cm]{./img/state-pattern.png}
+	\caption[State pattern]{State pattern}
+	\label{fig:state_pattern}
+\end{figure}
 
 \end{document}
