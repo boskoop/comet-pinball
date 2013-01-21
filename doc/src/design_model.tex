@@ -76,7 +76,11 @@ This module's main responsibility is to handle access to persistent data, such a
 \subsection{Play field}
 \includegraphics[width=15.5cm]{./img/persistence-playfield.png}
 
-The \emph{Play field} is loaded from the XML file playfields.xml using JAXB. In the module \emph{pinball-game-core} are the interfaces used to discribe the entities which are crucial for the persistence of the data concerning a play field. A \emph{PlayField} can have multiple \emph{Rule}s and it can have multiple \emph{PlayFieldElement}s. A \emph{PlayFieldElement} is either a \emph{PlayFieldObstacleElement}, a \emph{PlayFieldBumperElement} or a \emph{PlayFieldSlingshotElement}. In the module \emph{pinball-game-persistence} are the concrete implementations of these interfaces which are XMLTypes and have JAXB annotations which helps JAXB to insert the data of the XML file at the right place.
+The play field is loaded from the XML file playfields.xml using JAXB. In the module \emph{pinball-game-core} are the interfaces used to discribe the entities which are crucial for the persistence of the data concerning a play field.
+
+A \texttt{PlayField} can have multiple \texttt{Rule}s and it can have multiple \texttt{PlayFieldElement}s. A \texttt{PlayFieldElement} is either a \texttt{PlayFieldObstacleElement}, a \texttt{PlayFieldBumperElement} or a \texttt{PlayFieldSlingshotElement}.
+
+In the module \emph{pinball-game-persistence} are the concrete implementations of these interfaces which are XMLTypes and have JAXB annotations which helps JAXB to insert the data of the XML file at the right place.
 
 \subsubsection{Load playfields via JAXB}
 \includegraphics[width=15.5cm]{./img/jaxb-load-playfield-sd.png}
