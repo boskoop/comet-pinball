@@ -221,6 +221,7 @@ The following XML schema describes the playfields.xml and is used to validate th
 
 \includegraphics[width=15.5cm]{./img/persistence-simulation.png}
 
+This diagrams shows the data model of the data which is generated during a simulation. This data is stored in the easiest way java offers because it's not necessary that humans ever directly read the data from the generated file. In the module \emph{pinball-game-core} are the interfaces of the concerned entities. Each \emph{Simulation} can have a \emph{Player}, a \emph{Score} and a \emph{PlayFiedId}. The \emph{PlayFieldId} is used to reference the play field the simulation was situated on. The implementation of these interfaces are situated in the module \emph{pinball-game-persistence}.
 
 
 \section{Dependency injection}
