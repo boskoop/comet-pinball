@@ -228,7 +228,9 @@ The following XML schema describes the playfields.xml and is used to validate th
 	\label{fig:simulation_persistence}
 \end{figure}
 
-Figure~\ref{fig:simulation_persistence} shows the data model of the data which is generated during a simulation. This data is stored in the easiest way java offers because it's not necessary that humans ever directly read the data from the generated file. In the module \emph{pinball-game-core} are the interfaces of the concerned entities. Each \emph{Simulation} can have a \emph{Player}, a \emph{Score} and a \emph{PlayFiedId}. The \emph{PlayFieldId} is used to reference the play field the simulation was situated on. The implementation of these interfaces are situated in the module \emph{pinball-game-persistence}.
+Figure~\ref{fig:simulation_persistence} shows the data model of the data which is generated during a simulation. This data is stored in the easiest way java offers because it's not necessary that humans ever directly read the data from the generated file.
+
+In the module \emph{pinball-game-core} are the interfaces of the concerned entities. Each \texttt{Simulation} can have a \texttt{Player}, a \texttt{Score} and a \texttt{PlayFiedId}. The \texttt{PlayFieldId} is used to reference the play field the simulation was situated on. The implementation of these interfaces are situated in the module \emph{pinball-game-persistence}.
 
 
 \section{Dependency injection}
@@ -338,14 +340,18 @@ This diagram shows how the communication between the modules is implemented with
 
 \section{State machine}
 
+\subsection{States and transitions}
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=15.5cm]{./img/state-machine.png}
 	\caption[Pinball state machine]{Pinball state machine}
-	\label{fig:command_pattern}
+	\label{fig:state_machine}
 \end{figure}
 
-This diagram shows the states the game can be in and the transitions in between. 
+Figure~\ref{fig:state_machine} shows the states the game can be in and the transitions in between. Each \emph{State} represents a screen in the application and each transition is triggered by an user interaction. This model is easily convertible to a state pattern implementation and very modular and thereby  easy to extend.
+
+\subsection{State pattern}
 
 \begin{figure}[H]
 	\centering
@@ -354,5 +360,6 @@ This diagram shows the states the game can be in and the transitions in between.
 	\label{fig:state_pattern}
 \end{figure}
 
-This diagram shows how the state pattern is implemented.
+Figure~\ref{fig:state_pattern} shows how the state pattern is implemented. The interface \texttt{State} is implemented by each \texttt{State} implementation. The abstract class \texttt{AbstractState} is just for comfort: each method of the interface is implemented so it does nothing in this class. In consequence, the concrete implementation of the interface \texttt{State} does only need to implement these methods which are intended to do something. The methods \texttt{enterState()} and \texttt{exitState()} when a transition occurs. The \texttt{StateContext} is unique and handles the transition via the call of the \texttt{setState()} method.
+
 \end{document}
