@@ -276,14 +276,19 @@ This diagram shows how the communication between the modules is implemented with
 
 \section{State machine}
 
+\subsection{States and transitions}
+
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=15.5cm]{./img/state-machine.png}
 	\caption[Pinball state machine]{Pinball state machine}
-	\label{fig:command_pattern}
+	\label{fig:state_machine}
 \end{figure}
 
-This diagram shows the states the game can be in and the transitions in between. 
+Figure~\ref{fig:state_machine} shows the states the game can be in and the transitions in between. Each \emph{State} represents a screen in the application and each transition is triggered by an user interaction. This model is easily convertible to a state pattern implementation and very modular and thereby  easy to extend.
+
+\subsection{State pattern}
 
 \begin{figure}[h!]
 	\centering
@@ -292,5 +297,6 @@ This diagram shows the states the game can be in and the transitions in between.
 	\label{fig:state_pattern}
 \end{figure}
 
-This diagram shows how the state pattern is implemented.
+Figure~\ref{fig:state_pattern} shows how the state pattern is implemented. The interface \emph{State} is implemented by each \emph{State} implementation. The abstract class \emph{AbstractState} is just for comfort: each method of the interface is implemented so it does nothing in this class. In consequence, the concrete implementation of the interface \emph{State} does only need to implement these methods which are intended to do something. The methods \emph{enterState} and \emph{exitState} when a transition occurs. The \emph{StateContext} is unique and handles the transition via the call of the \emph{setState} method.
+
 \end{document}
