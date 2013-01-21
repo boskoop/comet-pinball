@@ -219,14 +219,15 @@ This diagrams shows the data model of the data which is generated during a simul
 \subsection{Command pattern}
 \includegraphics[width=15.5cm]{./img/command-pattern1.png}
 
-This diagram shows how the communication between the modules is implemented with a command pattern. If the physics wants to trigger an event in the game logic, it lets the \emph{pico container} to create a new implementation of the concerning command interface. The \emph{pico container} injects the \emph{LogicManager} so the only thing left to to in the physics module is calling the method execute.
+This diagram shows how the communication between the modules is implemented with a command pattern. If the physics wants to trigger an event in the game logic, it lets the \emph{pico container} create a new implementation of the concerning command interface. The \emph{pico container} injects the \emph{LogicManager} so the only thing left to to in the physics module is calling the method execute of the generated command object.
 
 
 \section{State machine}
 \includegraphics[width=15.5cm]{./img/state-machine.png}
 
-This diagrams shows the states the game can be in and the transitions in between. 
+This diagram shows the states the game can be in and the transitions in between. 
 
 \includegraphics[width=15.5cm]{./img/state-pattern.png}
 
+This diagram shows how the state pattern is implemented.
 \end{document}
