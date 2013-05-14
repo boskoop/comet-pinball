@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.m02.comet.pinball.core.presentation.Display;
 import ch.m02.comet.pinball.core.presentation.PresentationManager;
 import ch.m02.comet.pinball.core.presentation.screen.GameScreen;
 import ch.m02.comet.pinball.logic.simulation.rule.RuleEngine;
@@ -26,6 +27,9 @@ public class SimulationManager {
 	
 	@Inject
 	private PresentationManager presentation;
+	
+	@Inject
+	private Display display;
 
 	private SimulationPdo simulation;
 	
@@ -33,6 +37,12 @@ public class SimulationManager {
 	private RuleEngine ruleEngine;
 
 	private PlayFieldPdo playField;
+	
+	private int gamesPlayed = 0;
+	
+	private boolean ballPlunged = false;
+	
+	private boolean ballDown = false;
 
 	public void startNewSimulation() {
 		clearPlayField();
@@ -44,6 +54,7 @@ public class SimulationManager {
 
 	private void clearPlayField() {
 		presentation.clearElements();
+		display.displayMessage("Ball 1");
 	}
 	
 	private void createSimulation() {
@@ -89,6 +100,35 @@ public class SimulationManager {
 	
 	public SimulationPdo getSimulation() {
 		return simulation;
+	}
+	
+	public void ballDown() {
+		ballDown = true;
+		if (ballPlunged) {
+			gamesPlayed++;
+			if (hasGamesLeft()) {
+				display.displayMessage("Ball " + (gamesPlayed + 1));
+			} else {
+				display.displayMessage("Game over!");
+			}
+		}
+		ballPlunged = false;
+	}
+	
+	public boolean hasGamesLeft() {
+		return (gamesPlayed < 3);
+	}
+
+	public void ballPlunged() {
+		ballDown = false;
+		ballPlunged = true;
+	}
+	
+	public void ballReset() {
+		if (ballDown) {
+			presentation.resetBall();
+			ballDown = false;
+		}
 	}
 	
 }

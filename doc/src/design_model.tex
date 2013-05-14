@@ -26,37 +26,334 @@
 
 % Document title for title.tex
 \newcommand{\doctitle}{Design Model}
-\input{./title.tex}
+\input{./title.tex}	
 
 \tableofcontents
 
+\listoffigures
 
-% ====
-% SSDs
-% ====
+\section{Module overview}
 
-%\section{Doctor login}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/package-overview.png}
+	\caption[Module overview]{Module overview}
+	\label{fig:module_overview}
+\end{figure}
 
-%\subsection{System sequence diagram}
+Figure~\ref{fig:module_overview} shows the modules in the pinball application. For better understanding, it contains also the modules \emph{libgdx} and \emph{libgdx-natives}.
 
-% Diagram generated with astah
-%\includegraphics[width=10cm]{./img/system-sequence-diagrams/doctor-login.png}
+The main modules are divided into a presentation- and a logic-branch.
 
-%This diagram describes the communication between the client and the server during a login of a doctor. The client sends a login message containing the login information of the doctor. The server confirms and then the client follows protocol checking if the account doctor is activated and proceeds with activating the doctor.
+\subsection{pinball-game-desktop}
 
-%\subsection{Sequence diagram}
+This module contains the bootstrapping code (main method) for the desktop version of the application. The dependency to the \emph{libgdx-natives} includes the necessary native code in order to run on a desktop. The other parts of the application only depends on the \emph{libgdx} module, which is basically a java api for all the native code in \emph{libgdx-natives}.
 
-% Diagram generated with astah
-%\includegraphics[width=15cm]{./img/sequence-diagrams/doctor-login.png}
+\subsection{pinball-game-application}
 
-%There is a login controller for all doctor login messages. It looks up the doctor using the entity manager and lets the doctor (if found) check the credentials. If this succeeds, a session controller is created, which is responsible for the current session of the client. For security reasons, there is also a proxy for the controller which is sent to the client instead of the controller itself. The client then checks activation and activates the login via the session controller.
+This module contains the platform-independent implementation of the initialising and configuration of the application. It wires the presentation together with the logic in the dependency injection container.
 
-%\subsection{Design class diagram}
+\subsection{pinball-game-core}
 
-% Diagram generated with astah
-%\includegraphics[width=15cm]{./img/design-class-diagrams/doctor-login.png}
+This module is the base for all other modules. It defines the communication between the presentation and logic via interfaces.
 
-%Thesession controller gets access to the doctor using the entity manager. After creating the session controller, the doctor is referenced by the session controller.
+\subsection{pinball-game-presentation}
 
+This module's main responsibility is to render the screens in the OpenGL main loop.
+
+\subsection{pinball-game-physics}
+
+This module's main responsibility is to calculate the physics in the game.
+
+\subsection{pinball-game-logic}
+
+This module's main responsibility is to implement the game's logic an control the process.
+
+\subsection{pinball-game-persistence}
+
+This module's main responsibility is to handle access to persistent data, such as the play fields and saved simulations.
+
+\section{Persistence}
+
+\subsection{Play field}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/persistence-playfield.png}
+	\caption[Play field persistence]{Play field persistence}
+	\label{fig:playfield_persistence}
+\end{figure}
+
+Figure~\ref{fig:playfield_persistence} shows the model for play fields. The play field is loaded from the XML file playfields.xml using JAXB. In the module \emph{pinball-game-core} are the interfaces used to describe the entities which are crucial for the persistence of the data concerning a play field.
+
+A \texttt{PlayField} can have multiple \texttt{Rule}s and it can have multiple \texttt{PlayFieldElement}s. A \texttt{PlayFieldElement} is either a \texttt{PlayFieldObstacleElement}, a \texttt{PlayFieldBumperElement} or a \texttt{PlayFieldSlingshotElement}.
+
+In the module \emph{pinball-game-persistence} are the concrete implementations of these interfaces which are XMLTypes and have JAXB annotations which helps JAXB to insert the data of the XML file at the right place.
+
+\subsubsection{Load playfields via JAXB}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/jaxb-load-playfield-sd.png}
+	\caption[Load play field]{Load play field with JAXB}
+	\label{fig:load_playfield}
+\end{figure}
+
+Figure~\ref{fig:load_playfield} shows how the \emph{playfields.xml} is loaded and the \texttt{PlayFieldPdos} are generated.
+
+We need to bind the \texttt{JAXBContext} to the class we want to unmarshal. Then we are able to create a new \texttt{Unmarshaller} which can unmarshal the \emph{playfields.xml} into an object of type \texttt{PlayFieldStore}. This object has a method getPlayfields which returns a List of \texttt{PlayFieldPdo}s.
+
+
+\subsubsection{XML Schema}
+
+The following XML schema describes the playfields.xml and is used to validate the XML file and intelligent XML editors may help the user with code completion if a XML schema is given. So the users is automatically warned if some inputs were incorrect.
+
+\begin{lstlisting}[language=xml,label=lst:playfield_xsd,caption={playfield.xsd}]
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://comet.m02.ch/pinball/playfield" xmlns:tns="http://comet.m02.ch/pinball/playfield" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="configuration" type="tns:configuration"/>
+
+  <xs:complexType name="configuration">
+    <xs:sequence>
+      <xs:element name="playfields" form="qualified">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="playfield" type="tns:playfield" form="qualified" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="playfield">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" form="qualified"/>
+      <xs:element name="elements" form="qualified">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="bumper" type="tns:bumper" form="qualified"/>
+              <xs:element name="slingshot" type="tns:slingshot" form="qualified"/>
+              <xs:element name="obstacle" type="tns:obstacle" form="qualified"/>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="rules" form="qualified">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="rule" type="tns:rule" form="qualified" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="bumper">
+    <xs:complexContent>
+      <xs:extension base="tns:element">
+        <xs:sequence>
+          <xs:element name="radius" type="xs:float" form="qualified"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="element" abstract="true">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int" form="qualified"/>
+      <xs:element name="position" type="tns:vector" form="qualified"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vector">
+    <xs:sequence>
+      <xs:element name="x" type="xs:float" form="qualified"/>
+      <xs:element name="y" type="xs:float" form="qualified"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="slingshot">
+    <xs:complexContent>
+      <xs:extension base="tns:element">
+        <xs:sequence>
+          <xs:element name="corner.a" type="tns:vector" form="qualified"/>
+          <xs:element name="corner.b" type="tns:vector" form="qualified"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="obstacle">
+    <xs:complexContent>
+      <xs:extension base="tns:element">
+        <xs:sequence>
+          <xs:element name="vertices" form="qualified">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="vertice" type="tns:vector" form="qualified" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="rule">
+    <xs:sequence>
+      <xs:element name="class" type="xs:string" form="qualified"/>
+      <xs:element name="parameters" form="qualified">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="parameter" type="xs:int" form="qualified" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+\end{lstlisting}
+
+
+\subsection{Simulation}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/persistence-simulation.png}
+	\caption[Simulation persistence]{Simulation persistence}
+	\label{fig:simulation_persistence}
+\end{figure}
+
+Figure~\ref{fig:simulation_persistence} shows the data model of the data which is generated during a simulation. This data is stored in the easiest way java offers because it's not necessary that humans ever directly read the data from the generated file.
+
+In the module \emph{pinball-game-core} are the interfaces of the concerned entities. Each \texttt{Simulation} can have a \texttt{Player}, a \texttt{Score} and a \texttt{PlayFiedId}. The \texttt{PlayFieldId} is used to reference the play field the simulation was situated on. The implementation of these interfaces are situated in the module \emph{pinball-game-persistence}.
+
+
+\section{Dependency injection}
+
+\subsection{Why dependency injection?}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/dependency-injection1.png}
+	\caption[System design]{System design using interfaces}
+	\label{fig:dependency_injection1}
+\end{figure}
+
+Figure~\ref{fig:dependency_injection1} shows how interfaces are used to reference dependencies between \emph{logic} and \emph{presentation} code. The problem here is the following: How to get a fully initialised instance of \texttt{SimulationManager}? Only code in the package \emph{pinball-game-application} can instantiate instances of both \texttt{SimulationManager} and \texttt{PinballPresentationManager}.
+
+\begin{lstlisting}[language=Java,label=lst:no_dependency_injection,caption={no dependency injection}]
+public class Pinball {
+	// other code...
+
+	public void needsSimulationManager() {
+		PresentationManager presentation = new PinballPresentationManager();
+
+		SimulationManager simulation = new SimulationManager(presentation);
+
+		// do things with SimulationManager
+	}
+}
+\end{lstlisting}
+
+\subsection{Component wiring}
+
+In order to resolve this, we used the dependency injection framework \emph{PicoContainer}, which takes care of the lifecycle and instantiation of components in the application which have dependencies across modules.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/dependency-injection2.png}
+	\caption[Component wiring]{Component wiring}
+	\label{fig:dependency_injection2}
+\end{figure}
+
+Figure~\ref{fig:dependency_injection2} shows how we wire \texttt{PresentationManager} and \texttt{PinballPresentationManager} together and register them in a \texttt{PicoContainer} instance. This is done using the following code snipped:
+
+\begin{lstlisting}[language=Java,label=lst:dependency_injection,caption={dependency injection}]
+public class Pinball {
+	private MutablePicoContainer container;
+
+	public Pinball(MainApplication application) {
+		this.application = application;
+		container = new DefaultPicoContainer();
+		registerComponents();
+	}
+
+	private void registerComponents() {
+		log.debug("Registering pico components");
+		container.addComponent(PresentationManager.class, PinballPresentationManager.class);
+		container.addComponent(SimulationManager.class);
+		// and so on
+	}
+}
+\end{lstlisting}
+
+Thereby it is afterwards possible to get an initialised instance of \texttt{SimulationManager} using the following code:
+
+\begin{lstlisting}[language=Java,label=lst:get_initialised_component,caption={get initialised component}]
+public class AnyWhere {
+	
+	@Inject
+	PicoContainer context;
+
+	public void needsSimulationManager() {
+		// PicoContainer injects PresentationManager into SimulationManager
+		SimulationManager s = context.getComponent(SimulationManager.class);
+
+		// do things with SimulationManager
+	}
+}
+\end{lstlisting}
+
+Figure~\ref{fig:dependency_injection3} shows what happens in a sequence diagram.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/dependency-injection-sd.png}
+	\caption[Dependency injection]{Dependency injection}
+	\label{fig:dependency_injection3}
+\end{figure}
+
+\section{Communication between modules}
+
+\subsection{Command pattern}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/command-pattern1.png}
+	\caption[Command pattern]{Command pattern}
+	\label{fig:command_pattern}
+\end{figure}
+
+This diagram shows how the communication between the modules is implemented with a command pattern. If the physics wants to trigger an event in the game logic, it lets the \emph{pico container} create a new implementation of the concerning command interface. The \emph{pico container} injects the \emph{LogicManager} so the only thing left to to in the physics module is calling the method execute of the generated command object.
+
+
+\section{State machine}
+
+\subsection{States and transitions}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/state-machine.png}
+	\caption[Pinball state machine]{Pinball state machine}
+	\label{fig:state_machine}
+\end{figure}
+
+Figure~\ref{fig:state_machine} shows the states the game can be in and the transitions in between. Each \emph{State} represents a screen in the application and each transition is triggered by an user interaction. This model is easily convertible to a state pattern implementation and very modular and thereby  easy to extend.
+
+\subsection{State pattern}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15.5cm]{./img/state-pattern.png}
+	\caption[State pattern]{State pattern}
+	\label{fig:state_pattern}
+\end{figure}
+
+Figure~\ref{fig:state_pattern} shows how the state pattern is implemented. The interface \texttt{State} is implemented by each \texttt{State} implementation. The abstract class \texttt{AbstractState} is just for comfort: each method of the interface is implemented so it does nothing in this class. In consequence, the concrete implementation of the interface \texttt{State} does only need to implement these methods which are intended to do something. The methods \texttt{enterState()} and \texttt{exitState()} when a transition occurs. The \texttt{StateContext} is unique and handles the transition via the call of the \texttt{setState()} method.
 
 \end{document}

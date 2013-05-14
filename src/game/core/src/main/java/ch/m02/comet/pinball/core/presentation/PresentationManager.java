@@ -11,4 +11,6 @@ public interface PresentationManager {
 	
 	public void showScreen(Class<? extends PinballScreen> screen);
 	
+	public void resetBall();
+	
 }

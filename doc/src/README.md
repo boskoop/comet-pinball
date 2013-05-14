@@ -1,7 +1,7 @@
 Setup instructions
 ==================
 
-The .tex-files use the gitinfo package. In order to setup gitinfo you have to create the following hooks in your git repo:
+The .tex-files use the gitinfo package. In order to setup gitinfo you have to create the following hooks in your git repo and make them executable:
 
 post-checkout
 post-commit
