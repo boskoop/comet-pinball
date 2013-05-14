@@ -60,7 +60,7 @@ public class Bumper extends PlacablePhysicsObject {
 					Vector2 normalizedCollisionNormal = ball.getPosition()
 							.sub(body.getPosition()).nor();
 					ball.applyForceToCenter(normalizedCollisionNormal
-							.mul(PhysicsDefinition.BUMPER_FORCE));
+							.scl(PhysicsDefinition.BUMPER_FORCE), true);
 					fireEvent();
 				} else if (contact.getFixtureB().getBody() == Bumper.this
 						.getBody()) {
@@ -68,7 +68,7 @@ public class Bumper extends PlacablePhysicsObject {
 					Vector2 normalizedCollisionNormal = ball.getPosition()
 							.sub(body.getPosition()).nor();
 					ball.applyForceToCenter(normalizedCollisionNormal
-							.mul(PhysicsDefinition.BUMPER_FORCE));
+							.scl(PhysicsDefinition.BUMPER_FORCE), true);
 					fireEvent();
 				}
 			}

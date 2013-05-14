@@ -109,11 +109,11 @@ public class Flipper {
 	}
 	
 	public void moveUpward(){
-		body.applyAngularImpulse(force);
+		body.applyAngularImpulse(force, true);
 	}
 	
 	public void moveDownward(){
-		body.applyAngularImpulse(-force);
+		body.applyAngularImpulse(-force, true);
 	}
 	
 	public void draw(SpriteBatch batch){

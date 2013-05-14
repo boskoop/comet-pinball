@@ -26,7 +26,7 @@ public class BumperElementFactoryImpl implements BumperElementFactory {
 		creator.setId(element.getId());
 		Vector2 position = new Vector2(element.getPosition().getX(), element
 				.getPosition().getY());
-		position.mul(PhysicsDefinition.METER_SCALE_FACTOR);
+		position.scl(PhysicsDefinition.METER_SCALE_FACTOR);
 		Bumper bumper = new Bumper(creator, position, element.getRadius()
 				* PhysicsDefinition.METER_SCALE_FACTOR);
 		playField.placePhysicsObject(bumper);

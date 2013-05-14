@@ -115,17 +115,17 @@ public class Ball implements InteractivePhysicsObject {
 	public void handlePhysicsEvents() {
 		if (Gdx.input.isKeyPressed(upKey)) {
 			final float force = Math.abs(ball.getMass() * 2 * PhysicsDefinition.INSTANCE.getRampGravity());
-			ball.applyForceToCenter(0, force);
+			ball.applyForceToCenter(0, force, true);
 		}
 
 		if (Gdx.input.isKeyPressed(leftKey)) {
 			final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
-			ball.applyForceToCenter(-force, 0);
+			ball.applyForceToCenter(-force, 0, true);
 		}
 
 		if (Gdx.input.isKeyPressed(rightKey)) {
 			final float force = Math.abs(ball.getMass() * PhysicsDefinition.INSTANCE.getRampGravity());
-			ball.applyForceToCenter(force, 0);
+			ball.applyForceToCenter(force, 0, true);
 		}
 
 		long currentTime = System.nanoTime();
@@ -173,7 +173,7 @@ public class Ball implements InteractivePhysicsObject {
 		impulse.y = ball.getMass() * plungeForce * PLUNGE_DURATION;
 		Gdx.app.log(Ball.class.getCanonicalName(),
 				"force: " + impulse.y + "Ns");
-		ball.applyLinearImpulse(impulse, ballWorldCenter);
+		ball.applyLinearImpulse(impulse, ballWorldCenter, true);
 	}
 
 	@Override

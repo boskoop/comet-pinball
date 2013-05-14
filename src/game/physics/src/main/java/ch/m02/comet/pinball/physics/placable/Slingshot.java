@@ -81,7 +81,7 @@ public class Slingshot extends PlacablePhysicsObject {
 			// ***********************************
 			Vector2 vectorAB = vectorToCornerB.cpy().sub(vectorToCornerA); 
 			normalOfReactiveSide = vectorAB.cpy().rotate(-90).nor();
-			Vector2 rotatedRadius = vectorAB.cpy().rotate(90).nor().mul(PhysicsDefinition.SLINGSHOT_CORNER_SIZE);
+			Vector2 rotatedRadius = vectorAB.cpy().rotate(90).nor().scl(PhysicsDefinition.SLINGSHOT_CORNER_SIZE);
 			Vector2[] reactiveSlingshotVerticesAB = new Vector2[4];
 
 			reactiveSlingshotVerticesAB[0] = vectorToCornerA.cpy().sub(rotatedRadius);
@@ -99,7 +99,7 @@ public class Slingshot extends PlacablePhysicsObject {
 			// *************************************
 			
 			Vector2 vectorCB = vectorToCornerB.cpy(); 
-			Vector2 rotatedRadiusCB = vectorCB.cpy().rotate(90).nor().mul(PhysicsDefinition.SLINGSHOT_CORNER_SIZE);
+			Vector2 rotatedRadiusCB = vectorCB.cpy().rotate(90).nor().scl(PhysicsDefinition.SLINGSHOT_CORNER_SIZE);
 			
 			Vector2[] slingshotVerticesCB = new Vector2[4];
 			slingshotVerticesCB[0] = new Vector2().sub(rotatedRadiusCB);
@@ -113,7 +113,7 @@ public class Slingshot extends PlacablePhysicsObject {
 			slingshotBody.createFixture(slingshotFixtureDef);
 			
 			Vector2 vectorCA = vectorToCornerA.cpy(); 
-			Vector2 rotatedRadiusCA = vectorCA.cpy().rotate(90).nor().mul(PhysicsDefinition.SLINGSHOT_CORNER_SIZE);
+			Vector2 rotatedRadiusCA = vectorCA.cpy().rotate(90).nor().scl(PhysicsDefinition.SLINGSHOT_CORNER_SIZE);
 			//rotatedRadiusCA = new Vector2(0.05f, 0.05f);
 			Vector2[] slingshotVerticesCA = new Vector2[4];
 			slingshotVerticesCA[0] = new Vector2().sub(rotatedRadiusCA);
@@ -168,11 +168,11 @@ public class Slingshot extends PlacablePhysicsObject {
 			public void endContact(Contact contact) {
 				if(contact.getFixtureA().getBody() == Slingshot.this.getReactiveBody()){
 					Body ball = contact.getFixtureB().getBody();
-					ball.applyForceToCenter(normalOfReactiveSide.cpy().mul(PhysicsDefinition.BUMPER_FORCE));
+					ball.applyForceToCenter(normalOfReactiveSide.cpy().scl(PhysicsDefinition.BUMPER_FORCE), true);
 					fireEvent();
 				} else if (contact.getFixtureB().getBody() == Slingshot.this.getReactiveBody()){
 					Body ball = contact.getFixtureA().getBody();
-					ball.applyForceToCenter(normalOfReactiveSide.cpy().mul(PhysicsDefinition.BUMPER_FORCE));
+					ball.applyForceToCenter(normalOfReactiveSide.cpy().scl(PhysicsDefinition.BUMPER_FORCE), true);
 					fireEvent();
 				}
 			}

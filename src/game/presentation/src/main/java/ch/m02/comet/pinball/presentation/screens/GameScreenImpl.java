@@ -94,8 +94,9 @@ public class GameScreenImpl extends ManagedScreen implements GameScreen {
 		final boolean drawAABBs = false;
 		final boolean drawInactiveBodies = true;
 		final boolean drawVelocities = false;
+		final boolean drawContacs = false;
 		debugRenderer = new Box2DDebugRenderer(drawBodies, drawJoints, drawAABBs,
-				drawInactiveBodies, drawVelocities);
+				drawInactiveBodies, drawVelocities, drawContacs);
 	}
 
 	@Override

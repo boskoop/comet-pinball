@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.m02.comet</groupId>
 	<artifactId>pinball</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<name>comet - pinball</name>
 	<packaging>pom</packaging>
 
@@ -39,8 +39,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.10</junit.version>
 		<mockito.version>1.9.5</mockito.version>
-		<project.version>1.0.0-SNAPSHOT</project.version>
-		<gdx.version>0.9.7</gdx.version>
+		<project.version>1.1.0-SNAPSHOT</project.version>
+		<gdx.version>0.9.9-SNAPSHOT</gdx.version>
 		<tweenengine.version>6.3.3</tweenengine.version>
 		<slf4j.version>1.7.2</slf4j.version>
 		<logback.version>1.0.9</logback.version>
@@ -56,8 +56,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>

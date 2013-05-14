@@ -34,8 +34,8 @@ public class ObstacleElementFactoryImpl implements ObstacleElementFactory {
 		
 		// convert from cm's to meters
 		for(int i =0; i < vertices.length; i++)
-				vertices[i].mul(PhysicsDefinition.METER_SCALE_FACTOR);
-		position.mul(PhysicsDefinition.METER_SCALE_FACTOR);
+				vertices[i].scl(PhysicsDefinition.METER_SCALE_FACTOR);
+		position.scl(PhysicsDefinition.METER_SCALE_FACTOR);
 		
 		// create and place obstacle
 		Obstacle obstacle = new Obstacle(creator, position, vertices);

@@ -233,14 +233,14 @@ public class PinballPrototypeGame implements Screen {
 			 * camera.unproject(touchPos);
 			 */
 
-			circleBody.applyForceToCenter(0,5000);
+			circleBody.applyForceToCenter(0,5000, true);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT))
-			circleBody.applyForceToCenter(-2000, 0);
+			circleBody.applyForceToCenter(-2000, 0, true);
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT))
-			circleBody.applyForceToCenter(2000, 0);
+			circleBody.applyForceToCenter(2000, 0, true);
 
 		if (Gdx.input.isKeyPressed(Keys.Q)) {
 			// leftFlipperBody.applyTorque(500000f);
